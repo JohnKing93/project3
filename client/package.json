@@ -1,6 +1,9 @@
 {
-  "name": "project3",
+  "name": "web-scale",
   "version": "0.1.0",
+  "author": "Team Web Sccale",
+  "license": "ISC",
+  "description": "",
   "private": true,
   "proxy": "http://localhost:3001/",
   "scripts": {
