@@ -1,0 +1,16 @@
+{
+  "development": {
+    "username": "root",
+    "password": "Chris0923",
+    "database": "stepUp_DB",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
