@@ -2,6 +2,7 @@ const express = require('express');
 const routes = require('./routes');
 const db = require('./models');
 
+// Server definition
 const app = express();
 const PORT = process.env.PORT || 3001;
 
