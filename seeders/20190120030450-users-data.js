@@ -34,7 +34,7 @@ module.exports = {
       {
         First_Name: 'Johnny',
         Last_Name: 'King',
-        Email: 'chuman@test.net',
+        Email: 'jking@test.net',
         Position: 'Developer',
         Hours_Earned: 0,
         Hours_Redemmed: 0,
