@@ -21,5 +21,30 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
 
+  Idea.associate = (models) => {
+    // Associate idea back to user
+    models.Idea.belongsTo(models.User, {
+      foreignKey: 'Owner_ID',
+    });
+
+    // Idea can have many comments
+    models.Idea.hasMany(models.IdeaComment, {
+      foreignKey: {
+        name: 'Idea_ID',
+        allowNull: false,
+      },
+      onDelete: 'cascade',
+    });
+
+    // Idea can have many votes
+    models.Idea.hasMany(models.IdeaVote, {
+      foreignKey: {
+        name: 'Idea_ID',
+        allowNull: false,
+      },
+      onDelete: 'cascade',
+    });
+  };
+
   return Idea;
 };

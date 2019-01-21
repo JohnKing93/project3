@@ -11,5 +11,17 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
 
+  Project.associate = (models) => {
+    // Associate project back to status
+    models.Project.belongsTo(models.Status, {
+      foreignKey: 'Status_ID',
+    });
+
+    // Associate project back to user
+    models.Project.belongsTo(models.User, {
+      foreignKey: 'Owner_ID',
+    });
+  };
+
   return Project;
 };

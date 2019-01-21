@@ -20,5 +20,15 @@ module.exports = (sequelize, DataTypes) => {
     ],
   });
 
+  Status.associate = (models) => {
+    // Project has one overall status
+    models.Status.hasOne(models.Project, {
+      foreignKey: {
+        name: 'Status_ID',
+        allowNull: false,
+      },
+    });
+  };
+
   return Status;
 };
