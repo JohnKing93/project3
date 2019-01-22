@@ -37,6 +37,12 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        type: 'milestoneSts',
+        description: 'Completed',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ], {});
   },
 };
