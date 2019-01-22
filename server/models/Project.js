@@ -21,6 +21,24 @@ module.exports = (sequelize, DataTypes) => {
     models.Project.belongsTo(models.User, {
       foreignKey: 'ownerID',
     });
+
+    // Project can have many members
+    models.Idea.hasMany(models.ProjectMember, {
+      foreignKey: {
+        name: 'projectID',
+        allowNull: false,
+      },
+      onDelete: 'cascade',
+    });
+
+    // Project can have many comments
+    models.Idea.hasMany(models.ProjectComment, {
+      foreignKey: {
+        name: 'projectID',
+        allowNull: false,
+      },
+      onDelete: 'cascade',
+    });
   };
 
   return Project;

@@ -15,5 +15,16 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
 
+  Incentive.associate = (models) => {
+    // Incentive can be redeemed multiple times by different users
+    models.Idea.hasMany(models.IncentiveRedeemed, {
+      foreignKey: {
+        name: 'incentiveID',
+        allowNull: false,
+      },
+      onDelete: 'cascade',
+    });
+  };
+
   return Incentive;
 };

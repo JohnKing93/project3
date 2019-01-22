@@ -70,6 +70,33 @@ module.exports = (sequelize, DataTypes) => {
       },
       onDelete: 'cascade',
     });
+
+    // User can have many project comments
+    models.User.hasMany(models.ProjectComment, {
+      foreignKey: {
+        name: 'userID',
+        allowNull: false,
+      },
+      onDelete: 'cascade',
+    });
+
+    // User can be a member of many projects
+    models.User.hasMany(models.ProjectMember, {
+      foreignKey: {
+        name: 'userID',
+        allowNull: false,
+      },
+      onDelete: 'cascade',
+    });
+
+    // User can redeem many incentives
+    models.User.hasMany(models.IncentiveRedeemed, {
+      foreignKey: {
+        name: 'userID',
+        allowNull: false,
+      },
+      onDelete: 'cascade',
+    });
   };
 
   return User;
