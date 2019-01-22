@@ -21,8 +21,8 @@ app.use(routes);
 // Connect to DB
 db.sequelize.sync({ force: true }).then(() => {
   app.listen(PORT, () => {
-    console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
+    // console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
   });
 }).catch((err) => {
-  console.error(`Error connecting to DB ===> ${err}.`);
+  // console.error(`Error connecting to DB ===> ${err}.`);
 });
