@@ -1,28 +1,28 @@
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
-    First_Name: {
+    firstName: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Last_Name: {
+    lastName: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Email: {
+    email: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
     },
-    Position: {
+    position: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Hours_Earned: {
+    hoursEarned: {
       type: DataTypes.FLOAT,
       allowNull: false,
       default: 0,
     },
-    Hours_Redemmed: {
+    hoursRedeemed: {
       type: DataTypes.FLOAT,
       allowNull: false,
       default: 0,
@@ -32,13 +32,13 @@ module.exports = (sequelize, DataTypes) => {
   User.associate = (models) => {
     // Associate user back to permissions
     models.User.belongsTo(models.Permission, {
-      foreignKey: 'Permission_ID',
+      foreignKey: 'permissionID',
     });
 
     // User can own many ideas
     models.User.hasMany(models.Idea, {
       foreignKey: {
-        name: 'Owner_ID',
+        name: 'ownerID',
         allowNull: false,
       },
       onDelete: 'cascade',
@@ -47,7 +47,7 @@ module.exports = (sequelize, DataTypes) => {
     // User can have many idea comments
     models.User.hasMany(models.IdeaComment, {
       foreignKey: {
-        name: 'User_ID',
+        name: 'userID',
         allowNull: false,
       },
       onDelete: 'cascade',
@@ -56,7 +56,7 @@ module.exports = (sequelize, DataTypes) => {
     // User can have many votes
     models.User.hasMany(models.IdeaVote, {
       foreignKey: {
-        name: 'User_ID',
+        name: 'userID',
         allowNull: false,
       },
       onDelete: 'cascade',
@@ -65,7 +65,7 @@ module.exports = (sequelize, DataTypes) => {
     // User can own many projects
     models.User.hasMany(models.Project, {
       foreignKey: {
-        name: 'Owner_ID',
+        name: 'ownerID',
         allowNull: false,
       },
       onDelete: 'cascade',

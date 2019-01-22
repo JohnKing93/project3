@@ -4,12 +4,12 @@ module.exports = (sequelize, DataTypes) => {
   IdeaVote.associate = (models) => {
     // Associate vote back to idea
     IdeaVote.belongsTo(models.Idea, {
-      foreignKey: 'Idea_ID',
+      foreignKey: 'ideaID',
     });
 
     // Associate vote back to user
     IdeaVote.belongsTo(models.User, {
-      foreignKey: 'User_ID',
+      foreignKey: 'userID',
     });
   };
 

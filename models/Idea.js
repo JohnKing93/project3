@@ -1,20 +1,20 @@
 module.exports = (sequelize, DataTypes) => {
   const Idea = sequelize.define('Idea', {
-    Title: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
     },
-    Description: {
+    description: {
       type: DataTypes.STRING(500),
       allowNull: false,
     },
-    Vote_Count: {
+    voteCount: {
       type: DataTypes.INTEGER,
       allowNull: false,
       default: 0,
     },
-    Endorsed: {
+    endorsed: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       default: false,
@@ -24,13 +24,13 @@ module.exports = (sequelize, DataTypes) => {
   Idea.associate = (models) => {
     // Associate idea back to user
     models.Idea.belongsTo(models.User, {
-      foreignKey: 'Owner_ID',
+      foreignKey: 'ownerID',
     });
 
     // Idea can have many comments
     models.Idea.hasMany(models.IdeaComment, {
       foreignKey: {
-        name: 'Idea_ID',
+        name: 'ideaID',
         allowNull: false,
       },
       onDelete: 'cascade',
@@ -39,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
     // Idea can have many votes
     models.Idea.hasMany(models.IdeaVote, {
       foreignKey: {
-        name: 'Idea_ID',
+        name: 'ideaID',
         allowNull: false,
       },
       onDelete: 'cascade',

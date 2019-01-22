@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const Permission = sequelize.define('Permission', {
-    Description: {
+    description: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     indexes: [
       {
         unique: true,
-        fields: ['Description'],
+        fields: ['description'],
       },
     ],
   });
@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     // User has one overall permission level
     models.Permission.hasOne(models.User, {
       foreignKey: {
-        name: 'Permission_ID',
+        name: 'permissionID',
         allowNull: false,
       },
     });

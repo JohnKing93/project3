@@ -1,10 +1,10 @@
 module.exports = (sequelize, DataTypes) => {
   const Status = sequelize.define('Status', {
-    Type: {
+    type: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Description: {
+    description: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     indexes: [
       {
         unique: true,
-        fields: ['Type', 'Description'],
+        fields: ['type', 'description'],
       },
     ],
   });
@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     // Project has one overall status
     models.Status.hasOne(models.Project, {
       foreignKey: {
-        name: 'Status_ID',
+        name: 'statusID',
         allowNull: false,
       },
     });

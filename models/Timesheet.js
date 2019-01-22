@@ -1,10 +1,10 @@
 module.exports = (sequelize, DataTypes) => {
   const Timesheet = sequelize.define('Timesheet', {
-    Start: {
+    start: {
       type: DataTypes.DATE,
       allowNull: false,
     },
-    End: {
+    end: {
       type: DataTypes.DATE,
       allowNull: false,
     },

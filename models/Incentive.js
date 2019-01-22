@@ -1,15 +1,15 @@
 module.exports = (sequelize, DataTypes) => {
   const Incentive = sequelize.define('Incentive', {
-    Title: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
     },
-    Description: {
+    description: {
       type: DataTypes.STRING(500),
       allowNull: false,
     },
-    Price: {
+    price: {
       type: DataTypes.FLOAT,
       allowNull: false,
     },

@@ -1,11 +1,11 @@
 module.exports = (sequelize, DataTypes) => {
   const Project = sequelize.define('Project', {
-    Title: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
     },
-    Description: {
+    description: {
       type: DataTypes.STRING(500),
       allowNull: false,
     },
@@ -14,12 +14,12 @@ module.exports = (sequelize, DataTypes) => {
   Project.associate = (models) => {
     // Associate project back to status
     models.Project.belongsTo(models.Status, {
-      foreignKey: 'Status_ID',
+      foreignKey: 'statusID',
     });
 
     // Associate project back to user
     models.Project.belongsTo(models.User, {
-      foreignKey: 'Owner_ID',
+      foreignKey: 'ownerID',
     });
   };
 
