@@ -2,17 +2,17 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Permission_Ref', [
       {
-        Description: 'User',
+        description: 'User',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        Description: 'Supervisor',
+        description: 'Supervisor',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        Description: 'Manager',
+        description: 'Manager',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
