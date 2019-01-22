@@ -23,7 +23,7 @@ const getAllIdeas = (req, res) => {
 const getAllVotesByIdea = (req, res) => {
   db.IdeaVote.findAll({
     where: {
-      ideaID: parseInt(req.params.ideaID, 10),
+      ideaID: parseInt(req.params.id, 10),
     },
     order: ['ideaID', 'id'],
   })
@@ -34,7 +34,7 @@ const getAllVotesByIdea = (req, res) => {
 const getAllCommentsByIdea = (req, res) => {
   db.IdeaComment.findAll({
     where: {
-      ideaID: parseInt(req.params.ideaID, 10),
+      ideaID: parseInt(req.params.id, 10),
     },
     order: ['ideaID', ['updatedAt', 'DESC']],
   })
@@ -50,6 +50,91 @@ const getAllProjects = (req, res) => {
         type: 'projectSts',
       },
     }, db.User],
+    order: ['id'],
+  })
+    .then(results => res.status(200).json(results))
+    .catch(err => res.status(500).send(err));
+};
+
+const getAllProjectMembers = (req, res) => {
+  db.ProjectMember.findAll({
+    include: [{
+      model: db.Status,
+      where: {
+        type: 'userAppSts',
+      },
+    },
+    {
+      model: db.Project,
+      where: {
+        id: req.params.id,
+      },
+    }, db.User],
+    order: ['projectID', 'id'],
+  })
+    .then(results => res.status(200).json(results))
+    .catch(err => res.status(500).send(err));
+};
+
+const getAllCommentsbyProject = (req, res) => {
+  db.ProjectComment.findAll({
+    include: [{
+      model: db.Project,
+      where: {
+        id: req.params.id,
+      },
+    }, db.User],
+    order: ['projectID', 'id'],
+  })
+    .then(results => res.status(200).json(results))
+    .catch(err => res.status(500).send(err));
+};
+
+const getAllMilestonesbyProject = (req, res) => {
+  db.ProjectMilestone.findAll({
+    include: [{
+      model: db.Project,
+      where: {
+        id: req.params.id,
+      },
+    },
+    {
+      model: db.Status,
+      where: {
+        type: 'milestoneSts',
+      },
+    }],
+    order: ['projectID', 'id'],
+  })
+    .then(results => res.status(200).json(results))
+    .catch(err => res.status(500).send(err));
+};
+
+const getAllIncentives = (req, res) => {
+  db.Incentive.findAll({
+    order: ['id'],
+  })
+    .then(results => res.status(200).json(results))
+    .catch(err => res.status(500).send(err));
+};
+
+const getAllRedeemedIncentives = (req, res) => {
+  db.IncentiveRedeemed.findAll({
+    include: [db.Incentive, db.User],
+    order: ['id'],
+  })
+    .then(results => res.status(200).json(results))
+    .catch(err => res.status(500).send(err));
+};
+
+const getAllRedeemedIncentivesByUser = (req, res) => {
+  db.IncentiveRedeemed.findAll({
+    include: [{
+      model: db.User,
+      where: {
+        id: req.params.id,
+      },
+    }, db.Incentive],
     order: ['id'],
   })
     .then(results => res.status(200).json(results))
@@ -73,8 +158,9 @@ const getAllStatuses = (req, res) => {
 };
 
 // Route to retrieve all records for a given model
-// ideaID is optional and should only be passed when looking for all votes/comments for an idea
-router.get('/:model/:ideaID?', (req, res) => {
+/* id is optional and should only be passed when looking for all
+   votes/comments/milestones/members for an idea/project/incentive */
+router.get('/:model/:id?', (req, res) => {
   switch (req.params.model) {
     case 'users':
       getAllUsers(req, res);
@@ -85,11 +171,29 @@ router.get('/:model/:ideaID?', (req, res) => {
     case 'projects':
       getAllProjects(req, res);
       break;
+    case 'project-members':
+      getAllProjectMembers(req, res);
+      break;
+    case 'project-comments':
+      getAllCommentsbyProject(req, res);
+      break;
+    case 'project-milestones':
+      getAllMilestonesbyProject(req, res);
+      break;
     case 'votes':
       getAllVotesByIdea(req, res);
       break;
-    case 'comments':
+    case 'idea-comments':
       getAllCommentsByIdea(req, res);
+      break;
+    case 'incentives':
+      getAllIncentives(req, res);
+      break;
+    case 'incentives-redeemed':
+      getAllRedeemedIncentives(req, res);
+      break;
+    case 'incentives-redeemed-by-user':
+      getAllRedeemedIncentivesByUser(req, res);
       break;
     case 'permissions':
       getAllPermissions(req, res);
