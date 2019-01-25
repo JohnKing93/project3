@@ -1,11 +1,13 @@
-import React from "react";
+import React, { Component } from "react";
 
-function LiveProjects() {
-  return (
-    <div>
+class LiveProjects extends Component {
+  render() {
+    return (
+      <div>
 
-    </div>
-  );
+      </div>
+    );
+  }
 }
 
 export default LiveProjects;
