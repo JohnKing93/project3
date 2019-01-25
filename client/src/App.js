@@ -6,6 +6,7 @@ import Books from "./pages/Books";
 import Detail from "./pages/Detail";
 import NoMatch from "./pages/NoMatch";
 import Navigation from "./components/Navigation";
+import Dashboard from './pages/Dashboard';
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
       <div>
         <Navigation />
         <Switch>
-          <Route exact path="/" component={Books} />
+          <Route exact path="/" component={Dashboard} />
           <Route exact path="/home" component={Books} />
           <Route exact path="/ideas" component={Books} />
           <Route exact path="/ideas/:id" component={Detail} />
