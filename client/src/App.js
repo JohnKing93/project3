@@ -5,13 +5,13 @@ import './App.css';
 import Books from "./pages/Books";
 import Detail from "./pages/Detail";
 import NoMatch from "./pages/NoMatch";
-import Nav from "./components/Nav";
+import Navigation from "./components/Navigation";
 
 function App() {
   return (
     <Router>
       <div>
-        <Nav />
+        <Navigation />
         <Switch>
           <Route exact path="/" component={Books} />
           <Route exact path="/home" component={Books} />
