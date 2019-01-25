@@ -9,6 +9,8 @@ import Ideas from './pages/Idea';
 import LiveProjects from './pages/LiveProjects';
 import ProjectDetail from './pages/ProjectDetail';
 import UserProfile from './pages/UserProfile';
+import Login from './pages/Login';
+import Register from './pages/Register';
 
 function App() {
   return (
@@ -16,7 +18,9 @@ function App() {
       <div>
         <Navigation />
         <Switch>
-          <Route exact path="/" component={Dashboard} />
+          {/* need authentication */}
+          <Route exact path="/" component={Login} />
+          <Route exact path="/register" component={Register} />
           <Route exact path="/home" component={Dashboard} />
           <Route exact path="/ideas" component={Ideas} />
           {/* <Route exact path="/ideas/:id" component={Detail} /> */}
