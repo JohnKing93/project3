@@ -1,11 +1,13 @@
-import React from "react";
+import React, { Component } from "react";
 
-function Dashboard() {
-  return (
-    <div>
+class Dashboard extends Component {
+  render() {
+    return (
+      <div>
 
-    </div>
-  );
+      </div>
+    );
+  }
 }
 
 export default Dashboard;

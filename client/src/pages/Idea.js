@@ -1,11 +1,17 @@
-import React from "react";
+import React, { Component } from "react";
+//this page should display suggested projects and allow users to suggest new projects
 
-function Idea() {
-  return (
-    <div>
+//Submit Idea
 
-    </div>
-  );
+//Display Previous Ideas
+class Ideas extends Component {
+  render() {
+    return (
+      <div>
+
+      </div>
+    );
+  }
 }
 
-export default Idea;
+export default Ideas;

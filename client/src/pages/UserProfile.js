@@ -1,10 +1,13 @@
-import React from "react";
+import React, { Component } from "react";
 
-function UserProfile() {
-  return (
-    <div>
-    </div>
-  );
+class UserProfile extends Component {
+  render() {
+    return (
+      <div>
+
+      </div>
+    );
+  }
 }
 
 export default UserProfile;
