@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // import logo from './logo.svg';
 import './App.css';
 import NoMatch from "./pages/NoMatch";
-import Navigation from "./components/Navigation";
 import Dashboard from './pages/Dashboard';
 import Ideas from './pages/Idea';
 import LiveProjects from './pages/LiveProjects';
@@ -16,7 +15,6 @@ function App() {
   return (
     <Router>
       <div>
-        <Navigation />
         <Switch>
           {/* need authentication */}
           <Route exact path="/" component={Login} />
