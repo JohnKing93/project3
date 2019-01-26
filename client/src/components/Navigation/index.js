@@ -15,9 +15,13 @@ import {
 } from "@blueprintjs/core";
 import { Link } from "react-router-dom";
 import "./style.css";
+import { Container, Row, Col } from 'react-grid-system';
 
 function Navigation() {
   return (
+    <Container fluid>
+    <Row>
+    <Col>
     <Navbar>
       <Navbar.Group align={Alignment.LEFT}>
         <Navbar.Heading>App Name</Navbar.Heading>
@@ -48,6 +52,9 @@ function Navigation() {
         </Popover>
       </Navbar.Group>
     </Navbar>
+    </Col>
+    </Row>
+    </Container>
   );
 }
 
