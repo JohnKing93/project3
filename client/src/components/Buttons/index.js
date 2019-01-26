@@ -30,3 +30,11 @@ export function DropDownBtn(props) {
         </div>
     );
 }
+
+export function DetailBtn({children}) {
+    return (
+      <button className="btn">
+        <a href={children}>Details</a>
+      </button>
+    );
+  }
