@@ -1,0 +1,50 @@
+module.exports = {
+  up: (queryInterface, Sequelize) => {
+    return queryInterface.bulkInsert('Users', [
+      {
+        firstName: 'Chris',
+        lastName: 'Human',
+        email: 'chuman@test.net',
+        position: 'Developer',
+        hoursEarned: 15.25,
+        hoursRedeemed: 3,
+        permissionID: 3,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        firstName: 'Barbara',
+        lastName: 'Hernandez',
+        email: 'bhernandez@test.net',
+        position: 'Project Manager',
+        hoursEarned: 5,
+        hoursRedeemed: 0,
+        permissionID: 2,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        firstName: 'Nadine',
+        lastName: 'Hernandez',
+        email: 'nhernandez@test.net',
+        position: 'Graphic Designer',
+        hoursEarned: 10,
+        hoursRedeemed: 10,
+        permissionID: 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        firstName: 'Johnny',
+        lastName: 'King',
+        email: 'jking@test.net',
+        position: 'Developer',
+        hoursEarned: 0,
+        hoursRedeemed: 0,
+        permissionID: 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    ], {});
+  },
+};
