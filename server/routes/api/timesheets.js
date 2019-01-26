@@ -7,11 +7,11 @@ router.route('/')
   .post(timesheetsController.create);
 
 // Matches with 'api/timesheets/user/:id'
-router.use('/user/:id')
+router.route('/user/:id')
   .get(timesheetsController.findAllByUser);
 
 // Matches with 'api/timesheets/project/:id'
-router.use('/project/:id')
+router.route('/project/:id')
   .get(timesheetsController.findAllByProject);
 
 module.exports = router;
