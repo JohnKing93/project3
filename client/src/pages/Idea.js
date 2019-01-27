@@ -14,6 +14,9 @@ import { Navigation } from "../components/Navigation";
 
 //Display Previous Ideas
 class Ideas extends Component {
+
+
+
   render() {
     return (
       <div>

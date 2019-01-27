@@ -6,8 +6,29 @@ import { Navigation } from "../components/Navigation";
 import { Col, Row, Container } from "../components/Grid";
 import { Card } from "../components/Card";
 // import { DetailBtn } from "../components/Buttons";
+import API from "../../../server/routes/api/projects";
 
 class LiveProjects extends Component {
+  state = {
+    ideas: [],
+    id: "",
+    title: "",
+    owner: "",
+    description: ""
+  };
+
+  componentDidMount() {
+    this.loadProjects();
+  };
+
+  loadProjects = () => {
+    API.get("/api/projects")
+      .then(res =>
+        this.setState({ ideas: res.data, id: "", title: "", owner: "", description: ""})
+      )
+      .catch(err => console.log(err));
+  };
+
   render() {
     return (
       <div>
