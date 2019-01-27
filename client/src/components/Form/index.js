@@ -38,7 +38,20 @@ export function TextArea(props) {
   );
 }
 
+<<<<<<< HEAD
 export function Button(props) {
+=======
+export function CheckBox(props) {
+  return (
+    <div className="form-group form-check">
+      <input type="checkbox" className="form-check-input" />
+        <label className="form-check-label">{props.children}</label>
+    </div>
+      );
+}
+
+export function FormBtn(props) {
+>>>>>>> master
   return (
     <button {...props} >
       {props.children}

@@ -101,7 +101,7 @@ class Register extends Component {
         <Row>
           <Col size="md-4">
             <Jumbotron>
-              <h1>Registration</h1>
+              <h1>Step Up</h1>
             </Jumbotron>
             {this.state.success ? (
               <Redirect to="/ideas" />
