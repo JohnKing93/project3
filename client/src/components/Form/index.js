@@ -18,6 +18,15 @@ export function TextArea(props) {
   );
 }
 
+export function CheckBox(props) {
+  return (
+    <div className="form-group form-check">
+      <input type="checkbox" className="form-check-input" />
+        <label className="form-check-label">{props.children}</label>
+    </div>
+      );
+}
+
 export function FormBtn(props) {
   return (
     <button {...props} style={{ float: "right", marginBottom: 10 }} className="btn btn-success">
