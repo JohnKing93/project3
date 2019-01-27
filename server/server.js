@@ -1,5 +1,6 @@
 const express = require('express');
 const passport = require('passport');
+// const cors = require('cors');
 const routes = require('./routes');
 const db = require('./models');
 
@@ -10,6 +11,7 @@ const PORT = process.env.PORT || 3001;
 require('./config/passport');
 
 // Define middleware here
+// app.use(cors);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(passport.initialize());

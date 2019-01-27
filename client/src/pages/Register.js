@@ -13,10 +13,8 @@ class Register extends Component {
     email: '',
     password: '',
     message: '',
-    error: false,
-    registerError: false,
-    loginError: false,
     success: false,
+    register: false,
   };
 
   handleInputChange = event => {
@@ -24,6 +22,12 @@ class Register extends Component {
     this.setState({
       [id]: value
     });
+  };
+
+  handleFormChange = event => {
+    this.setState({
+      register: event
+    })
   };
 
   handleRegisterUser = event => {
@@ -35,9 +39,7 @@ class Register extends Component {
       this.state.password === ''
     ) {
       this.setState({
-        showError: true,
-        loginError: false,
-        registerError: true,
+        message: "Please populate all fields"
       });
     }
     else {
@@ -45,6 +47,7 @@ class Register extends Component {
         firstname: this.state.firstname,
         lastname: this.state.lastname,
         email: this.state.email,
+        username: this.state.email,
         password: this.state.password,
       })
       .then(res => {
@@ -56,7 +59,37 @@ class Register extends Component {
       .catch(error => {
         console.log(error.response.data);
           this.setState({
-            message: error.response.data.message,
+            message: error.response.data,
+          });
+      });
+    }
+  };
+
+  handleLoginUser = event => {
+    event.preventDefault();
+    if (
+      this.state.email === '' ||
+      this.state.password === ''
+    ) {
+      this.setState({
+        message: "Please populate all fields"
+      });
+    }
+    else {
+      API.loginUser({
+        username: this.state.email,
+        password: this.state.password,
+      })
+      .then(res => {
+        console.log(res.data);
+        this.setState({
+          success: true,
+        });
+      })
+      .catch(error => {
+        console.log(error.response.data);
+          this.setState({
+            message: error.response.data,
           });
       });
     }
@@ -68,31 +101,68 @@ class Register extends Component {
         <Row>
           <Col size="md-4">
             <Jumbotron>
-              <h1>Registrations</h1>
+              <h1>Registration</h1>
             </Jumbotron>
             {this.state.success ? (
               <Redirect to="/ideas" />
             ) : (
-              <Form>
+              <Form onSubmit={this.state.register ? this.handleRegisterUser : this.handleLoginUser}>
+                {this.state.message &&
+                  <div className="alert alert-danger" role="alert">
+                    {this.state.message}
+                  </div>
+                }
+                {this.state.register &&
+                  <div>
+                  <FormGroup>
+                    <Label htmlFor="firstname">First Name</Label>
+                    <Input
+                      type="text"
+                      id="firstname"
+                      value={this.state.firstname}
+                      onChange={this.handleInputChange}
+                    />
+                  </FormGroup>
+                  <FormGroup>
+                    <Label htmlFor="lastname">Last Name</Label>
+                    <Input
+                      type="text"
+                      id="lastname"
+                      value={this.state.lastname}
+                      onChange={this.handleInputChange}
+                    />
+                  </FormGroup>
+                  </div>
+                }
                 <FormGroup>
-                  <Label for="firstname">First Name</Label>
-                  <Input type="text" id="firstname" />
+                  <Label htmlFor="email">Email</Label>
+                  <Input
+                    type="email"
+                    id="email"
+                    value={this.state.email}
+                    onChange={this.handleInputChange}
+                  />
+                  <Small>Please use a corporate email address.</Small>
                 </FormGroup>
                 <FormGroup>
-                  <Label for="lastname">Last Name</Label>
-                  <Input type="text" id="lastname" />
-                </FormGroup>
-                <FormGroup>
-                  <Label for="email">Email</Label>
-                  <Input type="email" id="email" />
-                  <Small>You must use your companies email to register.</Small>
-                </FormGroup>
-                <FormGroup>
-                  <Label for="password">Password</Label>
-                  <Input type="password" id="password" />
+                  <Label htmlFor="password">Password</Label>
+                  <Input
+                    type="password"
+                    id="password"
+                    onChange={this.handleInputChange}
+                  />
                   <Small>Authentication is secured with bcrypt and JWT.</Small>
                 </FormGroup>
-                <Button type="submit">Register</Button>
+                <Button type="submit" className="btn btn-primary">
+                  {this.state.register ? "Register" : "Login"}
+                </Button>
+                <Button
+                  type="button"
+                  className="btn btn-link"
+                  onClick={() => this.handleFormChange(this.state.register ? false : true)}
+                >
+                  {this.state.register ? "Already have an account?" : "Need to register?"}
+                </Button>
               </Form>
             )}
           </Col>

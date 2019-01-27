@@ -1,42 +1,43 @@
-import bcrypt from 'bcrypt';
-import jwtSecret from './jwt';
-
-const BCRYPT_SALT_ROUNDS = 12;
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const JWTstrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
+const bcrypt = require('bcrypt');
+const jwtSecret = require('./jwt');
 const db = require('../models');
+
+const BCRYPT_SALT_ROUNDS = 12;
 
 passport.use(
   'register',
   new LocalStrategy(
     {
-      firstNameField: 'first name',
-      lastNameField: 'last name',
-      emailField: 'username',
+      usernameField: 'username',
       passwordField: 'password',
       passReqToCallback: true,
       session: false,
     },
-    (req, email, password, done) => {
+    (req, username, password, done) => {
       try {
         db.User.findOne({
           where: {
-            email: req.params.email,
+            email: req.body.username,
           },
         // eslint-disable-next-line consistent-return
         }).then((user) => {
           if (user != null) {
-            console.log('Email is already registered.');
+            console.log('Email is already registered');
             return done(null, false, {
-              message: 'Email is already registered.',
+              message: 'Email is already registered',
             });
           }
           bcrypt.hash(password, BCRYPT_SALT_ROUNDS).then((hashedPassword) => {
             db.User.create({
-              email,
+              email: username,
               password: hashedPassword,
+              firstName: req.body.firstname,
+              lastName: req.body.lastname,
+              permissionID: 1,
             }).then((createdUser) => {
               console.log('User sucessfully created');
               return done(null, createdUser);
@@ -58,17 +59,18 @@ passport.use(
       passwordField: 'password',
       session: false,
     },
-    (email, password, done) => {
+    (username, password, done) => {
       try {
         db.User.findOne({
           where: {
-            email,
+            email: username,
           },
         // eslint-disable-next-line consistent-return
         }).then((user) => {
           if (user === null) {
             return done(null, false, { message: 'User does not exist' });
           }
+          console.log(user.password);
           bcrypt.compare(password, user.password).then((response) => {
             if (response !== true) {
               console.log('Incorrect password');

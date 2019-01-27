@@ -1,9 +1,7 @@
-import passport from 'passport';
-import jwt from 'jsonwebtoken';
-import jwtSecret from '../config/jwt';
-import db from '../models';
-
-// const db = require('../models');
+const passport = require('passport');
+const jwt = require('jsonwebtoken');
+const jwtSecret = require('../config/jwt');
+const db = require('../models');
 
 module.exports = {
   findAll: (req, res) => {
@@ -61,36 +59,39 @@ module.exports = {
       .catch(err => res.status(500).send(err));
   },
   register: (req, res, next) => {
+    console.log('Controller');
+    console.log(req.body);
     passport.authenticate('register', (err, user, info) => {
       if (err) {
-        console.log(err);
+        console.log(`Error: ${err}`);
       }
       if (info != undefined) {
-        console.log(info.message);
+        console.log(`Message: ${info.message}`);
         res.status(403).send(info.message);
       } else {
         req.logIn(user, (err) => {
           const data = {
-            first_name: req.body.first_name,
-            last_name: req.body.last_name,
+            firstName: req.body.firstname,
+            lastName: req.body.lastname,
             email: req.body.email,
+            username: user.username,
           };
           db.User.findOne({
             where: {
               email: data.email,
             },
-          }).then((foundUser) => {
-            foundUser
-              .update({
-                first_name: data.first_name,
-                last_name: data.last_name,
-                email: data.email,
-              })
-              .then(() => {
-                console.log('User created');
-                res.status(200).send({ message: 'User created' });
-              });
-          });
+          })
+            .then((foundUser) => {
+              foundUser
+                .update({
+                  firstName: data.firstName,
+                  lastName: data.lastName,
+                })
+                .then(() => {
+                  console.log('User sucessfully created');
+                  res.status(200).send({ message: 'User sucessfully created' });
+                });
+            });
         });
       }
     })(req, res, next);
@@ -112,16 +113,17 @@ module.exports = {
         req.logIn(user, (err) => {
           db.User.findOne({
             where: {
-              email: req.body.email,
+              email: req.body.username,
             },
-          }).then((foundUser) => {
-            const token = jwt.sign({ id: foundUser.email }, jwtSecret.secret);
-            res.status(200).send({
-              auth: true,
-              token,
-              message: 'Login successful',
+          })
+            .then((foundUser) => {
+              const token = jwt.sign({ id: foundUser.email }, jwtSecret.secret);
+              res.status(200).send({
+                auth: true,
+                token,
+                message: 'JWT token sucessfully signed',
+              });
             });
-          });
         });
       }
     })(req, res, next);

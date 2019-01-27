@@ -2,7 +2,7 @@ import React from "react";
 
 export function Form(props) {
   return (
-    <form>
+    <form {...props}>
       {props.children}
     </form>
   );
@@ -27,6 +27,14 @@ export function Label(props) {
 export function Input(props) {
   return (
       <input className="form-control" {...props} />
+  );
+}
+
+export function TextArea(props) {
+  return (
+    <div className="form-group">
+      <textarea className="form-control" rows="20" {...props} />
+    </div>
   );
 }
 

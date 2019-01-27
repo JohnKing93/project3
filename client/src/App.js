@@ -17,7 +17,7 @@ function App() {
       <div>
         <Switch>
           {/* need authentication */}
-          <Route exact path="/" component={Login} />
+          <Route exact path="/" component={Register} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/home" component={Dashboard} />
           <Route exact path="/ideas" component={Ideas} />

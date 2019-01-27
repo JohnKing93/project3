@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Col, Row, Container } from "../components/Grid";
 import { Card } from "../components/Card";
-import { Input, TextArea, FormBtn } from "../components/Form";
+import { Input, TextArea, Button } from "../components/Form";
 // import { VoteUpBtn, VoteDownBtn, DropDownBtn } from "../components/Buttons";
 // import { List, ListItem } from "../components/List";
 import { List } from "../components/List";
@@ -27,7 +27,7 @@ class Ideas extends Component {
                   <Input id="newProjectTitle"></Input>
                   <p>Project Description</p>
                   <TextArea id="newProjectDescription"></TextArea>
-                  <FormBtn >Submit</FormBtn>
+                  <Button type="submit">Submit</Button>
                 </form>
               </Card>
               <Card >
