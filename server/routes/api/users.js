@@ -10,4 +10,10 @@ router.route('/')
 router.route('/:id')
   .get(userController.findByID);
 
+router.route('/register')
+  .post(userController.register);
+
+router.route('/login')
+  .post(userController.login);
+
 module.exports = router;
