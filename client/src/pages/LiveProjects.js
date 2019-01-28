@@ -1,21 +1,44 @@
 import React, { Component } from "react";
-
-//this page should display only projects which have been approved
-
-//clicking on a project should open the project detail page for that project
+// import { List, ListItem } from "../components/List";
+import { List } from "../components/List";
+// import { Link } from "react-router-dom";
+import { Navigation } from "../components/Navigation";
+import { Col, Row, Container } from "../components/Grid";
+import { Card } from "../components/Card";
+// import { DetailBtn } from "../components/Buttons";
 
 class LiveProjects extends Component {
-
-  state = {
-    ideas: [],
-    id: "",
-    title: "",
-    owner: "",
-    description: ""
-  }
   render() {
     return (
       <div>
+        <Navigation ></Navigation>
+        <Container fluid>
+          <Row>
+            <Col size="md-9">
+            <Card >
+              <List >
+                This is where the projects info will populate
+                  Change what you need to
+                  {/* {this.state.projects.map(project => (
+                    <ListItem key={project._id}>
+                      <Link to={"/projects/" + project._id}>
+                      <Card >
+                        <h2>
+                          {project.title}
+                        </h2>
+                        <DetailBtn ></DetailBtn>
+                        <p>
+                          {project.description}
+                        </p>
+                        </Card>
+                      </Link>
+                    </ListItem>
+                  ))} */}
+              </List>
+            </Card>
+            </Col>
+            </Row>
+            </Container>
 
       </div>
     );

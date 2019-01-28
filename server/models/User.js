@@ -13,18 +13,19 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       unique: true,
     },
+    password: {
+      type: DataTypes.STRING,
+    },
     position: {
       type: DataTypes.STRING,
-      allowNull: false,
+      default: 'User',
     },
     hoursEarned: {
       type: DataTypes.FLOAT,
-      allowNull: false,
       default: 0,
     },
     hoursRedeemed: {
       type: DataTypes.FLOAT,
-      allowNull: false,
       default: 0,
     },
   });
