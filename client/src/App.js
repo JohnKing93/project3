@@ -8,8 +8,7 @@ import Ideas from './pages/Idea';
 import LiveProjects from './pages/LiveProjects';
 import ProjectDetail from './pages/ProjectDetail';
 import UserProfile from './pages/UserProfile';
-import Login from './pages/Login';
-import Register from './pages/Register';
+import Auth from './pages/Auth';
 
 function App() {
   return (
@@ -17,8 +16,7 @@ function App() {
       <div>
         <Switch>
           {/* need authentication */}
-          <Route exact path="/" component={Login} />
-          <Route exact path="/register" component={Register} />
+          <Route exact path="/" component={Auth} />
           <Route exact path="/home" component={Dashboard} />
           <Route exact path="/ideas" component={Ideas} />
           {/* <Route exact path="/ideas/:id" component={Detail} /> */}
