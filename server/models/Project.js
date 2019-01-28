@@ -39,6 +39,24 @@ module.exports = (sequelize, DataTypes) => {
       },
       onDelete: 'cascade',
     });
+
+    // Project can have many milestones
+    models.Idea.hasMany(models.ProjectMilestone, {
+      foreignKey: {
+        name: 'projectID',
+        allowNull: false,
+      },
+      onDelete: 'cascade',
+    });
+
+    // Project can have many timesheets
+    models.Idea.hasMany(models.Timesheet, {
+      foreignKey: {
+        name: 'projectID',
+        allowNull: false,
+      },
+      onDelete: 'cascade',
+    });
   };
 
   return Project;
