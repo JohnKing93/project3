@@ -75,7 +75,7 @@ class Ideas extends Component {
                 {this.state.ideas.length ? (
                   <List >
                     {this.state.ideas.map(idea => (
-                      <ListItem key={idea._id}>
+                      <ListItem key={idea.id}>
                         <VoteUpBtn ></VoteUpBtn>
                         <h2>
                           {idea.title}
