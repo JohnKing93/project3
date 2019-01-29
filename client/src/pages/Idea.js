@@ -2,20 +2,37 @@ import React, { Component } from "react";
 import { Col, Row, Container } from "../components/Grid";
 import { Card } from "../components/Card";
 import { Input, TextArea, Button } from "../components/Form";
-// import { VoteUpBtn, VoteDownBtn, DropDownBtn } from "../components/Buttons";
-// import { List, ListItem } from "../components/List";
-import { List } from "../components/List";
-// import { Link } from "react-router-dom";
+import { VoteUpBtn, DropDownBtn } from "../components/Buttons";
+import { List, ListItem } from "../components/List";
+import { Link } from "react-router-dom";
 import { Navigation } from "../components/Navigation";
+import API from "../utils/API";
 
 //this page should display suggested projects and allow users to suggest new projects
 
-//Submit Idea
-
-//Display Previous Ideas
 class Ideas extends Component {
 
+  state = {
+    ideas: [],
+    // _id: '',
+    title: '',
+    description: ''
+  };
 
+  componentDidMount() {
+    this.loadIdeas();
+  };
+
+  //Display previous Ideas
+  loadIdeas = () => {
+    API.getIdeas()
+      .then(res =>
+        this.setState({
+          ideas:res.data
+        })
+    )
+    .catch(err => console.log(err));
+  };
 
   render() {
     return (
@@ -34,24 +51,24 @@ class Ideas extends Component {
                 </form>
               </Card>
               <Card >
-                <List >
-                  This is where the projects info will populate
-                  Change what you need to
-                  {/* {this.state.projects.map(project => (
-                    <ListItem key={project._id}>
-                      <Link to={"/projects/" + project._id}>
-                      <VoteUpBtn ></VoteUpBtn>
+                {this.state.ideas.length ? (
+                  <List >
+                    {this.state.ideas.map(idea => (
+                      <ListItem key={idea._id}>
+                        <VoteUpBtn ></VoteUpBtn>
                         <h2>
-                          {project.title}
+                          {idea.title}
                         </h2>
                         <p>
-                          {project.description}
+                          {idea.description}
                         </p>
                         <DropDownBtn ></DropDownBtn>
-                      </Link>
-                    </ListItem>
-                  ))} */}
-                </List>
+                      </ListItem>
+                    ))}
+                  </List>
+                ) : (
+                  <h3>No Results to Display</h3>
+                )}
               </Card>
             </Col>
           </Row>
