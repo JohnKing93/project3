@@ -4,7 +4,6 @@ import { Card } from "../components/Card";
 import { Input, TextArea, Button } from "../components/Form";
 import { VoteUpBtn, DropDownBtn } from "../components/Buttons";
 import { List, ListItem } from "../components/List";
-import { Link } from "react-router-dom";
 import { Navigation } from "../components/Navigation";
 import API from "../utils/API";
 
