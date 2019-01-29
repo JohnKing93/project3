@@ -17,5 +17,10 @@ export default {
   //Get all Ideas (submitted, not yet approved)
   getIdeas: function() {
     return axios.get("/api/ideas");
+  },
+
+  //post submitted Idea to db
+  submitIdea: function(newIdea) {
+    return axios.post("/api/ideas", newIdea);
   }
 };

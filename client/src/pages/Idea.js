@@ -28,10 +28,32 @@ class Ideas extends Component {
     API.getIdeas()
       .then(res =>
         this.setState({
-          ideas:res.data
+          ideas:res.data,
+          title: '',
+          description: ''
         })
     )
     .catch(err => console.log(err));
+  };
+
+  //Inputting New Ideas
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
+  };
+
+  handleFormSubmit = event => {
+    event.preventDefault();
+    if (this.state.title && this.state.description) {
+      API.submitIdea({
+        title: this.state.title,
+        description: this.state.description
+      })
+      .then(res => this.loadIdeas())
+      .catch(err => console.log(err));
+    }
   };
 
   render() {
