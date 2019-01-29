@@ -14,13 +14,18 @@ import { Navigation } from "../components/Navigation";
 
 //Display Previous Ideas
 class Ideas extends Component {
+
+
+
   render() {
     return (
       <div>
         <Navigation ></Navigation>
         <Container fluid>
           <Row>
-            <Col size="md-9">
+            <Col size="md-2">
+            </Col>
+            <Col size="md-8">
               <Card >
                 <form>
                   <p>Title</p>
