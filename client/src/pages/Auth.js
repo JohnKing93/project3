@@ -50,18 +50,18 @@ class Register extends Component {
         username: this.state.email,
         password: this.state.password,
       })
-      .then(res => {
-        console.log(res.data);
-        this.setState({
-          success: true,
-        });
-      })
-      .catch(error => {
-        console.log(error.response.data);
+        .then(res => {
+          console.log(res.data);
+          this.setState({
+            success: true,
+          });
+        })
+        .catch(error => {
+          console.log(error.response.data);
           this.setState({
             message: error.response.data,
           });
-      });
+        });
     }
   };
 
@@ -80,18 +80,18 @@ class Register extends Component {
         username: this.state.email,
         password: this.state.password,
       })
-      .then(res => {
-        console.log(res.data);
-        this.setState({
-          success: true,
-        });
-      })
-      .catch(error => {
-        console.log(error.response.data);
+        .then(res => {
+          console.log(res.data);
+          this.setState({
+            success: true,
+          });
+        })
+        .catch(error => {
+          console.log(error.response.data);
           this.setState({
             message: error.response.data,
           });
-      });
+        });
     }
   };
 
@@ -100,71 +100,73 @@ class Register extends Component {
       <Container fluid>
         <Row>
           <Col size="md-4">
+          </Col>
+          <Col size="md-4">
             <Jumbotron>
               <h1>Step Up</h1>
             </Jumbotron>
             {this.state.success ? (
               <Redirect to="/ideas" />
             ) : (
-              <Form onSubmit={this.state.register ? this.handleRegisterUser : this.handleLoginUser}>
-                {this.state.message &&
-                  <div className="alert alert-danger" role="alert">
-                    {this.state.message}
-                  </div>
-                }
-                {this.state.register &&
-                  <div>
+                <Form onSubmit={this.state.register ? this.handleRegisterUser : this.handleLoginUser}>
+                  {this.state.message &&
+                    <div className="alert alert-danger" role="alert">
+                      {this.state.message}
+                    </div>
+                  }
+                  {this.state.register &&
+                    <div>
+                      <FormGroup>
+                        <Label htmlFor="firstname">First Name</Label>
+                        <Input
+                          type="text"
+                          id="firstname"
+                          value={this.state.firstname}
+                          onChange={this.handleInputChange}
+                        />
+                      </FormGroup>
+                      <FormGroup>
+                        <Label htmlFor="lastname">Last Name</Label>
+                        <Input
+                          type="text"
+                          id="lastname"
+                          value={this.state.lastname}
+                          onChange={this.handleInputChange}
+                        />
+                      </FormGroup>
+                    </div>
+                  }
                   <FormGroup>
-                    <Label htmlFor="firstname">First Name</Label>
+                    <Label htmlFor="email">Email</Label>
                     <Input
-                      type="text"
-                      id="firstname"
-                      value={this.state.firstname}
+                      type="email"
+                      id="email"
+                      value={this.state.email}
                       onChange={this.handleInputChange}
                     />
+                    <Small>Please use a corporate email address.</Small>
                   </FormGroup>
                   <FormGroup>
-                    <Label htmlFor="lastname">Last Name</Label>
+                    <Label htmlFor="password">Password</Label>
                     <Input
-                      type="text"
-                      id="lastname"
-                      value={this.state.lastname}
+                      type="password"
+                      id="password"
                       onChange={this.handleInputChange}
                     />
+                    <Small>Authentication is secured with bcrypt and JWT.</Small>
                   </FormGroup>
-                  </div>
-                }
-                <FormGroup>
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    type="email"
-                    id="email"
-                    value={this.state.email}
-                    onChange={this.handleInputChange}
-                  />
-                  <Small>Please use a corporate email address.</Small>
-                </FormGroup>
-                <FormGroup>
-                  <Label htmlFor="password">Password</Label>
-                  <Input
-                    type="password"
-                    id="password"
-                    onChange={this.handleInputChange}
-                  />
-                  <Small>Authentication is secured with bcrypt and JWT.</Small>
-                </FormGroup>
-                <Button type="submit" className="btn btn-primary">
-                  {this.state.register ? "Register" : "Login"}
-                </Button>
-                <Button
-                  type="button"
-                  className="btn btn-link"
-                  onClick={() => this.handleFormChange(this.state.register ? false : true)}
-                >
-                  {this.state.register ? "Already have an account?" : "Need to register?"}
-                </Button>
-              </Form>
-            )}
+                  <Button type="submit" className="btn btn-primary">
+                    {this.state.register ? "Register" : "Login"}
+                  </Button>
+                  <Button
+                    type="button"
+                    className="btn btn-link"
+                    onClick={() => this.handleFormChange(this.state.register ? false : true)}
+                  >
+                    {this.state.register ? "Already have an account?" : "Need to register?"}
+                  </Button>
+                </Form>
+              )}
           </Col>
         </Row>
       </Container>
