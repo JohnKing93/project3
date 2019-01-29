@@ -8,12 +8,16 @@ import { DetailBtn } from "../components/Buttons";
 import API from "../utils/API";
 
 class LiveProjects extends Component {
+  // state = {
+  //   projects: [],
+  //   id: '',
+  //   title: '',
+  //   owner: '',
+  //   description: ''
+  // };
+
   state = {
     projects: []
-    // id: '',
-    // title: '',
-    // owner: '',
-    // description: ''
   };
 
   componentDidMount() {
@@ -23,12 +27,15 @@ class LiveProjects extends Component {
   loadProjects = () => {
     API.getProjects()
       .then(res =>
+        // this.setState({
+        //   projects: res.data,
+        //   id: '',
+        //   title: '',
+        //   owner: '',
+        //   description: ''
+        // })
         this.setState({
           projects: res.data
-          // id: '',
-          // title: '',
-          // owner: '',
-          // description: ''
         })
       )
       .catch(err => console.log(err));
