@@ -8,13 +8,6 @@ import { DetailBtn } from "../components/Buttons";
 import API from "../utils/API";
 
 class LiveProjects extends Component {
-  // state = {
-  //   projects: [],
-  //   id: '',
-  //   title: '',
-  //   owner: '',
-  //   description: ''
-  // };
 
   state = {
     projects: []
@@ -27,13 +20,6 @@ class LiveProjects extends Component {
   loadProjects = () => {
     API.getProjects()
       .then(res =>
-        // this.setState({
-        //   projects: res.data,
-        //   id: '',
-        //   title: '',
-        //   owner: '',
-        //   description: ''
-        // })
         this.setState({
           projects: res.data
         })
@@ -48,25 +34,29 @@ class LiveProjects extends Component {
         <Container fluid>
           <Row>
             <Col size="md-9">
-            <Card >
-              <List >
-                {this.state.projects.map(project => (
-                  <ListItem key={project._id}>
-                    <Link to={"/projects/" + project._id}>
-                    <Card >
-                      <h2>
-                        {project.title}
-                      </h2>
-                      <DetailBtn></DetailBtn>
-                      <p>
-                        {project.description}
-                      </p>
-                      </Card>
-                    </Link>
-                  </ListItem>
-                ))}
-              </List>
-            </Card>
+              <Card >
+                {this.state.projects.length ? (
+                  <List >
+                    {this.state.projects.map(project => (
+                      <ListItem key={project._id}>
+                        <Link to={"/projects/" + project._id}>
+                          <Card >
+                            <h2>
+                              {project.title} || "title"
+                            </h2>
+                            <DetailBtn></DetailBtn>
+                            <p>
+                              {project.description}
+                            </p>
+                          </Card>
+                        </Link>
+                      </ListItem>
+                    ))}
+                  </List>
+                ) : (
+                  <h3>No Results to Display</h3>
+                )}
+              </Card>
             </Col>
             </Row>
             </Container>
