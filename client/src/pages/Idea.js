@@ -13,7 +13,7 @@ class Ideas extends Component {
 
   state = {
     ideas: [],
-    // _id: '',
+    ownerID: 1,
     title: '',
     description: ''
   };
@@ -28,6 +28,7 @@ class Ideas extends Component {
       .then(res =>
         this.setState({
           ideas:res.data,
+          ownerID: 1,
           title: '',
           description: ''
         })
@@ -48,7 +49,8 @@ class Ideas extends Component {
     if (this.state.title && this.state.description) {
       API.submitIdea({
         title: this.state.title,
-        description: this.state.description
+        description: this.state.description,
+        ownerID: this.state.ownerID
       })
       .then(res => this.loadIdeas())
       .catch(err => console.log(err));
