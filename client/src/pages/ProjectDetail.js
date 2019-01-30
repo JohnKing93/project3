@@ -6,6 +6,7 @@ import { RoleDropBtn, DropDownBtn, DetailBtn } from "../components/Buttons";
 import { List, ListItem } from "../components/List";
 import { Navigation } from "../components/Navigation";
 import API from "../utils/API";
+import { ProjectDetailMainModal, ProjectRoleEditModal, RoleApplicantModal, MilestoneEditModal } from "../components/Modal";
 
 class ProjectDetail extends Component {
 
@@ -67,7 +68,8 @@ class ProjectDetail extends Component {
                 <h1>{this.title}</h1>
                 </Col>
                 <Col size="md-4">
-                <DropDownBtn ></DropDownBtn>
+                <DropDownBtn />
+                <ProjectDetailMainModal />
                 </Col>
                 </Row>
                 <p className="text-center">{this.description}</p>
@@ -76,14 +78,16 @@ class ProjectDetail extends Component {
                   <FormGroup >
                     <Label htmlFor="Role Title">Add a New Role</Label>
                     <Input
-                    type="text"
-                    id="role"
+                      type="text"
+                      id="role"
                     />
                   </FormGroup>
                   <FormBtn>Submit</FormBtn>
                 </Form>
                 {this.state.projectMembers.length ? (
                   <List >
+                  <ProjectRoleEditModal />
+                  <RoleApplicantModal />
                     {this.state.projectMembers.map(member => (
                       <ListItem key={member.id}>
                         <Card >
@@ -113,14 +117,15 @@ class ProjectDetail extends Component {
                   <FormGroup >
                     <Label htmlFor="Milestone Title">Add a New Milestone</Label>
                     <Input
-                    type="text"
-                    id="milestone"
+                      type="text"
+                      id="milestone"
                     />
                   </FormGroup>
                   <FormBtn>Submit</FormBtn>
                 </Form>
                 {this.state.milestones.length ? (
                   <List >
+                    <MilestoneEditModal />
                     {this.state.milestones.map(milestone => (
                       <ListItem key={milestone.id}>
                         <Card >
