@@ -14,6 +14,11 @@ export default {
     return axios.get("/api/projects");
   },
 
+  //Get a single Project by ID
+  getThisProject: function(projectID) {
+    return axios.get("/api/projects/:" + projectID);
+  },
+
   //Get all Ideas (submitted, not yet approved)
   getIdeas: function() {
     return axios.get("/api/ideas");

@@ -3,13 +3,38 @@ import { Col, Row, Container } from "../components/Grid";
 import { Card } from "../components/Card";
 import { Input, FormGroup, Label, Form, FormBtn } from "../components/Form";
 import { DropDownBtn } from "../components/Buttons";
-// import { RoleDropBtn, DropDownBtn } from "../components/Buttons";
-// import { List, ListItem } from "../components/List";
-import { List } from "../components/List";
-// import { Link } from "react-router-dom";
+import { RoleDropBtn, DropDownBtn } from "../components/Buttons";
+import { List, ListItem } from "../components/List";
+import { Link } from "react-router-dom";
 import { Navigation } from "../components/Navigation";
+import API from "../utils/API";
 
 class ProjectDetail extends Component {
+
+  state = {
+    title: '',
+    description: '',
+    ownerID:1,
+    projectID:'',
+    statusID:'',
+    projectMembers:[],
+    milestones: []
+  }
+
+  componentDidMount() {
+    this.loadProject();
+  }
+
+  loadProject = () => {
+    API.getThisProject()
+      .then(res =>
+        this.setState({
+          title:res.data.title,
+          ownerID: 1,
+
+        }))
+  }
+
   render() {
     return (
       <div>
@@ -46,7 +71,7 @@ class ProjectDetail extends Component {
                 <List >
                   This is where the projects info will populate
                     Change what you need to
-                  {/* {this.state.projects.map(project => (
+                  {this.state.projects.map(project => (
                     <ListItem key={project._id}>
                       <Link to={"/projects/" + project._id}>
                       <Card >
@@ -66,7 +91,7 @@ class ProjectDetail extends Component {
                         </Card>
                       </Link>
                     </ListItem>
-                  ))} */}
+                  ))}
                 </List>
                 <h2>Milestones</h2>
                 <Form >
