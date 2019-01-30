@@ -128,4 +128,24 @@ module.exports = {
       }
     })(req, res, next);
   },
+  authenticate: (req, res, next) => {
+    passport.authenticate('jwt', { session: false }, (err, user, info) => {
+      if (err) {
+        console.log(err);
+      }
+      if (info != undefined) {
+        console.log(info.message);
+        res.status(401).send(info.message);
+      } else if (user.username === req.query.username) {
+        console.log('User authenticated');
+        res.status(200).send({
+          auth: true,
+          message: 'User authenticated',
+        });
+      } else {
+        console.log('Invalid token');
+        res.status(403).send('Invalid token');
+      }
+    })(req, res, next);
+  },
 };
