@@ -55,7 +55,7 @@ module.exports = {
         hoursRedeemed: 0,
         permissionID: Number(permissionID),
       })
-      .then(results => res.status(200).json(results))
+      .then(results => res.status(201).json(results))
       .catch(err => res.status(500).send(err));
   },
   register: (req, res, next) => {
@@ -65,7 +65,7 @@ module.exports = {
       if (err) {
         console.log(`Error: ${err}`);
       }
-      if (info != undefined) {
+      if (info !== undefined) {
         console.log(`Message: ${info.message}`);
         res.status(403).send(info.message);
       } else {
@@ -102,7 +102,7 @@ module.exports = {
         console.log('error');
         console.log(err);
       }
-      if (info != undefined) {
+      if (info !== undefined) {
         console.log(info.message);
         if (info.message === 'User does not exist') {
           res.status(401).send(info.message);
@@ -127,5 +127,36 @@ module.exports = {
         });
       }
     })(req, res, next);
+  },
+  updateByID: (req, res) => {
+    // Update user record from fields passed in from req.body and id from req.params
+    db.User
+      .update(req.body, {
+        where: {
+          id: req.params.id,
+        },
+      })
+      .then(() => {
+        // After successful update of record, search for record and return to user
+        db.User
+          .findOne({
+            where: {
+              id: req.params.id,
+            },
+          })
+          .then(results => res.status(200).json(results))
+          .catch(err => res.status(500).send(err));
+      })
+      .catch(err => res.status(500).send(err));
+  },
+  deleteByID: (req, res) => {
+    db.User
+      .destroy({
+        where: {
+          id: req.params.id,
+        },
+      })
+      .then(results => res.status(200).json(results))
+      .catch(err => res.status(500).send(err));
   },
 };
