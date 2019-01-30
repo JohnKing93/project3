@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // Project can have many members
-    models.Idea.hasMany(models.ProjectMember, {
+    models.Project.hasMany(models.ProjectMember, {
       foreignKey: {
         name: 'projectID',
         allowNull: false,
@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // Project can have many comments
-    models.Idea.hasMany(models.ProjectComment, {
+    models.Project.hasMany(models.ProjectComment, {
       foreignKey: {
         name: 'projectID',
         allowNull: false,
@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // Project can have many milestones
-    models.Idea.hasMany(models.ProjectMilestone, {
+    models.Project.hasMany(models.ProjectMilestone, {
       foreignKey: {
         name: 'projectID',
         allowNull: false,
@@ -50,7 +50,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // Project can have many timesheets
-    models.Idea.hasMany(models.Timesheet, {
+    models.Project.hasMany(models.Timesheet, {
       foreignKey: {
         name: 'projectID',
         allowNull: false,
