@@ -8,6 +8,8 @@ router.route('/')
 
 // Matches with '/api/incentives/:id'
 router.route('/:id')
-  .get(incentivesController.findByID);
+  .get(incentivesController.findByID)
+  .put(incentivesController.updateByID)
+  .delete(incentivesController.deleteByID);
 
 module.exports = router;

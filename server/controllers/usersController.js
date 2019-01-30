@@ -129,7 +129,7 @@ module.exports = {
     })(req, res, next);
   },
   updateByID: (req, res) => {
-    // Update user record from fields passed in from req.body and id from req.params
+    // Update record from fields passed in from req.body and id from req.params
     db.User
       .update(req.body, {
         where: {
@@ -150,13 +150,14 @@ module.exports = {
       .catch(err => res.status(500).send(err));
   },
   deleteByID: (req, res) => {
+    // Delete record of id passed in from req.params
     db.User
       .destroy({
         where: {
           id: req.params.id,
         },
       })
-      .then(results => res.status(200).json(results))
+      .then(() => res.status(200).end())
       .catch(err => res.status(500).send(err));
   },
 };
