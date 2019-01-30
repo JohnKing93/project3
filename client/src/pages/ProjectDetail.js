@@ -19,21 +19,26 @@ class ProjectDetail extends Component {
     statusID:'',
     projectMembers:[],
     milestones: []
-  }
+  };
 
   componentDidMount() {
     this.loadProject();
-  }
+  };
 
   loadProject = () => {
     API.getThisProject()
       .then(res =>
         this.setState({
           title:res.data.title,
-          ownerID: 1,
-
-        }))
-  }
+          ownerID: 1, //needs to pull when auth finalized
+          projectID: res.data.id,
+          status: res.data.statusID,
+          projectMembers: res.data.ProjectMember,
+          milestones: res.data.ProjectMilestone
+        })
+      )
+      .catch(err => console.log(err));
+  };
 
   render() {
     return (
