@@ -33,8 +33,8 @@ class Ideas extends Component {
           title: '',
           description: ''
         })
-    )
-    .catch(err => console.log(err));
+      )
+      .catch(err => console.log(err));
   };
 
   //Inputting New Ideas
