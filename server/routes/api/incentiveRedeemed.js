@@ -7,6 +7,8 @@ router.route('/')
 
 // Matches with 'api/incentivesredeemed/:id'
 router.route('/:id')
-  .get(IncentiveRedeemedController.findAllByUser);
+  .get(IncentiveRedeemedController.findAllByUser)
+  .put(IncentiveRedeemedController.updateByID)
+  .delete(IncentiveRedeemedController.deleteByID);
 
 module.exports = router;

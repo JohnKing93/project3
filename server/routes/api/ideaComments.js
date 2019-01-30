@@ -6,6 +6,11 @@ router.route('/')
   .get(ideaCommentsController.findAll)
   .post(ideaCommentsController.create);
 
+// Matches with 'api/ideacomments/:id'
+router.route('/:id')
+  .put(ideaCommentsController.updateByID)
+  .delete(ideaCommentsController.deleteByID);
+
 // Matches with '/api/ideacomments/idea/:id'
 router.route('/idea/:id')
   .get(ideaCommentsController.findAllByIdea);

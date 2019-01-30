@@ -98,6 +98,15 @@ module.exports = (sequelize, DataTypes) => {
       },
       onDelete: 'cascade',
     });
+
+    // User can have many timesheets
+    models.User.hasMany(models.Timesheet, {
+      foreignKey: {
+        name: 'userID',
+        allowNull: false,
+      },
+      onDelete: 'cascade',
+    });
   };
 
   return User;
