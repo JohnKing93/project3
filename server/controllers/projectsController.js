@@ -26,7 +26,12 @@ module.exports = {
           where: {
             type: 'projectSts',
           },
-        }, db.ProjectMember, db.User, db.ProjectMilestone],
+        }, {
+          model: db.ProjectMember,
+          include: [{
+            model: db.User,
+          }],
+        }, db.User, db.ProjectMilestone],
         order: ['id'],
       })
       .then(results => res.status(200).json(results))
