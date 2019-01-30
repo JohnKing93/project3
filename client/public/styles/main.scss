@@ -1,0 +1,22 @@
+$colors: (
+    primary: #00a78d,
+    primary-dark: darken(#00a78d, 15%),
+    secondary: #00cfaf,
+    tertiary: #92e2d8,
+    accent: #5ce8e9,
+    negative: #ee744e,
+    neutral: #dbe2e2,
+    neutral-lightest: #f6fcfc
+);
+
+@function color($color-name) {
+    @return map-get($colors, $color-name)
+};
+
+body {
+    background-color: color(neutral);
+
+    nav {
+        background-color: color(primary-dark);
+    }
+}
