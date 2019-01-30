@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Col, Row, Container } from "../components/Grid";
 import { Card } from "../components/Card";
 import { Input, FormGroup, Label, Form, FormBtn } from "../components/Form";
-import { DropDownBtn } from "../components/Buttons";
 import { RoleDropBtn, DropDownBtn } from "../components/Buttons";
 import { List, ListItem } from "../components/List";
 import { Link } from "react-router-dom";
@@ -14,7 +13,7 @@ class ProjectDetail extends Component {
   state = {
     title: '',
     description: '',
-    ownerID:1,
+    owner: '',
     projectID:'',
     statusID:'',
     projectMembers:[],
@@ -30,7 +29,7 @@ class ProjectDetail extends Component {
       .then(res =>
         this.setState({
           title:res.data.title,
-          ownerID: 1, //needs to pull when auth finalized
+          owner: res.data.User.firstName,
           projectID: res.data.id,
           status: res.data.statusID,
           projectMembers: res.data.ProjectMember,
@@ -55,13 +54,13 @@ class ProjectDetail extends Component {
                 <h3>Contributor: Name</h3>
                 </Col>
                 <Col size="md-4">
-                <h1>Project Title</h1>
+                <h1>{this.title}</h1>
                 </Col>
                 <Col size="md-4">
                 <DropDownBtn ></DropDownBtn>
                 </Col>
                 </Row>
-                <p className="text-center">Project Details</p>
+                <p className="text-center">{this.description}</p>
                 <h2>Team Roles</h2>
                 <Form >
                   <FormGroup >
@@ -112,7 +111,7 @@ class ProjectDetail extends Component {
                 <List >
                   This is where the milestones info will populate
                     Change what you need to
-                  {/* {this.state.projects.map(project => (
+                  {this.state.projects.map(project => (
                     <ListItem key={project._id}>
                       <Link to={"/projects/" + project._id}>
                       <Card >
@@ -126,7 +125,7 @@ class ProjectDetail extends Component {
                         </Card>
                       </Link>
                     </ListItem>
-                  ))} */}
+                  ))}
                 </List>
               </Card>
             </Col>
