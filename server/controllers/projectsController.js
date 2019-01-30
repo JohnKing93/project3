@@ -26,7 +26,7 @@ module.exports = {
           where: {
             type: 'projectSts',
           },
-        }, db.User],
+        }, db.ProjectMember, db.User, db.ProjectMilestone],
         order: ['id'],
       })
       .then(results => res.status(200).json(results))
