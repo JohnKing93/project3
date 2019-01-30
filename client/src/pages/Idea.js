@@ -69,10 +69,25 @@ class Ideas extends Component {
               <Card >
                 <form>
                   <p>Title</p>
-                  <Input id="newProjectTitle"></Input>
+                  <Input
+                    id="newProjectTitle"
+                    value={this.state.title}
+                    onChange={this.handleInputChange}
+                    name="title">
+                  </Input>
                   <p>Project Description</p>
-                  <TextArea id="newProjectDescription"></TextArea>
-                  <Button type="submit">Submit</Button>
+                  <TextArea
+                    id="newProjectDescription"
+                    value={this.state.description}
+                    onChange={this.handleInputChange}
+                    name="description">
+                  </TextArea>
+                  <Button
+                    type="submit"
+                    onClick={this.handleFormSubmit}
+                  >
+                  Submit
+                  </Button>
                 </form>
               </Card>
               <Card >
