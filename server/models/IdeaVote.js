@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize) => {
   const IdeaVote = sequelize.define('IdeaVote', {});
 
   IdeaVote.associate = (models) => {

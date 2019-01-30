@@ -6,4 +6,9 @@ router.route('/')
   .get(statusController.findAll)
   .post(statusController.create);
 
+// Matches with 'api/status/:id'
+router.route('/:id')
+  .put(statusController.updateByID)
+  .delete(statusController.deleteByID);
+
 module.exports = router;
