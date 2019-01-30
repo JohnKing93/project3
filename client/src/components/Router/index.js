@@ -38,17 +38,7 @@ class PrivateRoute extends React.Component {
   }
 
   authenticate() {
-    let accessString = localStorage.getItem('JWT');
-    if (accessString === null) {
-    // set state w/ message
-    }
-    console.log(this.props.match.params.username);
-    API.authenticateUser({
-      params: {
-        username: this.props.match.params.username,
-      },
-      headers: { Authorization: `JWT ${accessString}` },
-    })
+    API.authenticateUser()
     .then(res => {
       console.log(res.data);
       this.setState({

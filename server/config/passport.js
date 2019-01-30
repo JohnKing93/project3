@@ -87,15 +87,13 @@ passport.use(
   ),
 );
 
-const opts = {
-  jwtFromRequest: ExtractJWT.fromAuthHeaderWithScheme('JWT'),
-  secretOrKey: jwtSecret.secret,
-};
-
 passport.use(
   'jwt',
-  // eslint-disable-next-line camelcase
-  new JWTstrategy(opts, (jwt_payload, done) => {
+  new JWTstrategy({
+    jwtFromRequest: req => req.cookies.jwt,
+    secretOrKey: jwtSecret,
+  },
+  (jwt_payload, done) => {
     try {
       db.User.findOne({
         where: {

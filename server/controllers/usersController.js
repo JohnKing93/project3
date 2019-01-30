@@ -110,20 +110,17 @@ module.exports = {
           res.status(403).send(info.message);
         }
       } else {
-        req.logIn(user, (err) => {
-          db.User.findOne({
-            where: {
-              email: req.body.username,
-            },
-          })
-            .then((foundUser) => {
-              const token = jwt.sign({ id: foundUser.email }, jwtSecret.secret);
-              res.status(200).send({
-                auth: true,
-                token,
-                message: 'JWT token sucessfully signed',
-              });
-            });
+        const payload = {
+          username: user.username,
+        };
+        req.login(payload, { session: false }, (error) => {
+          if (error) {
+            res.status(400).send({ error });
+          }
+          const token = jwt.sign(JSON.stringify(payload), jwtSecret.secret);
+          console.log(token);
+          res.cookie('jwt', token, { httpOnly: true, secure: true });
+          res.status(200).send({ message: 'User authorized' });
         });
       }
     })(req, res, next);

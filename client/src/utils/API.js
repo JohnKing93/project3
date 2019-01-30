@@ -8,10 +8,10 @@ export default {
   loginUser: function(user) {
     return axios.post("/api/users/login", user);
   },
-  authenticateUser: function(user) {
-    return axios.post("api/users/authenticate", user);
+  authenticateUser: function() {
+    return axios.post("api/users/authenticate");
   },
-  //Get all Live Projects (approved, in progress)
+  // Get all Live Projects (approved, in progress)
   getProjects: function() {
     return axios.get("/api/projects");
   }
