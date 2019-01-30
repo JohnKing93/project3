@@ -35,6 +35,7 @@ module.exports = {
   create: (req, res) => {
     // Destructure req.body
     const {
+      milestone,
       projectID,
       userID,
       role,
@@ -43,6 +44,7 @@ module.exports = {
 
     db.ProjectMilestone
       .create({
+        milestone,
         projectID: Number(projectID),
         userID: Number(userID),
         role,
