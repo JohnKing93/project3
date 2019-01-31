@@ -33,7 +33,10 @@ class LiveProjects extends Component {
         <Navigation ></Navigation>
         <Container fluid>
           <Row>
-            <Col size="md-9">
+          <Col size="md-2">
+            </Col>
+            <Col size="md-8">
+            <div id="projects-div">
               <Card >
                 {this.state.projects.length ? (
                   <List >
@@ -57,6 +60,7 @@ class LiveProjects extends Component {
                   <h3>No Results to Display</h3>
                 )}
               </Card>
+              </div>
             </Col>
             </Row>
             </Container>
