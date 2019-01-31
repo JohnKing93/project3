@@ -57,9 +57,9 @@ class Register extends Component {
           });
         })
         .catch(error => {
-          console.log(error.response.data);
+          console.log(error.response.data.message);
           this.setState({
-            message: error.response.data,
+            message: error.response.data.message,
           });
         });
     }
@@ -87,9 +87,9 @@ class Register extends Component {
           });
         })
         .catch(error => {
-          console.log(error.response.data);
+          console.log(error.response.data.message);
           this.setState({
-            message: error.response.data,
+            message: error.response.data.message,
           });
         });
     }
