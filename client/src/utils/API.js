@@ -35,7 +35,7 @@ export default {
   },
 
   //update part of an existing Idea
-  updateIdea: function(id, data) {
-    return axios.put("/api/ideas/:" + id, data)
+  updateIdea: function(req, res) {
+    return axios.put("/api/ideas/:" + req.params.id)
   }
 };
