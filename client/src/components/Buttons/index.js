@@ -47,6 +47,15 @@ export function EditBtn(props) {
   );
 }
 
+export function ApproveBtn(props) {
+  return (
+    <span className="btn" {...props}>
+    Approve
+    </span>
+  );
+}
+
+
 export function IdeaDropDownBtn(props) {
   return (
     <div className="dropdown" {...props}>

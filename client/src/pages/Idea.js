@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { Col, Row, Container } from "../components/Grid";
 import { Card } from "../components/Card";
 import { Input, TextArea, Button } from "../components/Form";
-import { VoteUpBtn, IdeaDropDownBtn } from "../components/Buttons";
+// import { VoteUpBtn, IdeaDropDownBtn } from "../components/Buttons";
+import { VoteUpBtn, ApproveBtn } from "../components/Buttons";
 import { List, ListItem } from "../components/List";
 import { Navigation } from "../components/Navigation";
 import API from "../utils/API";
@@ -59,38 +60,40 @@ class Ideas extends Component {
     }
   };
 
-  handleSelect = event => {
-
-    let thisIdea = event.Dropdown.Key
-
-    function approveIdea() {
-      console.log("approved");
-      API.updateIdea({
-        id: thisIdea,
-        endorsed: true
-      })
-      .then(res => this.loadIdeas())
-      .catch(err => console.log(err));
-    };
-
-    event.preventDefault();
-    let choice = event.eventKey;
-    console.log("choice: " + choice);
-    switch(choice) {
-      case '1':
-        approveIdea();
-        break;
-      // case '2':
-      //   editIdea();
-      //   break;
-      // case '3':
-      //   deleteIdea();
-      //   break;
-      default: console.log('no valid selection');
-
-    }
-
+  approveIdea = id => {
+    console.log("approved");
+    API.updateIdea({
+      id: id,
+      endorsed: true
+    })
+    .then(res => this.loadIdeas())
+    .catch(err => console.log(err));
   };
+
+  // handleSelect = event => {
+
+  //   let thisIdea = event.Dropdown.Key
+
+
+
+  //   event.preventDefault();
+  //   let choice = event.eventKey;
+  //   console.log("choice: " + choice);
+  //   switch(choice) {
+  //     case '1':
+  //       approveIdea();
+  //       break;
+  //     // case '2':
+  //     //   editIdea();
+  //     //   break;
+  //     // case '3':
+  //     //   deleteIdea();
+  //     //   break;
+  //     default: console.log('no valid selection');
+
+  //   }
+
+  // };
 
   render() {
     return (
@@ -138,10 +141,10 @@ class Ideas extends Component {
                         <p>
                           {idea.description}
                         </p>
-                        <IdeaDropDownBtn
-                          onSelect={this.handleSelect}
+                        <ApproveBtn
+                          onClick={() => this.approveIdea(idea.id)}
                         >
-                        </IdeaDropDownBtn>
+                        </ApproveBtn>
                       </ListItem>
                     ))}
                   </List>
