@@ -59,6 +59,7 @@ class ProjectDetail extends Component {
             <Col size="md-2">
             </Col>
             <Col size="md-8">
+            <div id="project-detail-div">
               <Card >
                 <Row >
                 <Col size="md-4">
@@ -68,7 +69,7 @@ class ProjectDetail extends Component {
                 <h1>{this.title}</h1>
                 </Col>
                 <Col size="md-4">
-                <DropDownBtn />
+                <DropDownBtn className="blue-btn" />
                 <ProjectDetailMainModal />
                 </Col>
                 </Row>
@@ -82,7 +83,9 @@ class ProjectDetail extends Component {
                       id="role"
                     />
                   </FormGroup>
-                  <FormBtn>Submit</FormBtn>
+                  <FormBtn
+                  className=".blue-btn">
+                  Submit</FormBtn>
                 </Form>
                 {this.state.projectMembers.length ? (
                   <List >
@@ -94,7 +97,7 @@ class ProjectDetail extends Component {
                           <h2>
                             {member.role}
                           </h2>
-                          <RoleDropBtn ></RoleDropBtn>
+                          <RoleDropBtn className="blue-btn"></RoleDropBtn>
                           <h3>
                             {member.User.firstName}
                           </h3>
@@ -121,7 +124,9 @@ class ProjectDetail extends Component {
                       id="milestone"
                     />
                   </FormGroup>
-                  <FormBtn>Submit</FormBtn>
+                  <FormBtn
+                  className="blue-btn"
+                  >Submit</FormBtn>
                 </Form>
                 {this.state.milestones.length ? (
                   <List >
@@ -132,7 +137,7 @@ class ProjectDetail extends Component {
                           <h2>
                             {milestone.milestone}
                           </h2>
-                          <DetailBtn ></DetailBtn>
+                          <DetailBtn className="blue-btn"></DetailBtn>
                           <p>
                             {milestone.statusID}
                           </p>
@@ -144,6 +149,7 @@ class ProjectDetail extends Component {
                   <h3>No Milestones for this Project</h3>
                 )}
               </Card>
+              </div>
             </Col>
           </Row>
         </Container>
