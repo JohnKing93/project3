@@ -3,7 +3,7 @@ const ideasController = require('../../controllers/IdeasController');
 
 // Matches with 'api/ideas'
 router.route('/')
-  .get(ideasController.findAll)
+  .get(ideasController.findAllPending)
   .post(ideasController.create);
 
 // Matches with '/api/ideas/:id'

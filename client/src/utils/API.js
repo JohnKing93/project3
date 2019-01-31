@@ -24,7 +24,7 @@ export default {
     return axios.get("/api/projects/:" + projectID);
   },
 
-  //Get all Ideas (submitted, not yet approved)
+  //Get all Ideas (conditional to exclude approved ideas, see: api route and controller)
   getIdeas: function() {
     return axios.get("/api/ideas");
   },

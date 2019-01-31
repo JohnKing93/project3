@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Col, Row, Container } from "../components/Grid";
 import { Card } from "../components/Card";
 import { Input, TextArea, Button } from "../components/Form";
-import { VoteUpBtn, DropDownBtn } from "../components/Buttons";
+import { VoteUpBtn, IdeaDropDownBtn } from "../components/Buttons";
 import { List, ListItem } from "../components/List";
 import { Navigation } from "../components/Navigation";
 import API from "../utils/API";
@@ -59,6 +59,14 @@ class Ideas extends Component {
     }
   };
 
+  // handleDropToggle = event => {
+  //   event.preventDefault();
+  //   switch(eventKey) {
+  //     case '1':
+
+  //   }
+  // }
+
   render() {
     return (
       <div>
@@ -105,7 +113,7 @@ class Ideas extends Component {
                         <p>
                           {idea.description}
                         </p>
-                        <DropDownBtn ></DropDownBtn>
+                        <IdeaDropDownBtn ></IdeaDropDownBtn>
                       </ListItem>
                     ))}
                   </List>
