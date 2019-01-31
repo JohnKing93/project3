@@ -55,9 +55,9 @@ export function IdeaDropDownBtn(props) {
           Options
       </button>
       <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <span className="dropdown-item" eventKey="1">approve</span>
-          <span className="dropdown-item" eventKey="2" data-toggle="modal" data-target="#editModal">edit</span>
-          <span className="dropdown-item" eventKey="3">delete</span>
+          <span className="dropdown-item">approve</span>
+          <span className="dropdown-item" data-toggle="modal" data-target="#editModal">edit</span>
+          <span className="dropdown-item">delete</span>
       </div>
     </div>
   );

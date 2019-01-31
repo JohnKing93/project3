@@ -32,5 +32,10 @@ export default {
   //post submitted Idea to db
   submitIdea: function(newIdea) {
     return axios.post("/api/ideas", newIdea);
+  },
+
+  //update part of an existing Idea
+  updateIdea: function(req) {
+    return axios.put("/api/ideas/:" + req.params.id)
   }
 };

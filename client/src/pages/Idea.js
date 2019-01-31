@@ -59,13 +59,38 @@ class Ideas extends Component {
     }
   };
 
-  // handleDropToggle = event => {
-  //   event.preventDefault();
-  //   switch(eventKey) {
-  //     case '1':
+  handleSelect = event => {
 
-  //   }
-  // }
+    let thisIdea = event.Dropdown.Key
+
+    function approveIdea() {
+      console.log("approved");
+      API.updateIdea({
+        id: thisIdea,
+        endorsed: true
+      })
+      .then(res => this.loadIdeas())
+      .catch(err => console.log(err));
+    };
+
+    event.preventDefault();
+    let choice = event.eventKey;
+    console.log("choice: " + choice);
+    switch(choice) {
+      case '1':
+        approveIdea();
+        break;
+      // case '2':
+      //   editIdea();
+      //   break;
+      // case '3':
+      //   deleteIdea();
+      //   break;
+      default: console.log('no valid selection');
+
+    }
+
+  };
 
   render() {
     return (
@@ -113,7 +138,10 @@ class Ideas extends Component {
                         <p>
                           {idea.description}
                         </p>
-                        <IdeaDropDownBtn ></IdeaDropDownBtn>
+                        <IdeaDropDownBtn
+                          onSelect={this.handleSelect}
+                        >
+                        </IdeaDropDownBtn>
                       </ListItem>
                     ))}
                   </List>
