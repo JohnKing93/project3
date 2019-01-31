@@ -54,13 +54,12 @@ class Register extends Component {
           console.log(res.data);
           this.setState({
             message: res.data.message,
-            success: true,
           });
         })
         .catch(error => {
-          console.log(error.response.data);
+          console.log(error.response.data.message);
           this.setState({
-            message: error.response.data,
+            message: error.response.data.message,
           });
         });
     }
@@ -88,9 +87,9 @@ class Register extends Component {
           });
         })
         .catch(error => {
-          console.log(error.response.data);
+          console.log(error.response.data.message);
           this.setState({
-            message: error.response.data,
+            message: error.response.data.message,
           });
         });
     }
