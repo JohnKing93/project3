@@ -67,9 +67,10 @@ class Ideas extends Component {
             <Col size="md-2">
             </Col>
             <Col size="md-8">
+            <div id="new-idea-div">
               <Card >
                 <form>
-                  <p>Title</p>
+                  <p>Project Title</p>
                   <Input
                     id="newProjectTitle"
                     value={this.state.title}
@@ -81,16 +82,21 @@ class Ideas extends Component {
                     id="newProjectDescription"
                     value={this.state.description}
                     onChange={this.handleInputChange}
-                    name="description">
+                    name="description"
+                    rows="6">
                   </TextArea>
+                  <p id="subtext-blue">Share your new idea!</p>
                   <Button
                     type="submit"
                     onClick={this.handleFormSubmit}
+                    className="btn blue-btn"
                   >
                   Submit
                   </Button>
                 </form>
               </Card>
+              </div>
+              <div id="ideas-div">
               <Card >
               <ProjectDetailMainModal />
                 {this.state.ideas.length ? (
@@ -112,6 +118,7 @@ class Ideas extends Component {
                   <h3>No Results to Display</h3>
                 )}
               </Card>
+              </div>
             </Col>
           </Row>
         </Container>

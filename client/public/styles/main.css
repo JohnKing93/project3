@@ -1,8 +1,102 @@
 body {
-  background-color: #dbe2e2;
+  background-color: #d0dadb;
+  color: #021a0c;
+  line-height: 1.5;
 }
 
 body nav {
-  background-color: #005b4c;
+  background-color: #0ca54d;
+}
+
+body .blue-btn {
+  background-color: #14b7d4;
+  color: white;
+}
+
+body #login-card {
+  margin: 7rem auto 4rem auto;
+  -webkit-box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
+          box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
+}
+
+body #login-card #login-head {
+  margin: 1rem auto 2rem auto;
+  text-align: center;
+}
+
+body #login-card #login-head h1 {
+  color: #0ca54d;
+  font-size: 4rem;
+  margin: 0;
+  line-height: .75;
+  font-weight: bold;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+body #login-card #login-head h2 {
+  color: #66d8ac;
+  font-size: 2.1rem;
+  line-height: .85;
+}
+
+body #login-card #my-link-btn {
+  color: #14b7d4;
+}
+
+body #dash-card {
+  margin: 3rem auto 4rem auto;
+  text-align: center;
+  -webkit-box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
+          box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
+}
+
+body #dash-card #profile-info-div h1 {
+  color: #0ca54d;
+  font-size: 2rem;
+  font-weight: bold;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  line-height: .75;
+  margin-bottom: 1.5rem;
+}
+
+body #dash-card #profile-info-div h2 {
+  color: #66d8ac;
+  font-size: 1.5rem;
+  line-height: .8;
+}
+
+body #dash-card #profile-project-div h1 {
+  color: #0ca54d;
+  font-size: 2rem;
+  font-weight: bold;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  margin-bottom: 1.5rem;
+}
+
+body #dash-card #profile-project-div #project-box {
+  background-color: #d0dadb;
+  border-radius: 5px;
+}
+
+body #new-idea-div {
+  margin: 3rem auto 1rem auto;
+  -webkit-box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
+          box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
+}
+
+body #new-idea-div #subtext-blue {
+  color: #14b7d4;
+}
+
+body #ideas-div {
+  margin: 0 auto 4rem auto;
+  -webkit-box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
+          box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
+}
+
+body #projects-div {
+  margin: 3rem auto 4rem auto;
+  -webkit-box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
+          box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
 }
 /*# sourceMappingURL=main.css.map */
