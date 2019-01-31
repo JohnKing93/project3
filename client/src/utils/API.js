@@ -29,6 +29,11 @@ export default {
     return axios.get("/api/ideas");
   },
 
+  //Get all Approved ideas
+  getApproved: function() {
+    return axios.get("/api/ideas/approved");
+  },
+
   //post submitted Idea to db
   submitIdea: function(newIdea) {
     return axios.post("/api/ideas", newIdea);

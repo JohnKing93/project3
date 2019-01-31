@@ -61,7 +61,6 @@ class Ideas extends Component {
   };
 
   approveIdea = id => {
-    console.log("approved");
     API.updateIdea({
       id: id,
       endorsed: true
@@ -69,12 +68,6 @@ class Ideas extends Component {
     .then(res => this.loadIdeas())
     .catch(err => console.log(err));
   };
-
-  // handleSelect = event => {
-
-  //   let thisIdea = event.Dropdown.Key
-
-
 
   //   event.preventDefault();
   //   let choice = event.eventKey;

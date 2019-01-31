@@ -17,6 +17,10 @@ class LiveProjects extends Component {
     this.loadProjects();
   };
 
+  checkIdeas = () => {
+    API.getApproved()
+  }
+
   loadProjects = () => {
     API.getProjects()
       .then(res =>
