@@ -9,6 +9,7 @@ import API from "../utils/API";
 import { ProjectDetailMainModal } from "../components/Modal";
 
 //this page should display suggested projects and allow users to suggest new projects
+//managers should be able to approve ideas, converting them to projects
 
 class Ideas extends Component {
 
