@@ -1,13 +1,14 @@
 const express = require('express');
 const passport = require('passport');
 // const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const routes = require('./routes');
 const db = require('./models');
 
 // Server definition
 const app = express();
 const PORT = process.env.PORT || 3001;
-
+app.use(cookieParser());
 require('./config/passport');
 
 // Define middleware here
