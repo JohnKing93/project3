@@ -147,6 +147,7 @@ class Ideas extends Component {
                         </p>
                         <ApproveBtn
                           onClick={() => this.approveIdea(idea.id)}
+                          className="btn blue-btn"
                         >
                         </ApproveBtn>
                       </ListItem>
