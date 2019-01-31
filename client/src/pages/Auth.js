@@ -54,7 +54,6 @@ class Register extends Component {
           console.log(res.data);
           this.setState({
             message: res.data.message,
-            success: true,
           });
         })
         .catch(error => {
