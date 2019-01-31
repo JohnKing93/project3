@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
 import { Redirect } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
 import { Form, FormGroup, Label, Input, Button, Small } from "../components/Form";
+import { Card } from "../components/Card";
 
 class Register extends Component {
 
@@ -54,6 +54,7 @@ class Register extends Component {
           console.log(res.data);
           this.setState({
             message: res.data.message,
+            success: true,
           });
         })
         .catch(error => {
@@ -102,9 +103,12 @@ class Register extends Component {
           <Col size="md-4">
           </Col>
           <Col size="md-4">
-            <Jumbotron>
-              <h1>Step Up</h1>
-            </Jumbotron>
+          <div id="login-card">
+          <Card>
+            <div id="login-head">
+              <h1>ProGro</h1>
+              <h2>Take Initiative.</h2>
+            </div>
             {this.state.success ? (
               <Redirect to="/ideas" />
             ) : (
@@ -155,18 +159,23 @@ class Register extends Component {
                     />
                     <Small>Authentication is secured with bcrypt and JWT.</Small>
                   </FormGroup>
-                  <Button type="submit" className="btn btn-primary">
+                  <div className="text-center">
+                  <Button type="submit" className="btn blue-btn">
                     {this.state.register ? "Register" : "Login"}
                   </Button>
                   <Button
                     type="button"
                     className="btn btn-link"
+                    id="my-link-btn"
                     onClick={() => this.handleFormChange(this.state.register ? false : true)}
                   >
                     {this.state.register ? "Already have an account?" : "Need to register?"}
                   </Button>
+                  </div>
                 </Form>
               )}
+              </Card>
+              </div>
           </Col>
         </Row>
       </Container>
