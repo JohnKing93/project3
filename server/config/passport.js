@@ -1,7 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const JWTstrategy = require('passport-jwt').Strategy;
-const ExtractJWT = require('passport-jwt').ExtractJwt;
 const bcrypt = require('bcrypt');
 const jwtSecret = require('./jwt');
 const db = require('../models');
@@ -26,7 +25,6 @@ passport.use(
         // eslint-disable-next-line consistent-return
         }).then((user) => {
           if (user != null) {
-            console.log('Email is already registered');
             return done(null, false, {
               message: 'Email is already registered',
             });
@@ -70,10 +68,8 @@ passport.use(
           if (user === null) {
             return done(null, false, { message: 'User does not exist' });
           }
-          console.log(user.password);
           bcrypt.compare(password, user.password).then((response) => {
             if (response !== true) {
-              console.log('Incorrect password');
               return done(null, false, { message: 'Incorrect password' });
             }
             console.log('Login successful');
@@ -87,19 +83,17 @@ passport.use(
   ),
 );
 
-const opts = {
-  jwtFromRequest: ExtractJWT.fromAuthHeaderWithScheme('JWT'),
-  secretOrKey: jwtSecret.secret,
-};
-
 passport.use(
   'jwt',
-  // eslint-disable-next-line camelcase
-  new JWTstrategy(opts, (jwt_payload, done) => {
+  new JWTstrategy({
+    jwtFromRequest: req => req.cookies.jwt,
+    secretOrKey: jwtSecret.secret,
+  },
+  (jwtPayload, done) => {
     try {
       db.User.findOne({
         where: {
-          email: jwt_payload.id,
+          email: jwtPayload.username,
         },
       }).then((user) => {
         if (user) {

@@ -18,4 +18,7 @@ router.route('/register')
 router.route('/login')
   .post(userController.login);
 
+router.route('/authenticate')
+  .post(userController.authenticate);
+
 module.exports = router;
