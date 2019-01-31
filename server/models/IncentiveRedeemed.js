@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize) => {
   const IncentiveRedeemed = sequelize.define('IncentiveRedeemed', {});
 
   IncentiveRedeemed.associate = (models) => {

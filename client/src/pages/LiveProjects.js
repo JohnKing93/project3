@@ -42,7 +42,7 @@ class LiveProjects extends Component {
                         <Link to={"/projects/" + project._id}>
                           <Card >
                             <h2>
-                              {project.title} || "title"
+                              {project.title}
                             </h2>
                             <DetailBtn></DetailBtn>
                             <p>

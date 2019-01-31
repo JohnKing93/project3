@@ -17,18 +17,18 @@ export function VoteDownBtn(props) {
 }
 
 export function DropDownBtn(props) {
-    return (
-      <div className="dropdown" {...props}>
-        <button
-            className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Options
-        </button>
-        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a className="dropdown-item" href="google.com">edit</a>
-            <a className="dropdown-item" href="google.com">delete</a>
-        </div>
+  return (
+    <div className="dropdown" {...props}>
+      <button
+          className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Options
+      </button>
+      <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <span className="dropdown-item" data-toggle="modal" data-target="#editModal">edit</span>
+          <a className="dropdown-item" href="google.com">delete</a>
       </div>
-    );
+    </div>
+  );
 }
 
 export function DetailBtn(props) {
@@ -55,9 +55,24 @@ export function RoleDropBtn(props) {
                 Options
   </button>
             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a className="dropdown-item" href="#">edit</a>
-                <a className="dropdown-item" href="#">delete</a>
-                <a className="dropdown-item" href="#">applicants</a>
+                <span className="dropdown-item" data-toggle="modal" data-target="#RoleEditModal">edit</span>
+                <span className="dropdown-item">delete</span>
+                <span className="dropdown-item" data-toggle="modal" data-target="#ApplicantModal">applicants</span>
+            </div>
+        </div>
+  );
+}
+
+export function MilestoneDropBtn(props) {
+  return (
+    <div className="dropdown" {...props}>
+            <button
+                className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Options
+  </button>
+            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <span className="dropdown-item" data-toggle="modal" data-target="#MilestoneEditModal">edit</span>
+                <span className="dropdown-item">delete</span>
             </div>
         </div>
   );

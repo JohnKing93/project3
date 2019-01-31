@@ -8,7 +8,9 @@ router.route('/')
 
 // Matches with '/api/users/:id'
 router.route('/:id')
-  .get(userController.findByID);
+  .get(userController.findByID)
+  .put(userController.updateByID)
+  .delete(userController.deleteByID);
 
 router.route('/register')
   .post(userController.register);

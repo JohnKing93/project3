@@ -6,4 +6,9 @@ router.route('/')
   .get(permissionsController.findAll)
   .post(permissionsController.create);
 
+// Matches with 'api/permissions/:id'
+router.route('/:id')
+  .put(permissionsController.updateByID)
+  .delete(permissionsController.deleteByID);
+
 module.exports = router;
