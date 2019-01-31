@@ -53,7 +53,7 @@ class Register extends Component {
         .then(res => {
           console.log(res.data);
           this.setState({
-            message: "Please verify your email before logging in",
+            message: res.data.message,
           });
         })
         .catch(error => {
@@ -82,11 +82,9 @@ class Register extends Component {
       })
         .then(res => {
           console.log(res.data);
-          /*
           this.setState({
             success: true,
           });
-          */
         })
         .catch(error => {
           console.log(error.response.data);

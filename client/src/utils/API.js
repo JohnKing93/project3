@@ -9,7 +9,7 @@ export default {
     return axios.post("/api/users/login", user);
   },
   authenticateUser: function() {
-    return axios.post("api/users/authenticate");
+    return axios.post("api/users/authenticate", { withCredentials: true });
   },
   // Get all Live Projects (approved, in progress)
   getProjects: function() {

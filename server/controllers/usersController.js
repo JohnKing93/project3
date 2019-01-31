@@ -59,17 +59,17 @@ module.exports = {
       .catch(err => res.status(500).send(err));
   },
   register: (req, res, next) => {
-    console.log('Controller');
-    console.log(req.body);
     passport.authenticate('register', (err, user, info) => {
       if (err) {
-        console.log(`Error: ${err}`);
+        console.log(err);
       }
       if (info != undefined) {
-        console.log(`Message: ${info.message}`);
-        res.status(403).send(info.message);
+        res.status(403).send({ message: info.message });
       } else {
-        req.logIn(user, (err) => {
+        req.logIn(user, (error) => {
+          if (error) {
+            console.log(err);
+          }
           const data = {
             firstName: req.body.firstname,
             lastName: req.body.lastname,
@@ -99,27 +99,24 @@ module.exports = {
   login: (req, res, next) => {
     passport.authenticate('login', (err, user, info) => {
       if (err) {
-        console.log('error');
         console.log(err);
       }
       if (info != undefined) {
-        console.log(info.message);
         if (info.message === 'User does not exist') {
-          res.status(401).send(info.message);
+          res.status(401).send({ message: info.message });
         } else {
-          res.status(403).send(info.message);
+          res.status(403).send({ message: info.message });
         }
       } else {
         const payload = {
-          username: user.username,
+          username: user.email,
         };
         req.login(payload, { session: false }, (error) => {
           if (error) {
             res.status(400).send({ error });
           }
           const token = jwt.sign(JSON.stringify(payload), jwtSecret.secret);
-          console.log(token);
-          res.cookie('jwt', token, { httpOnly: true, secure: true });
+          res.cookie('jwt', token);
           res.status(200).send({ message: 'User authorized' });
         });
       }
@@ -131,17 +128,21 @@ module.exports = {
         console.log(err);
       }
       if (info != undefined) {
-        console.log(info.message);
-        res.status(401).send(info.message);
-      } else if (user.username === req.query.username) {
-        console.log('User authenticated');
+        res.status(401).send({
+          auth: false,
+          message: info.message,
+        });
+      } else if (user) {
         res.status(200).send({
           auth: true,
           message: 'User authenticated',
         });
       } else {
         console.log('Invalid token');
-        res.status(403).send('Invalid token');
+        res.status(403).send({
+          auth: false,
+          message: 'Invalid token',
+        });
       }
     })(req, res, next);
   },
