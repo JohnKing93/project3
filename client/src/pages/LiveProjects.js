@@ -17,10 +17,6 @@ class LiveProjects extends Component {
     this.loadProjects();
   };
 
-  checkIdeas = () => {
-    API.getApproved()
-  }
-
   loadProjects = () => {
     API.getProjects()
       .then(res =>
@@ -45,13 +41,13 @@ class LiveProjects extends Component {
                 {this.state.projects.length ? (
                   <List >
                     {this.state.projects.map(project => (
-                      <ListItem key={project._id}>
-                        <Link to={"/projects/" + project._id}>
+                      <ListItem key={project.id}>
+                        <Link to={"/projects/" + project.id}>
                           <Card >
                             <h2>
                               {project.title}
                             </h2>
-                            <DetailBtn></DetailBtn>
+                            <DetailBtn ></DetailBtn>
                             <p>
                               {project.description}
                             </p>

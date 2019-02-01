@@ -24,6 +24,11 @@ export default {
     return axios.get("/api/projects/" + projectID);
   },
 
+  //Creates a new project
+  createProject: function(approvedIdea) {
+    return axios.post("/api/projects", approvedIdea);
+  },
+
   //Get all Ideas (conditional to exclude approved ideas, see: api route and controller)
   getIdeas: function() {
     return axios.get("/api/ideas");

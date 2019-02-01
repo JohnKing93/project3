@@ -12,4 +12,7 @@ router.route('/:id')
   .put(ideasController.updateByID)
   .delete(ideasController.deleteByID);
 
+// Matches with '/api/idea/approved
+router.route('/approved')
+  .get(ideasController.findAllApproved);
 module.exports = router;

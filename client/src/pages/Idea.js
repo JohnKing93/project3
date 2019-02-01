@@ -60,14 +60,24 @@ class Ideas extends Component {
     }
   };
 
-  approveIdea = id => {
+  approveIdea = idea => {
     API.updateIdea({
-      id: id,
+      id: idea.id,
       endorsed: true
     })
+    .then(res => this.convertIdea(idea))
     .then(res => this.loadIdeas())
     .catch(err => console.log(err));
   };
+
+  convertIdea = idea => {
+    API.createProject({
+      title: idea.title,
+      description: idea.description,
+      ownerID: idea.ownerID
+    })
+    .catch(err=> console.log(err));
+  }
 
   //   event.preventDefault();
   //   let choice = event.eventKey;
@@ -139,7 +149,7 @@ class Ideas extends Component {
                           {idea.description}
                         </p>
                         <ApproveBtn
-                          onClick={() => this.approveIdea(idea.id)}
+                          onClick={() => this.approveIdea(idea)}
                           className="btn blue-btn"
                         >
                         </ApproveBtn>

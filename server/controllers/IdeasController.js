@@ -22,6 +22,18 @@ module.exports = {
       .then(results => res.status(200).json(results))
       .catch(err => res.status(500).send(err));
   },
+  findAllApproved: (req, res) => {
+    db.Idea
+      .findAll({
+        where: {
+          endorsed: true,
+        },
+        include: [db.User],
+        order: ['id'],
+      })
+      .then(results => res.status(200).json(results))
+      .catch(err => res.status(500).send(err));
+  },
   findByID: (req, res) => {
     db.Idea
       .findOne({
