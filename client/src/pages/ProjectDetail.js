@@ -31,20 +31,28 @@ class ProjectDetail extends Component {
   //   6: 'Milestone Completed'
   // };
 
+//   getUrlVars() {
+//     var vars = {};
+//     var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+//         vars[key] = value;
+//     });
+//     return vars;
+// }
+
   componentDidMount() {
     this.loadProject();
   };
 
   loadProject = () => {
-    API.getThisProject()
+    API.getThisProject(this.props.location.search)
       .then(res =>
         this.setState({
-          title:res.data.title,
-          owner: res.data.User.firstName + ' ' + res.data.User.lastName,
-          projectID: res.data.id,
-          status: res.data.statusID,
-          projectMembers: res.data.ProjectMembers,
-          milestones: res.data.ProjectMilestones
+          title:res.data[0].title,
+          owner: res.data[0].User.firstName + ' ' + res.data[0].User.lastName,
+          projectID: res.data[0].id,
+          status: res.data[0].statusID,
+          projectMembers: res.data[0].ProjectMembers || '',
+          milestones: res.data[0].ProjectMilestones || ''
         })
       )
       .catch(err => console.log(err));
@@ -63,17 +71,17 @@ class ProjectDetail extends Component {
               <Card >
                 <Row >
                 <Col size="md-4">
-                <h3>Contributor: {this.owner}</h3>
+                <h3>Contributor: {this.state.owner}</h3>
                 </Col>
                 <Col size="md-4">
-                <h1>{this.title}</h1>
+                <h1>{this.state.title}</h1>
                 </Col>
                 <Col size="md-4">
                 <DropDownBtn className="blue-btn" />
                 <ProjectDetailMainModal />
                 </Col>
                 </Row>
-                <p className="text-center">{this.description}</p>
+                <p className="text-center">{this.state.description}</p>
                 <h2>Team Roles</h2>
                 <Form >
                   <FormGroup >

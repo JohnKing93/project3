@@ -47,6 +47,31 @@ export function EditBtn(props) {
   );
 }
 
+export function ApproveBtn(props) {
+  return (
+    <span className="btn" {...props}>
+    Approve
+    </span>
+  );
+}
+
+
+export function IdeaDropDownBtn(props) {
+  return (
+    <div className="dropdown" {...props}>
+      <button
+          className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Options
+      </button>
+      <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <span className="dropdown-item">approve</span>
+          <span className="dropdown-item" data-toggle="modal" data-target="#editModal">edit</span>
+          <span className="dropdown-item">delete</span>
+      </div>
+    </div>
+  );
+}
+
 export function RoleDropBtn(props) {
   return (
     <div className="dropdown" {...props}>

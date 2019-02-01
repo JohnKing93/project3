@@ -21,16 +21,31 @@ export default {
 
   //Get a single Project by ID
   getThisProject: function(projectID) {
-    return axios.get("/api/projects/:" + projectID);
+    return axios.get("/api/projects/" + projectID);
   },
 
-  //Get all Ideas (submitted, not yet approved)
+  //Creates a new project
+  createProject: function(approvedIdea) {
+    return axios.post("/api/projects", approvedIdea);
+  },
+
+  //Get all Ideas (conditional to exclude approved ideas, see: api route and controller)
   getIdeas: function() {
     return axios.get("/api/ideas");
+  },
+
+  //Get all Approved ideas
+  getApproved: function() {
+    return axios.get("/api/ideas/approved");
   },
 
   //post submitted Idea to db
   submitIdea: function(newIdea) {
     return axios.post("/api/ideas", newIdea);
+  },
+
+  //update part of an existing Idea
+  updateIdea: function(idea) {
+    return axios.put("/api/ideas/" + idea.id, idea)
   }
 };

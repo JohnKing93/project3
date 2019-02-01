@@ -2,13 +2,15 @@ import React, { Component } from "react";
 import { Col, Row, Container } from "../components/Grid";
 import { Card } from "../components/Card";
 import { Input, TextArea, Button } from "../components/Form";
-import { VoteUpBtn, DropDownBtn } from "../components/Buttons";
+// import { VoteUpBtn, IdeaDropDownBtn } from "../components/Buttons";
+import { VoteUpBtn, ApproveBtn } from "../components/Buttons";
 import { List, ListItem } from "../components/List";
 import { Navigation } from "../components/Navigation";
 import API from "../utils/API";
 import { ProjectDetailMainModal } from "../components/Modal";
 
 //this page should display suggested projects and allow users to suggest new projects
+//managers should be able to approve ideas, converting them to projects
 
 class Ideas extends Component {
 
@@ -57,6 +59,44 @@ class Ideas extends Component {
       .catch(err => console.log(err));
     }
   };
+
+  approveIdea = idea => {
+    API.updateIdea({
+      id: idea.id,
+      endorsed: true
+    })
+    .then(res => this.convertIdea(idea))
+    .then(res => this.loadIdeas())
+    .catch(err => console.log(err));
+  };
+
+  convertIdea = idea => {
+    API.createProject({
+      title: idea.title,
+      description: idea.description,
+      ownerID: idea.ownerID
+    })
+    .catch(err=> console.log(err));
+  }
+
+  //   event.preventDefault();
+  //   let choice = event.eventKey;
+  //   console.log("choice: " + choice);
+  //   switch(choice) {
+  //     case '1':
+  //       approveIdea();
+  //       break;
+  //     // case '2':
+  //     //   editIdea();
+  //     //   break;
+  //     // case '3':
+  //     //   deleteIdea();
+  //     //   break;
+  //     default: console.log('no valid selection');
+
+  //   }
+
+  // };
 
   render() {
     return (
@@ -108,7 +148,11 @@ class Ideas extends Component {
                         <p>
                           {idea.description}
                         </p>
-                        <DropDownBtn ></DropDownBtn>
+                        <ApproveBtn
+                          onClick={() => this.approveIdea(idea)}
+                          className="btn blue-btn"
+                        >
+                        </ApproveBtn>
                       </ListItem>
                     ))}
                   </List>
