@@ -26,15 +26,17 @@ class PrivateRoute extends React.Component {
 
   componentDidMount() {
     this.authenticate()
-    this.unlisten = this.props.history.listen(() => {
-      this.authenticate()
-        .then(user => console.log('User: ', user))
-        .catch(() => {
-          if (this.state.isAuthenticated) {
-            this.setState({ isAuthenticated: false })
-          }
-        })
-    });
+
+    // this.unlisten = this.props.history.listen(() => {
+    //   this.authenticate()
+    //     .then(user => console.log('User: ', user))
+    //     .catch(() => {
+    //       if (this.state.isAuthenticated) {
+    //         this.setState({ isAuthenticated: false })
+    //       }
+    //     })
+    // });
+
   }
 
   authenticate() {
@@ -54,9 +56,11 @@ class PrivateRoute extends React.Component {
     });
   }
 
+  /*
   componentWillUnmount() {
     this.unlisten()
   }
+  */
 
   render() {
     const { component: Component, ...rest } = this.props
@@ -92,7 +96,6 @@ const Routes = () => (
       {/* <Route exact path="/ideas/:id" component={Detail} /> */}
       <PrivateRoute exact path="/projects" component={LiveProjects} />
       <PrivateRoute exact path="/projects/:id" component={ProjectDetail} />
-      {/* <Route exact path="/incentives" component={Books} /> */}
       <PrivateRoute exact path="/profile" component={UserProfile} />
       {/* <Route exact path="/profile/:id" component={Detail} /> */}
       <Route component={NoMatch} />

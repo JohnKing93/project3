@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Navigation } from "../components/Navigation";
 import { Col, Row, Container } from "../components/Grid";
 import { Card } from "../components/Card";
-import { DetailBtn } from "../components/Buttons";
+// import { DetailBtn } from "../components/Buttons";
 import API from "../utils/API";
 
 class LiveProjects extends Component {
@@ -47,7 +47,6 @@ class LiveProjects extends Component {
                             <h2>
                               {project.title}
                             </h2>
-                            <DetailBtn ></DetailBtn>
                             <p>
                               {project.description}
                             </p>
