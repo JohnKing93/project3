@@ -29,8 +29,16 @@ module.exports = (sequelize, DataTypes) => {
       },
     });
 
-    // Project Member has one overall status
-    models.Status.hasOne(models.ProjectMember, {
+    // Role Member has one overall status
+    models.Status.hasOne(models.RoleMember, {
+      foreignKey: {
+        name: 'statusID',
+        allowNull: false,
+      },
+    });
+
+    // Project role has one overall status
+    models.Status.hasOne(models.ProjectRole, {
       foreignKey: {
         name: 'statusID',
         allowNull: false,
