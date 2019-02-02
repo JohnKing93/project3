@@ -21,7 +21,7 @@ export default {
 
   //Get a single Project by ID
   getThisProject: function(projectID) {
-    return axios.get("/api/projects/" + projectID);
+    return axios.get(`/api/projects/${projectID}`);
   },
 
   //Creates a new project
@@ -45,7 +45,7 @@ export default {
   },
 
   //update part of an existing Idea
-  updateIdea: function(idea) {
-    return axios.put("/api/ideas/" + idea.id, idea)
+  updateIdea: function(id) {
+    return axios.put(`/api/ideas/${id}`, { endorsed: true })
   }
 };
