@@ -63,29 +63,32 @@ module.exports = {
       if (err) {
         console.log(err);
       }
-      if (info != undefined) {
+      if (info !== undefined) {
         res.status(403).send({ message: info.message });
       } else {
         req.logIn(user, (error) => {
           if (error) {
             console.log(err);
           }
-          const data = {
-            firstName: req.body.firstname,
-            lastName: req.body.lastname,
-            email: req.body.email,
-            username: user.username,
-          };
-          db.User.findOne({
-            where: {
-              email: data.email,
-            },
-          })
+
+          // Destructure req.body
+          const {
+            firstName,
+            lastName,
+            email,
+          } = req.body;
+
+          db.User
+            .findOne({
+              where: {
+                email,
+              },
+            })
             .then((foundUser) => {
               foundUser
                 .update({
-                  firstName: data.firstName,
-                  lastName: data.lastName,
+                  firstName,
+                  lastName,
                 })
                 .then(() => {
                   console.log('User sucessfully created');
@@ -101,7 +104,7 @@ module.exports = {
       if (err) {
         console.log(err);
       }
-      if (info != undefined) {
+      if (info !== undefined) {
         if (info.message === 'User does not exist') {
           res.status(401).send({ message: info.message });
         } else {
@@ -111,6 +114,7 @@ module.exports = {
         const payload = {
           username: user.email,
         };
+
         req.login(payload, { session: false }, (error) => {
           if (error) {
             res.status(400).send({ error });
@@ -127,7 +131,7 @@ module.exports = {
       if (err) {
         console.log(err);
       }
-      if (info != undefined) {
+      if (info !== undefined) {
         res.status(401).send({
           auth: false,
           message: info.message,
