@@ -2,43 +2,61 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Status_Ref', [
       {
-        type: 'projectSts',
+        type: 'project',
         description: 'In Progress',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        type: 'projectSts',
+        type: 'project',
         description: 'Completed',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        type: 'projectSts',
+        type: 'project',
         description: 'Archived',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        type: 'userAppSts',
+        type: 'projectRole',
+        description: 'Open',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        type: 'projectRole',
+        description: 'Closed',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        type: 'roleMember',
         description: 'Applied',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        type: 'userAppSts',
+        type: 'roleMember',
         description: 'Approved',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        type: 'userAppSts',
+        type: 'roleMember',
         description: 'Declined',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        type: 'milestoneSts',
+        type: 'milestone',
+        description: 'In Progress',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        type: 'milestone',
         description: 'Completed',
         createdAt: new Date(),
         updatedAt: new Date(),
