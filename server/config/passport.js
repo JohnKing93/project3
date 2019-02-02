@@ -37,8 +37,8 @@ passport.use(
                   .create({
                     email: username,
                     password: hashedPassword,
-                    firstName: req.body.firstname,
-                    lastName: req.body.lastname,
+                    firstName: req.body.firstName,
+                    lastName: req.body.lastName,
                     permissionID: 1,
                   })
                   .then((createdUser) => {
