@@ -7,7 +7,7 @@ module.exports = {
         include: [{
           model: db.Status,
           where: {
-            type: 'projectSts',
+            type: 'project',
           },
         }, db.User],
         order: ['id'],
@@ -24,7 +24,7 @@ module.exports = {
         include: [{
           model: db.Status,
           where: {
-            type: 'projectSts',
+            type: 'project',
           },
         }, {
           model: db.ProjectMember,

@@ -61,16 +61,15 @@ module.exports = {
   register: (req, res, next) => {
     passport.authenticate('register', (err, user, info) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
       }
       if (info !== undefined) {
         res.status(403).send({ message: info.message });
       } else {
         req.logIn(user, (error) => {
           if (error) {
-            console.log(err);
+            // console.log(err);
           }
-
           // Destructure req.body
           const {
             firstName,
@@ -91,8 +90,8 @@ module.exports = {
                   lastName,
                 })
                 .then(() => {
-                  console.log('User sucessfully created');
-                  res.status(200).send({ message: 'User sucessfully created' });
+                  // console.log('User successfully created');
+                  res.status(200).send({ message: 'User successfully created' });
                 });
             });
         });
@@ -102,8 +101,9 @@ module.exports = {
   login: (req, res, next) => {
     passport.authenticate('login', (err, user, info) => {
       if (err) {
-        console.log(err);
+        // console.error(err);
       }
+
       if (info !== undefined) {
         if (info.message === 'User does not exist') {
           res.status(401).send({ message: info.message });
@@ -129,7 +129,7 @@ module.exports = {
   authenticate: (req, res, next) => {
     passport.authenticate('jwt', { session: false }, (err, user, info) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
       }
       if (info !== undefined) {
         res.status(401).send({
@@ -142,7 +142,7 @@ module.exports = {
           message: 'User authenticated',
         });
       } else {
-        console.log('Invalid token');
+        // console.log('Invalid token');
         res.status(403).send({
           auth: false,
           message: 'Invalid token',
