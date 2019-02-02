@@ -6,7 +6,6 @@ import { Form, FormGroup, Label, Input, Button, Small } from "../components/Form
 import { Card } from "../components/Card";
 
 class Register extends Component {
-
   state = {
     firstName: '',
     lastName: '',
@@ -19,78 +18,68 @@ class Register extends Component {
 
   handleInputChange = event => {
     const { id, value } = event.target;
-    this.setState({
-      [id]: value
-    });
+    this.setState({ [id]: value });
   };
 
   handleFormChange = event => {
-    this.setState({
-      register: event
-    })
+    this.setState({ register: event })
   };
 
   handleRegisterUser = event => {
     event.preventDefault();
-    if (
-      this.state.firstName === '' ||
-      this.state.lastName === '' ||
-      this.state.email === '' ||
-      this.state.password === ''
-    ) {
-      this.setState({
-        message: "Please populate all fields"
-      });
-    }
-    else {
-      API.registerUser({
-        firstName: this.state.firstName,
-        lastName: this.state.lastName,
-        email: this.state.email,
-        username: this.state.email,
-        password: this.state.password,
-      })
-        .then(res => {
-          console.log(res.data);
-          this.setState({
-            message: res.data.message,
-          });
+    // Destructure this.state
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+    } = this.state;
+
+    if (firstName === '' || lastName === '' || email === '' || password === '') {
+      this.setState({ message: "Please populate all fields" });
+    } else {
+      API
+        .registerUser({
+          firstName,
+          lastName,
+          email,
+          username: email,
+          password,
         })
-        .catch(error => {
-          console.log(error.response.data.message);
-          this.setState({
-            message: error.response.data.message,
-          });
+        .then(res => {
+          // console.log(res.data);
+          this.setState({ message: res.data.message });
+        })
+        .catch(err => {
+          // console.log(err.response.data.message);
+          this.setState({ message: err.response.data.message });
         });
     }
   };
 
   handleLoginUser = event => {
     event.preventDefault();
-    if (
-      this.state.email === '' ||
-      this.state.password === ''
-    ) {
-      this.setState({
-        message: "Please populate all fields"
-      });
-    }
-    else {
-      API.loginUser({
-        username: this.state.email,
-        password: this.state.password,
-      })
-        .then(res => {
-          console.log(res.data);
-          this.setState({
-            success: true,
-          });
+    // Destructure this.state
+    const {
+      email,
+      password,
+    } = this.state;
+
+    if (email === '' || password === '') {
+      this.setState({ message: "Please populate all fields" });
+    } else {
+      API
+        .loginUser({
+          username: email,
+          password,
         })
-        .catch(error => {
-          console.log(error.response.data.message);
-          this.setState({
-            message: error.response.data.message,
-          });
+        .then(() => {
+          // console.log(res.data);
+          this.setState({ success: true });
+        })
+        .catch(err => {
+          // console.log(error.response.data.message);
+          this.setState({ message: err.response.data.message });
         });
     }
   };
