@@ -46,6 +46,10 @@ export default {
 
   //update part of an existing Idea
   updateIdea: function(idea) {
-    return axios.put("/api/ideas/" + idea.id, idea)
+    return axios.put("/api/ideas/" + idea.id, idea);
+  },
+
+  deleteIdea: function(idea) {
+    return axios.delete("/api/ideas/" + idea.id);
   }
 };

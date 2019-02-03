@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { Col, Row, Container } from "../components/Grid";
 import { Card } from "../components/Card";
 import { Input, TextArea, Button } from "../components/Form";
-// import { VoteUpBtn, IdeaDropDownBtn } from "../components/Buttons";
-import { VoteUpBtn, ApproveBtn } from "../components/Buttons";
+import { VoteUpBtn, IdeaDropDownBtn, IdeaDropDown, VoteDownBtn } from "../components/Buttons";
+// import { VoteUpBtn, ApproveBtn } from "../components/Buttons";
 import { List, ListItem } from "../components/List";
 import { Navigation } from "../components/Navigation";
 import API from "../utils/API";
@@ -79,24 +79,31 @@ class Ideas extends Component {
     .catch(err=> console.log(err));
   }
 
-  //   event.preventDefault();
-  //   let choice = event.eventKey;
-  //   console.log("choice: " + choice);
-  //   switch(choice) {
-  //     case '1':
-  //       approveIdea();
-  //       break;
-  //     // case '2':
-  //     //   editIdea();
-  //     //   break;
-  //     // case '3':
-  //     //   deleteIdea();
-  //     //   break;
-  //     default: console.log('no valid selection');
+  deleteIdea = idea => {
+    API.deleteIdea({
+      id: idea.id
+    })
+    .then(res => this.loadIdeas())
+    .catch(err => console.log(err));
+  }
 
-  //   }
+  upvote = idea => {
+    API.updateIdea({
+      id: idea.id,
+      voteCount: idea.voteCount + 1
+    })
+    .then(res => this.loadIdeas())
+    .catch(err => console.log(err));
+  };
 
-  // };
+  downvote = idea => {
+    API.updateIdea({
+      id: idea.id,
+      voteCount: idea.voteCount - 1
+    })
+    .then(res => this.loadIdeas())
+    .catch(err => console.log(err));
+  };
 
   render() {
     return (
@@ -141,18 +148,45 @@ class Ideas extends Component {
                   <List >
                     {this.state.ideas.map(idea => (
                       <ListItem key={idea.id}>
-                        <VoteUpBtn ></VoteUpBtn>
+                        <div>
+                          <VoteUpBtn
+                            className="btn blue-btn"
+                            onClick={() => this.upvote(idea)}
+                          >
+                          </VoteUpBtn>
+                          <div>
+                            {idea.voteCount}
+                          </div>
+                          <VoteDownBtn
+                            className="btn blue-btn"
+                            onClick={() => this.downvote(idea)}
+                          >
+                          </VoteDownBtn>
+                        </div>
                         <h2>
                           {idea.title}
                         </h2>
                         <p>
                           {idea.description}
                         </p>
-                        <ApproveBtn
-                          onClick={() => this.approveIdea(idea)}
-                          className="btn blue-btn"
-                        >
-                        </ApproveBtn>
+                        <IdeaDropDown>
+                          <IdeaDropDownBtn
+                            onClick={() => this.approveIdea(idea)}
+                          >
+                          <p>Approve</p>
+                          </IdeaDropDownBtn>
+                          {/* <IdeaDropDownBtn
+                           data-toggle="modal"
+                           data-target="#editModal"
+                          >
+                          <p>Edit</p>
+                          </IdeaDropDownBtn> */}
+                          <IdeaDropDownBtn
+                            onClick={() => this.deleteIdea(idea)}
+                          >
+                          <p>Delete</p>
+                          </IdeaDropDownBtn>
+                        </IdeaDropDown>
                       </ListItem>
                     ))}
                   </List>

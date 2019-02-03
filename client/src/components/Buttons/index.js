@@ -55,20 +55,24 @@ export function ApproveBtn(props) {
   );
 }
 
-
-export function IdeaDropDownBtn(props) {
+export function IdeaDropDown(props) {
   return (
-    <div className="dropdown" {...props}>
+    <div className="dropdown">
       <button
           className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Options
       </button>
       <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <span className="dropdown-item">approve</span>
-          <span className="dropdown-item" data-toggle="modal" data-target="#editModal">edit</span>
-          <span className="dropdown-item">delete</span>
+          {props.children}
       </div>
     </div>
+  );
+}
+
+export function IdeaDropDownBtn(props) {
+  return (
+  /*<span className="dropdown-item" data-toggle="modal" data-target="#editModal">edit</span>*/
+    <span className="dropdown-item" {...props}>{props.children}</span>
   );
 }
 
