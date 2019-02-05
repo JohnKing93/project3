@@ -115,18 +115,19 @@ class Ideas extends Component {
             <div id="new-idea-div">
               <Card >
                 <form>
-                  <p>Project Title</p>
+                  <p className="field-head">New Project Title</p>
                   <Input
                     id="newProjectTitle"
                     value={this.state.title}
                     onChange={this.handleInputChange}
                     name="title">
                   </Input>
-                  <p>Project Description</p>
+                  <p className="field-head">Project Description</p>
                   <TextArea
                     id="newProjectDescription"
                     value={this.state.description}
                     onChange={this.handleInputChange}
+                    rows="7"
                     name="description">
                   </TextArea>
                   <Button
@@ -136,30 +137,31 @@ class Ideas extends Component {
                   >
                   Submit
                   </Button>
+                  <p id="subtext-blue">Share a new idea!</p>
                 </form>
               </Card>
               </div>
               <div id="ideas-div">
-              <Card >
+              <Card className="shade-box">
               <ProjectDetailMainModal />
                 {this.state.ideas.length ? (
                   <List >
                     {this.state.ideas.map(idea => (
                       <ListItem key={idea.id}>
                         <div>
+                          <div className="vote-block">
                           <VoteUpBtn
-                            className="btn blue-btn"
                             onClick={() => this.upvote(idea)}
                           >
                           </VoteUpBtn>
-                          <div>
+                          <div className="vote-count field-head">
                             {idea.voteCount}
                           </div>
                           <VoteDownBtn
-                            className="btn blue-btn"
                             onClick={() => this.downvote(idea)}
                           >
                           </VoteDownBtn>
+                          </div>
                         </div>
                         <h2> {idea.title}</h2>
                         <p> {idea.description} </p>

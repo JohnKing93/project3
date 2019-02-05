@@ -70,14 +70,14 @@ class ProjectDetail extends Component {
             <div id="project-detail-div">
               <Card >
                 <Row >
-                <Col size="md-4">
+                <Col size="md-3">
                 <h3>Contributor: {this.state.owner}</h3>
                 </Col>
-                <Col size="md-4">
+                <Col size="md-6">
                 <h1>{this.state.title}</h1>
                 </Col>
-                <Col size="md-4">
-                <DropDown>
+                <Col size="md-3">
+                <DropDown className="top-right-drop">
                   {/* <DropDownBtn
                     data-toggle="modal"
                     data-target="#editModal"
@@ -99,17 +99,18 @@ class ProjectDetail extends Component {
                 </Col>
                 </Row>
                 <p className="text-center">{this.state.description}</p>
+                <div className="detail-list-section">
                 <h2>Team Roles</h2>
                 <Form >
                   <FormGroup >
-                    <Label htmlFor="Role Title">Add a New Role</Label>
+                    <Label htmlFor="Role Title" className="field-head">Add a New Role</Label>
                     <Input
                       type="text"
                       id="role"
                     />
                   </FormGroup>
                   <FormBtn
-                  className=".blue-btn">
+                  className="btn blue-btn">
                   Submit</FormBtn>
                 </Form>
                 {this.state.projectMembers.length ? (
@@ -122,7 +123,7 @@ class ProjectDetail extends Component {
                           <h2>
                             {member.role}
                           </h2>
-                          <RoleDropBtn className="blue-btn"></RoleDropBtn>
+                          <RoleDropBtn />
                           <h3>
                             {member.User.firstName}
                           </h3>
@@ -140,17 +141,19 @@ class ProjectDetail extends Component {
                 ) : (
                   <h3>No Roles Created</h3>
                 )}
+                </div>
+                <div className="detail-list-section">
                 <h2>Milestones</h2>
                 <Form >
                   <FormGroup >
-                    <Label htmlFor="Milestone Title">Add a New Milestone</Label>
+                    <Label htmlFor="Milestone Title" className="field-head">Add a New Milestone</Label>
                     <Input
                       type="text"
                       id="milestone"
                     />
                   </FormGroup>
                   <FormBtn
-                  className="blue-btn"
+                  className="btn blue-btn"
                   >Submit</FormBtn>
                 </Form>
                 {this.state.milestones.length ? (
@@ -173,6 +176,7 @@ class ProjectDetail extends Component {
                 ) : (
                   <h3>No Milestones for this Project</h3>
                 )}
+                </div>
               </Card>
               </div>
             </Col>

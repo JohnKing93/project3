@@ -6,11 +6,11 @@ import "./style.css";
 export function List({ children }) {
   return (
     <div className="list-overflow-container">
-      <ul className="list-group">{children}</ul>
+      <ul className="list-group my-list-group">{children}</ul>
     </div>
   );
 }
 
 export function ListItem({ children }) {
-  return <li className="list-group-item">{children}</li>;
+  return <li className="list-group-item my-list-item">{children}</li>;
 }
