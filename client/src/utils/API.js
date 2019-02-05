@@ -29,6 +29,11 @@ export default {
     return axios.post("/api/projects", approvedIdea);
   },
 
+  //Updates an existing project
+  updateProject: function(project) {
+    return axios.put("/api/projects/" + project.id, project);
+  },
+
   //Get all Ideas (conditional to exclude approved ideas, see: api route and controller)
   getIdeas: function() {
     return axios.get("/api/ideas");
@@ -46,6 +51,10 @@ export default {
 
   //update part of an existing Idea
   updateIdea: function(idea) {
-    return axios.put("/api/ideas/" + idea.id, idea)
+    return axios.put("/api/ideas/" + idea.id, idea);
+  },
+
+  deleteIdea: function(idea) {
+    return axios.delete("/api/ideas/" + idea.id);
   }
 };
