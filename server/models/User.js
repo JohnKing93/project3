@@ -107,6 +107,15 @@ module.exports = (sequelize, DataTypes) => {
       },
       onDelete: 'cascade',
     });
+
+    // User can have many skills
+    models.User.hasMany(models.UserSkill, {
+      foreignKey: {
+        name: 'userID',
+        allowNull: false,
+      },
+      onDelete: 'cascade',
+    });
   };
 
   return User;
