@@ -29,6 +29,11 @@ export default {
     return axios.post("/api/projects", approvedIdea);
   },
 
+  //Updates an existing project
+  updateProject: function(project) {
+    return axios.put("/api/projects/" + project.id, project);
+  },
+
   //Get all Ideas (conditional to exclude approved ideas, see: api route and controller)
   getIdeas: function() {
     return axios.get("/api/ideas");

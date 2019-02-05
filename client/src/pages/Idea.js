@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Col, Row, Container } from "../components/Grid";
 import { Card } from "../components/Card";
 import { Input, TextArea, Button } from "../components/Form";
-import { VoteUpBtn, IdeaDropDownBtn, IdeaDropDown, VoteDownBtn } from "../components/Buttons";
+import { VoteUpBtn, DropDownBtn, DropDown, VoteDownBtn } from "../components/Buttons";
 // import { VoteUpBtn, ApproveBtn } from "../components/Buttons";
 import { List, ListItem } from "../components/List";
 import { Navigation } from "../components/Navigation";
@@ -161,30 +161,26 @@ class Ideas extends Component {
                           >
                           </VoteDownBtn>
                         </div>
-                        <h2>
-                          {idea.title}
-                        </h2>
-                        <p>
-                          {idea.description}
-                        </p>
-                        <IdeaDropDown>
-                          <IdeaDropDownBtn
+                        <h2> {idea.title}</h2>
+                        <p> {idea.description} </p>
+                        <DropDown>
+                          <DropDownBtn
                             onClick={() => this.approveIdea(idea)}
                           >
                           <p>Approve</p>
-                          </IdeaDropDownBtn>
-                          {/* <IdeaDropDownBtn
+                          </DropDownBtn>
+                          {/* <DropDownBtn
                            data-toggle="modal"
                            data-target="#editModal"
                           >
                           <p>Edit</p>
-                          </IdeaDropDownBtn> */}
-                          <IdeaDropDownBtn
+                          </DropDownBtn> */}
+                          <DropDownBtn
                             onClick={() => this.deleteIdea(idea)}
                           >
                           <p>Delete</p>
-                          </IdeaDropDownBtn>
-                        </IdeaDropDown>
+                          </DropDownBtn>
+                        </DropDown>
                       </ListItem>
                     ))}
                   </List>

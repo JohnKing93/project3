@@ -16,20 +16,20 @@ export function VoteDownBtn(props) {
   );
 }
 
-export function DropDownBtn(props) {
-  return (
-    <div className="dropdown" {...props}>
-      <button
-          className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Options
-      </button>
-      <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <span className="dropdown-item" data-toggle="modal" data-target="#editModal">edit</span>
-          <a className="dropdown-item" href="google.com">delete</a>
-      </div>
-    </div>
-  );
-}
+// export function DropDownBtn(props) {
+//   return (
+//     <div className="dropdown" {...props}>
+//       <button
+//           className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+//           Options
+//       </button>
+//       <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+//           <span className="dropdown-item" data-toggle="modal" data-target="#editModal">edit</span>
+//           <a className="dropdown-item" href="google.com">delete</a>
+//       </div>
+//     </div>
+//   );
+// }
 
 export function DetailBtn(props) {
   return (
@@ -55,7 +55,7 @@ export function ApproveBtn(props) {
   );
 }
 
-export function IdeaDropDown(props) {
+export function DropDown(props) {
   return (
     <div className="dropdown">
       <button
@@ -69,7 +69,7 @@ export function IdeaDropDown(props) {
   );
 }
 
-export function IdeaDropDownBtn(props) {
+export function DropDownBtn(props) {
   return (
   /*<span className="dropdown-item" data-toggle="modal" data-target="#editModal">edit</span>*/
     <span className="dropdown-item" {...props}>{props.children}</span>
