@@ -36,7 +36,7 @@ class Ideas extends Component {
           description: ''
         })
       )
-      .catch(err => console.error(err));
+      .catch(err => console.log(err));
   };
 
   //Inputting New Ideas
@@ -47,31 +47,25 @@ class Ideas extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    // Destructure this.state
-    const {
-      title,
-      description,
-      ownerID
-    } = this.state;
+        if (this.state.title && this.state.description) {
+          API.submitIdea({
+            title: this.state.title,
+            description: this.state.description,
+            ownerID: this.state.ownerID
+          })
+          .then(res => this.loadIdeas())
+          .catch(err => console.log(err));
+        }
+      };
 
-    if (title && description) {
-      API
-        .submitIdea({
-          title,
-          description,
-          ownerID,
+      approveIdea = idea => {
+        API.updateIdea({
+          id: idea.id,
+          endorsed: true
         })
-        .then(() => this.loadIdeas())
-        .catch(err => console.log(err));
-    }
-  };
-
-  approveIdea = idea => {
-    API
-      .updateIdea(idea.id)
-      .then(() => this.convertIdea(idea))
-      .then(() => this.loadIdeas())
-      .catch(err => console.log(err));
+          .then(res => this.convertIdea(idea))
+          .then(res => this.loadIdeas())
+          .catch(err => console.log(err));
   };
 
   convertIdea = idea => {
