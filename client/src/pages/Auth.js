@@ -7,8 +7,8 @@ import { Card } from "../components/Card";
 
 class Register extends Component {
   state = {
-    firstName: '',
-    lastName: '',
+    firstname: '',
+    lastname: '',
     email: '',
     password: '',
     message: '',
@@ -27,59 +27,59 @@ class Register extends Component {
 
   handleRegisterUser = event => {
     event.preventDefault();
-    // Destructure this.state
-    const {
-      firstName,
-      lastName,
-      email,
-      password,
-    } = this.state;
-
-    if (firstName === '' || lastName === '' || email === '' || password === '') {
-      this.setState({ message: "Please populate all fields" });
-    } else {
-      API
-        .registerUser({
-          firstName,
-          lastName,
-          email,
-          username: email,
-          password,
-        })
+    if (
+          this.state.firstname === '' ||
+          this.state.lastname === '' ||
+          this.state.email === '' ||
+          this.state.password === ''
+        ) {
+          this.setState({
+            message: "Please populate all fields"
+          });
+        }
+        else {
+          API.registerUser({
+            firstname: this.state.firstname,
+            lastname: this.state.lastname,
+            email: this.state.email,
+            username: this.state.email,
+            password: this.state.password,
+          })
         .then(res => {
           // console.log(res.data);
           this.setState({ message: res.data.message });
         })
-        .catch(err => {
-          // console.log(err.response.data.message);
-          this.setState({ message: err.response.data.message });
+        .catch(error => {
+          console.log(error.response.data.message);
+          this.setState({ message: error.response.data.message });
         });
     }
   };
 
   handleLoginUser = event => {
     event.preventDefault();
-    // Destructure this.state
-    const {
-      email,
-      password,
-    } = this.state;
-
-    if (email === '' || password === '') {
-      this.setState({ message: "Please populate all fields" });
-    } else {
-      API
-        .loginUser({
-          username: email,
-          password,
+    if (
+      this.state.email === '' ||
+      this.state.password === ''
+    ) {
+      this.setState({
+        message: "Please populate all fields"
+      });
+    }
+    else {
+      API.loginUser({
+        username: this.state.email,
+        password: this.state.password,
+      })
+        .then(res => {
+          console.log(res.data);
+          this.setState({
+            success: true,
+          });
         })
-        .then(() => {
-          // console.log(res.data);
-          this.setState({ success: true });
-        })
-        .catch(err => {
-          // console.log(error.response.data.message);
-          this.setState({ message: err.response.data.message });
+        .catch(error => {
+          console.log(error.response.data.message);
+          this.setState({ message: error.response.data.message });
         });
     }
   };
@@ -109,20 +109,20 @@ class Register extends Component {
                   {this.state.register &&
                     <div>
                       <FormGroup>
-                        <Label htmlFor="firstName">First Name</Label>
+                        <Label htmlFor="firstname">First Name</Label>
                         <Input
                           type="text"
-                          id="firstName"
-                          value={this.state.firstName}
+                          id="firstname"
+                          value={this.state.firstname}
                           onChange={this.handleInputChange}
                         />
                       </FormGroup>
                       <FormGroup>
-                        <Label htmlFor="lastName">Last Name</Label>
+                        <Label htmlFor="lastname">Last Name</Label>
                         <Input
                           type="text"
-                          id="lastName"
-                          value={this.state.lastName}
+                          id="lastname"
+                          value={this.state.lastname}
                           onChange={this.handleInputChange}
                         />
                       </FormGroup>
