@@ -108,18 +108,19 @@ class Ideas extends Component {
             <div id="new-idea-div">
               <Card >
                 <form>
-                  <p>Project Title</p>
+                  <p className="field-head">New Project Title</p>
                   <Input
                     id="newProjectTitle"
                     value={this.state.title}
                     onChange={this.handleInputChange}
                     name="title">
                   </Input>
-                  <p>Project Description</p>
+                  <p className="field-head">Project Description</p>
                   <TextArea
                     id="newProjectDescription"
                     value={this.state.description}
                     onChange={this.handleInputChange}
+                    rows="7"
                     name="description">
                   </TextArea>
                   <Button
@@ -129,11 +130,12 @@ class Ideas extends Component {
                   >
                   Submit
                   </Button>
+                  <p id="subtext-blue">Share a new idea!</p>
                 </form>
               </Card>
               </div>
               <div id="ideas-div">
-              <Card >
+              <Card className="shade-box">
               <ProjectDetailMainModal />
                 {this.state.ideas.length ? (
                   <List >

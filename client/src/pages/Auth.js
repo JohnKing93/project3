@@ -109,7 +109,7 @@ class Register extends Component {
                   {this.state.register &&
                     <div>
                       <FormGroup>
-                        <Label htmlFor="firstname">First Name</Label>
+                        <Label htmlFor="firstname" className="field-head">First Name</Label>
                         <Input
                           type="text"
                           id="firstname"
@@ -118,7 +118,7 @@ class Register extends Component {
                         />
                       </FormGroup>
                       <FormGroup>
-                        <Label htmlFor="lastname">Last Name</Label>
+                        <Label htmlFor="lastname" className="field-head">Last Name</Label>
                         <Input
                           type="text"
                           id="lastname"
@@ -129,7 +129,7 @@ class Register extends Component {
                     </div>
                   }
                   <FormGroup>
-                    <Label htmlFor="email">Email</Label>
+                    <Label htmlFor="email" className="field-head">Email</Label>
                     <Input
                       type="email"
                       id="email"
@@ -139,7 +139,7 @@ class Register extends Component {
                     <Small>Please use a corporate email address.</Small>
                   </FormGroup>
                   <FormGroup>
-                    <Label htmlFor="password">Password</Label>
+                    <Label htmlFor="password" className="field-head">Password</Label>
                     <Input
                       type="password"
                       id="password"
@@ -166,6 +166,8 @@ class Register extends Component {
               </div>
           </Col>
         </Row>
+        <img className="bottom-art" src="images/progrobg.png"></img>
+        <img id="login-logo" src="images/progrologo.png"></img>
       </Container>
     );
   }

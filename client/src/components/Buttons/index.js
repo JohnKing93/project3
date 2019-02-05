@@ -2,15 +2,13 @@ import React from "react";
 
 export function VoteUpBtn(props) {
   return (
-    <span className="btn" {...props} role="button">
-      up
-    </span>
+    <i class="fas fa-arrow-alt-circle-up vote-btn" {...props} role="button"></i>
   );
 }
 
 export function VoteDownBtn(props) {
   return (
-    <span className="btn" {...props} role="button">
+    <span className="btn rounded-circle" {...props} role="button">
       down
     </span>
   );
@@ -20,7 +18,7 @@ export function DropDownBtn(props) {
   return (
     <div className="dropdown" {...props}>
       <button
-          className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          className="btn blue-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Options
       </button>
       <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">

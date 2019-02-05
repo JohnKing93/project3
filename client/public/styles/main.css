@@ -1,5 +1,5 @@
 body {
-  background-color: #d0dadb;
+  background-color: #e6eae9;
   color: #021a0c;
   line-height: 1.5;
 }
@@ -13,10 +13,44 @@ body .blue-btn {
   color: white;
 }
 
+body .field-head {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin: .5rem;
+}
+
+body .my-list-group {
+  background-color: #e6eae9;
+  padding-bottom: .5rem;
+}
+
+body .my-list-item {
+  margin: .5rem;
+  border-width: 0px;
+  border-radius: .25rem !important;
+}
+
+body .bottom-art {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+}
+
+body #login-logo {
+  width: 4rem;
+  position: fixed;
+  top: 1rem;
+  left: 2rem;
+  z-index: -2;
+}
+
 body #login-card {
-  margin: 7rem auto 4rem auto;
+  margin: 5rem auto 4rem auto;
   -webkit-box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
           box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
+  border-radius: .25rem;
 }
 
 body #login-card #login-head {
@@ -48,6 +82,7 @@ body #dash-card {
   text-align: center;
   -webkit-box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
           box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
+  border-radius: .25rem;
 }
 
 body #dash-card #profile-info-div h1 {
@@ -65,6 +100,10 @@ body #dash-card #profile-info-div h2 {
   line-height: .8;
 }
 
+body #dash-card #profile-info-div h3 {
+  font-size: 1.2rem;
+}
+
 body #dash-card #profile-project-div h1 {
   color: #0ca54d;
   font-size: 2rem;
@@ -74,7 +113,7 @@ body #dash-card #profile-project-div h1 {
 }
 
 body #dash-card #profile-project-div #project-box {
-  background-color: #d0dadb;
+  background-color: #e6eae9;
   border-radius: 5px;
 }
 
@@ -82,28 +121,48 @@ body #new-idea-div {
   margin: 3rem auto 1rem auto;
   -webkit-box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
           box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
+  border-radius: .25rem;
 }
 
 body #new-idea-div #subtext-blue {
   color: #14b7d4;
+  display: inline;
+  margin-left: .5rem;
 }
 
 body #ideas-div {
   margin: 0 auto 4rem auto;
   -webkit-box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
           box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
+  border-radius: .25rem;
+}
+
+body #ideas-div .vote-btn {
+  color: #66d8ac;
+  font-size: 2.5rem;
+  float: right;
+  margin: .2rem;
 }
 
 body #projects-div {
   margin: 3rem auto 4rem auto;
   -webkit-box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
           box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
+  border-radius: 15px;
+}
+
+body #projects-div h1 {
+  font-weight: bold;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 1rem;
 }
 
 body #project-detail-div {
   margin: 3rem auto 4rem auto;
   -webkit-box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
           box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
+  border-radius: .25rem;
 }
 
 body #project-detail-div h1 {
@@ -113,17 +172,29 @@ body #project-detail-div h1 {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   line-height: .75;
   margin-bottom: 1.5rem;
+  text-align: center;
 }
 
 body #project-detail-div h3 {
   color: #66d8ac;
+  font-size: 1rem;
 }
 
 body #project-detail-div h2 {
   color: #0ca54d;
+  font-size: 2rem;
+  text-align: center;
 }
 
 body #project-detail-div h4 {
   color: #bbf18f;
+}
+
+body #project-detail-div .top-right-drop {
+  float: right;
+}
+
+body #project-detail-div .detail-list-section {
+  margin-bottom: 2rem;
 }
 /*# sourceMappingURL=main.css.map */

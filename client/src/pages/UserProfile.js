@@ -25,8 +25,8 @@ class UserProfile extends Component {
                 <h1>UserName here</h1>
                 <h2>Position</h2>
                 <p>insert position here</p>
-                <h3>Skills</h3>
-                <p>insert skills here</p>
+                {/* <h3>Skills</h3>
+                <p>insert skills here</p> */}
                 <h3>Total Hours: 0.00</h3>
                 </div>
                 </Col>
