@@ -29,9 +29,10 @@ class ProjectDetail extends Component {
       .then(res =>
         this.setState({
           title:res.data[0].title,
+          description: res.data[0].description,
           owner: res.data[0].User.firstName + ' ' + res.data[0].User.lastName,
           projectID: res.data[0].id,
-          status: res.data[0].statusID,
+          statusID: res.data[0].statusID,
           projectMembers: res.data[0].ProjectMembers || '',
           milestones: res.data[0].ProjectMilestones || ''
         })
@@ -84,12 +85,12 @@ class ProjectDetail extends Component {
                   <p>Edit</p>
                   </DropDownBtn> */}
                   <DropDownBtn
-                    onClick={() => this.makeCompleted(this.state.id)}
+                    onClick={() => this.makeCompleted(this.state.projectID)}
                   >
                   <p>Complete</p>
                   </DropDownBtn>
                   <DropDownBtn
-                    onClick={() => this.makeArchived(this.state.id)}
+                    onClick={() => this.makeArchived(this.state.projectID)}
                   >
                   <p>Archive</p>
                   </DropDownBtn>
