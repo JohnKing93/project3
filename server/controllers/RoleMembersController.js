@@ -2,37 +2,35 @@ const db = require('../models');
 
 module.exports = {
   findAll: (req, res) => {
-    db.Project
+    db.RoleMember
       .findAll({
         include: [{
           model: db.Status,
           where: {
-            type: 'project',
+            type: 'roleMember',
           },
         }, db.User],
-        order: ['id'],
+        order: ['roleID', 'id'],
       })
       .then(results => res.status(200).json(results))
       .catch(err => res.status(500).send(err));
   },
-  findByID: (req, res) => {
-    db.Project
-      .findOne({
-        where: {
-          id: Number(req.params.id),
-        },
+  findAllByProject: (req, res) => {
+    db.RoleMember
+      .findAll({
         include: [{
           model: db.Status,
           where: {
-            type: 'project',
+            type: 'roleMember',
           },
-        }, {
-          model: db.ProjectMember,
-          include: [{
-            model: db.User,
-          }],
-        }, db.User, db.ProjectMilestone],
-        order: ['id'],
+        },
+        {
+          model: db.ProjectRole,
+          where: {
+            projectID: Number(req.params.id),
+          },
+        }, db.User],
+        order: ['roleID', 'id'],
       })
       .then(results => res.status(200).json(results))
       .catch(err => res.status(500).send(err));
@@ -40,24 +38,23 @@ module.exports = {
   create: (req, res) => {
     // Destructure req.body
     const {
-      title,
-      description,
-      ownerID,
+      roleID,
+      userID,
+      statusID,
     } = req.body;
 
-    db.Project
+    db.RoleMember
       .create({
-        title,
-        description,
-        ownerID: Number(ownerID),
-        statusID: 1,
+        roleID: Number(roleID),
+        userID: Number(userID),
+        statusID: Number(statusID),
       })
       .then(results => res.status(201).json(results))
       .catch(err => res.status(500).send(err));
   },
   updateByID: (req, res) => {
     // Update record from fields passed in from req.body and id from req.params
-    db.Project
+    db.RoleMember
       .update(req.body, {
         where: {
           id: req.params.id,
@@ -65,7 +62,7 @@ module.exports = {
       })
       .then(() => {
         // After successful update of record, search for record and return to user
-        db.Project
+        db.RoleMember
           .findOne({
             where: {
               id: req.params.id,
@@ -77,8 +74,8 @@ module.exports = {
       .catch(err => res.status(500).send(err));
   },
   deleteByID: (req, res) => {
-    // Delete record of id passed in from req.params
-    db.Project
+    // Delete record from id passed in req.params
+    db.RoleMember
       .destroy({
         where: {
           id: req.params.id,

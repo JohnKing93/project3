@@ -6,7 +6,6 @@ import { Form, FormGroup, Label, Input, Button, Small } from "../components/Form
 import { Card } from "../components/Card";
 
 class Register extends Component {
-
   state = {
     firstname: '',
     lastname: '',
@@ -19,48 +18,40 @@ class Register extends Component {
 
   handleInputChange = event => {
     const { id, value } = event.target;
-    this.setState({
-      [id]: value
-    });
+    this.setState({ [id]: value });
   };
 
   handleFormChange = event => {
-    this.setState({
-      register: event
-    })
+    this.setState({ register: event })
   };
 
   handleRegisterUser = event => {
     event.preventDefault();
     if (
-      this.state.firstname === '' ||
-      this.state.lastname === '' ||
-      this.state.email === '' ||
-      this.state.password === ''
-    ) {
-      this.setState({
-        message: "Please populate all fields"
-      });
-    }
-    else {
-      API.registerUser({
-        firstname: this.state.firstname,
-        lastname: this.state.lastname,
-        email: this.state.email,
-        username: this.state.email,
-        password: this.state.password,
-      })
-        .then(res => {
-          console.log(res.data);
+          this.state.firstname === '' ||
+          this.state.lastname === '' ||
+          this.state.email === '' ||
+          this.state.password === ''
+        ) {
           this.setState({
-            message: res.data.message,
+            message: "Please populate all fields"
           });
+        }
+        else {
+          API.registerUser({
+            firstname: this.state.firstname,
+            lastname: this.state.lastname,
+            email: this.state.email,
+            username: this.state.email,
+            password: this.state.password,
+          })
+        .then(res => {
+          // console.log(res.data);
+          this.setState({ message: res.data.message });
         })
         .catch(error => {
           console.log(error.response.data.message);
-          this.setState({
-            message: error.response.data.message,
-          });
+          this.setState({ message: error.response.data.message });
         });
     }
   };
@@ -88,9 +79,7 @@ class Register extends Component {
         })
         .catch(error => {
           console.log(error.response.data.message);
-          this.setState({
-            message: error.response.data.message,
-          });
+          this.setState({ message: error.response.data.message });
         });
     }
   };

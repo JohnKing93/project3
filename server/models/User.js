@@ -81,8 +81,8 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'cascade',
     });
 
-    // User can be a member of many projects
-    models.User.hasMany(models.ProjectMember, {
+    // User can have many roles
+    models.User.hasMany(models.RoleMember, {
       foreignKey: {
         name: 'userID',
         allowNull: false,

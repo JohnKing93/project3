@@ -2,7 +2,8 @@ const router = require('express').Router();
 const userRoutes = require('./users');
 const projectRoutes = require('./projects');
 const projectCommentRoutes = require('./projectComments');
-const projectMemberRoutes = require('./projectMembers');
+const projectRoleRoutes = require('./projectRoles');
+const roleMemberRoutes = require('./roleMembers');
 const projectMilestoneRoutes = require('./projectMilestones');
 const ideaRoutes = require('./ideas');
 const ideaVoteRoutes = require('./ideaVotes');
@@ -22,8 +23,11 @@ router.use('/projects', projectRoutes);
 // Project Comment Routes
 router.use('/projectcomments', projectCommentRoutes);
 
-// Project Member Routes
-router.use('/projectmembers', projectMemberRoutes);
+// Project Role Routes
+router.use('/projectroles', projectRoleRoutes);
+
+// Role Member Routes
+router.use('/rolemembers', roleMemberRoutes);
 
 // Project Milestone Routes
 router.use('/projectmilestones', projectMilestoneRoutes);

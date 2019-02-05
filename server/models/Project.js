@@ -22,8 +22,8 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'ownerID',
     });
 
-    // Project can have many members
-    models.Project.hasMany(models.ProjectMember, {
+    // Project can have many roles
+    models.Project.hasMany(models.ProjectRole, {
       foreignKey: {
         name: 'projectID',
         allowNull: false,

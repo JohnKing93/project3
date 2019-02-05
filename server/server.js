@@ -26,10 +26,11 @@ if (process.env.NODE_ENV === 'production') {
 app.use(routes);
 
 // Connect to DB
-db.sequelize.sync({ force: true }).then(() => {
-  app.listen(PORT, () => {
-    console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
-  });
-}).catch((err) => {
-  console.error(`Error connecting to DB ===> ${err}.`);
-});
+db.sequelize
+  .sync({ force: true })
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
+    });
+  })
+  .catch(err => console.error(`Error connecting to DB ===> ${err}.`));
