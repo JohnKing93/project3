@@ -5,8 +5,8 @@ $colors: (
     secondary: #66d8ac,
     tertiary: #bbf18f,
     negative: #ee744e,
-    neutral: #d0dadb,
-    neutral-lightest: lighten(#d0dadb, 30%),
+    neutral: #e6eae9,
+    neutral-lightest: lighten(#e6eae9, 30%),
     darkest: #021a0c
 );
 
@@ -30,9 +30,43 @@ body {
         color: white;
     }
 
+    .field-head {
+        font-weight: bold;
+        font-size: 1.1rem;
+        margin: .5rem;
+    }
+
+    .my-list-group {
+        background-color: color(neutral);
+        padding-bottom: .5rem;
+    }
+
+    .my-list-item {
+        margin: .5rem;
+        border-width: 0px;
+        border-radius: .25rem !important;
+    }
+
+    .bottom-art {
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        z-index: -1;
+    }
+
+    #login-logo {
+        width: 4rem;
+        position: fixed;
+        top: 1rem;
+        left: 2rem;
+        z-index: -2;
+    }
+
     #login-card {
-        margin: 7rem auto 4rem auto;
+        margin: 5rem auto 4rem auto;
         box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
+        border-radius: .25rem;
 
     #login-head {
         margin: 1rem auto 2rem auto;
@@ -61,6 +95,7 @@ body {
         margin: 3rem auto 4rem auto;
         text-align: center;
         box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
+        border-radius: .25rem;
 
         #profile-info-div {
             h1 {
@@ -75,6 +110,9 @@ body {
                 color: color(secondary);
                 font-size: 1.5rem;
                 line-height: .8;
+            }
+            h3 {
+                font-size: 1.2rem;
             }
         }
 
@@ -97,24 +135,52 @@ body {
     #new-idea-div {
         margin: 3rem auto 1rem auto;
         box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
+        border-radius: .25rem;
         #subtext-blue {
             color: color(accent);
+            display: inline;
+            margin-left: .5rem;
         }
     }
 
     #ideas-div {
         margin: 0 auto 4rem auto;
         box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
+        border-radius: .25rem;
+
+        .vote-block {
+            float: right;
+        
+            .vote-btn {
+                color: color(secondary);
+                font-size: 2.5rem;
+                margin: .2rem;
+                display: inline;
+            }
+
+            .vote-count {
+                display: inline;
+            }
+        }
     }
 
     #projects-div {
         margin: 3rem auto 4rem auto;
         box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
+        border-radius: 15px;
+
+        h1 {
+            font-weight: bold;
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
     }
 
     #project-detail-div {
         margin: 3rem auto 4rem auto;
         box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
+        border-radius: .25rem;
         
         h1 {
             color: color(primary);
@@ -122,16 +188,28 @@ body {
             font-weight: bold;
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
             line-height: .75;
-            margin-bottom: 1.5rem
+            margin-bottom: 1.5rem;
+            text-align: center;
         }
         h3 {
             color: color(secondary);
+            font-size: 1rem;
         }
         h2 {
             color: color(primary);
+            font-size: 2rem;
+            text-align: center;
         }
         h4 {
             color: color(tertiary);
+        }
+
+        .top-right-drop {
+            float: right;
+        }
+
+        .detail-list-section {
+            margin-bottom: 2rem;
         }
     }
 }

@@ -2,34 +2,30 @@ import React from "react";
 
 export function VoteUpBtn(props) {
   return (
-    <span className="btn" {...props} role="button">
-      up
-    </span>
+    <i class="fas fa-arrow-alt-circle-up vote-btn" {...props} role="button"></i>
   );
 }
 
 export function VoteDownBtn(props) {
   return (
-    <span className="btn" {...props} role="button">
-      down
-    </span>
+    <i class="fas fa-arrow-alt-circle-down vote-btn" {...props} role="button"></i>
   );
 }
 
-export function DropDownBtn(props) {
-  return (
-    <div className="dropdown" {...props}>
-      <button
-          className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Options
-      </button>
-      <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <span className="dropdown-item" data-toggle="modal" data-target="#editModal">edit</span>
-          <a className="dropdown-item" href="google.com">delete</a>
-      </div>
-    </div>
-  );
-}
+// export function DropDownBtn(props) {
+//   return (
+//     <div className="dropdown" {...props}>
+//       <button
+//           className="btn blue-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+//           Options
+//       </button>
+//       <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+//           <span className="dropdown-item" data-toggle="modal" data-target="#editModal">edit</span>
+//           <a className="dropdown-item" href="google.com">delete</a>
+//       </div>
+//     </div>
+//   );
+// }
 
 export function DetailBtn(props) {
   return (
@@ -55,20 +51,24 @@ export function ApproveBtn(props) {
   );
 }
 
-
-export function IdeaDropDownBtn(props) {
+export function DropDown(props) {
   return (
-    <div className="dropdown" {...props}>
+    <div className="dropdown">
       <button
-          className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          className="btn blue-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Options
       </button>
       <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <span className="dropdown-item">approve</span>
-          <span className="dropdown-item" data-toggle="modal" data-target="#editModal">edit</span>
-          <span className="dropdown-item">delete</span>
+          {props.children}
       </div>
     </div>
+  );
+}
+
+export function DropDownBtn(props) {
+  return (
+  /*<span className="dropdown-item" data-toggle="modal" data-target="#editModal">edit</span>*/
+    <span className="dropdown-item" {...props}>{props.children}</span>
   );
 }
 

@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { Col, Row, Container } from "../components/Grid";
 import { Card } from "../components/Card";
 import { Input, TextArea, Button } from "../components/Form";
-// import { VoteUpBtn, IdeaDropDownBtn } from "../components/Buttons";
-import { VoteUpBtn, ApproveBtn } from "../components/Buttons";
+import { VoteUpBtn, DropDownBtn, DropDown, VoteDownBtn } from "../components/Buttons";
+// import { VoteUpBtn, ApproveBtn } from "../components/Buttons";
 import { List, ListItem } from "../components/List";
 import { Navigation } from "../components/Navigation";
 import API from "../utils/API";
@@ -77,24 +77,31 @@ class Ideas extends Component {
     .catch(err=> console.log(err));
   }
 
-  //   event.preventDefault();
-  //   let choice = event.eventKey;
-  //   console.log("choice: " + choice);
-  //   switch(choice) {
-  //     case '1':
-  //       approveIdea();
-  //       break;
-  //     // case '2':
-  //     //   editIdea();
-  //     //   break;
-  //     // case '3':
-  //     //   deleteIdea();
-  //     //   break;
-  //     default: console.log('no valid selection');
+  deleteIdea = idea => {
+    API.deleteIdea({
+      id: idea.id
+    })
+    .then(res => this.loadIdeas())
+    .catch(err => console.log(err));
+  }
 
-  //   }
+  upvote = idea => {
+    API.updateIdea({
+      id: idea.id,
+      voteCount: idea.voteCount + 1
+    })
+    .then(res => this.loadIdeas())
+    .catch(err => console.log(err));
+  };
 
-  // };
+  downvote = idea => {
+    API.updateIdea({
+      id: idea.id,
+      voteCount: idea.voteCount - 1
+    })
+    .then(res => this.loadIdeas())
+    .catch(err => console.log(err));
+  };
 
   render() {
     return (
@@ -108,18 +115,19 @@ class Ideas extends Component {
             <div id="new-idea-div">
               <Card >
                 <form>
-                  <p>Project Title</p>
+                  <p className="field-head">New Project Title</p>
                   <Input
                     id="newProjectTitle"
                     value={this.state.title}
                     onChange={this.handleInputChange}
                     name="title">
                   </Input>
-                  <p>Project Description</p>
+                  <p className="field-head">Project Description</p>
                   <TextArea
                     id="newProjectDescription"
                     value={this.state.description}
                     onChange={this.handleInputChange}
+                    rows="7"
                     name="description">
                   </TextArea>
                   <Button
@@ -129,28 +137,52 @@ class Ideas extends Component {
                   >
                   Submit
                   </Button>
+                  <p id="subtext-blue">Share a new idea!</p>
                 </form>
               </Card>
               </div>
               <div id="ideas-div">
-              <Card >
+              <Card className="shade-box">
               <ProjectDetailMainModal />
                 {this.state.ideas.length ? (
                   <List >
                     {this.state.ideas.map(idea => (
                       <ListItem key={idea.id}>
-                        <VoteUpBtn ></VoteUpBtn>
-                        <h2>
-                          {idea.title}
-                        </h2>
-                        <p>
-                          {idea.description}
-                        </p>
-                        <ApproveBtn
-                          onClick={() => this.approveIdea(idea)}
-                          className="btn blue-btn"
-                        >
-                        </ApproveBtn>
+                        <div>
+                          <div className="vote-block">
+                          <VoteUpBtn
+                            onClick={() => this.upvote(idea)}
+                          >
+                          </VoteUpBtn>
+                          <div className="vote-count field-head">
+                            {idea.voteCount}
+                          </div>
+                          <VoteDownBtn
+                            onClick={() => this.downvote(idea)}
+                          >
+                          </VoteDownBtn>
+                          </div>
+                        </div>
+                        <h2> {idea.title}</h2>
+                        <p> {idea.description} </p>
+                        <DropDown>
+                          <DropDownBtn
+                            onClick={() => this.approveIdea(idea)}
+                          >
+                          <p>Approve</p>
+                          </DropDownBtn>
+                          {/* <DropDownBtn
+                           data-toggle="modal"
+                           data-target="#editModal"
+                          >
+                          <p>Edit</p>
+                          </DropDownBtn> */}
+                          <DropDownBtn
+                            onClick={() => this.deleteIdea(idea)}
+                          >
+                          <p>Delete</p>
+                          </DropDownBtn>
+                        </DropDown>
                       </ListItem>
                     ))}
                   </List>

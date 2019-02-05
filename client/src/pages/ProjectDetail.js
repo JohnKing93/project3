@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Col, Row, Container } from "../components/Grid";
 import { Card } from "../components/Card";
 import { Input, FormGroup, Label, Form, FormBtn } from "../components/Form";
-import { RoleDropBtn, DropDownBtn, DetailBtn } from "../components/Buttons";
+import { RoleDropBtn, DropDown, DropDownBtn, DetailBtn } from "../components/Buttons";
 import { List, ListItem } from "../components/List";
 import { Navigation } from "../components/Navigation";
 import API from "../utils/API";
@@ -20,25 +20,6 @@ class ProjectDetail extends Component {
     milestones: []
   };
 
-  // interpretState() {
-  //   switch( {
-  //     case '1':
-  //       return 'In Progress';
-  //   2: 'Completed',
-  //   3: 'Applied',
-  //   4: 'Approved',
-  //   5: 'Declined',
-  //   6: 'Milestone Completed'
-  // };
-
-//   getUrlVars() {
-//     var vars = {};
-//     var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-//         vars[key] = value;
-//     });
-//     return vars;
-// }
-
   componentDidMount() {
     this.loadProject();
   };
@@ -48,14 +29,33 @@ class ProjectDetail extends Component {
       .then(res =>
         this.setState({
           title:res.data[0].title,
+          description: res.data[0].description,
           owner: res.data[0].User.firstName + ' ' + res.data[0].User.lastName,
           projectID: res.data[0].id,
-          status: res.data[0].statusID,
+          statusID: res.data[0].statusID,
           projectMembers: res.data[0].ProjectMembers || '',
           milestones: res.data[0].ProjectMilestones || ''
         })
       )
       .catch(err => console.log(err));
+  };
+
+  makeArchived = (id) => {
+    API.updateProject({
+      projectID: id,
+      statusID: 3
+    })
+    .then(res => this.props.history.push('/projects'))
+    .catch(err => console.log(err));
+  };
+
+  makeCompleted = (id) => {
+    API.updateProject({
+      projectID: id,
+      statusID: 2
+    })
+    .then(res => this.props.history.push('/projects'))
+    .catch(err => console.log(err));
   };
 
   render() {
@@ -70,29 +70,47 @@ class ProjectDetail extends Component {
             <div id="project-detail-div">
               <Card >
                 <Row >
-                <Col size="md-4">
+                <Col size="md-3">
                 <h3>Contributor: {this.state.owner}</h3>
                 </Col>
-                <Col size="md-4">
+                <Col size="md-6">
                 <h1>{this.state.title}</h1>
                 </Col>
-                <Col size="md-4">
-                <DropDownBtn className="blue-btn" />
+                <Col size="md-3">
+                <DropDown className="top-right-drop">
+                  {/* <DropDownBtn
+                    data-toggle="modal"
+                    data-target="#editModal"
+                  >
+                  <p>Edit</p>
+                  </DropDownBtn> */}
+                  <DropDownBtn
+                    onClick={() => this.makeCompleted(this.state.projectID)}
+                  >
+                  <p>Complete</p>
+                  </DropDownBtn>
+                  <DropDownBtn
+                    onClick={() => this.makeArchived(this.state.projectID)}
+                  >
+                  <p>Archive</p>
+                  </DropDownBtn>
+                </DropDown>
                 <ProjectDetailMainModal />
                 </Col>
                 </Row>
                 <p className="text-center">{this.state.description}</p>
+                <div className="detail-list-section">
                 <h2>Team Roles</h2>
                 <Form >
                   <FormGroup >
-                    <Label htmlFor="Role Title">Add a New Role</Label>
+                    <Label htmlFor="Role Title" className="field-head">Add a New Role</Label>
                     <Input
                       type="text"
                       id="role"
                     />
                   </FormGroup>
                   <FormBtn
-                  className=".blue-btn">
+                  className="btn blue-btn">
                   Submit</FormBtn>
                 </Form>
                 {this.state.projectMembers.length ? (
@@ -105,7 +123,7 @@ class ProjectDetail extends Component {
                           <h2>
                             {member.role}
                           </h2>
-                          <RoleDropBtn className="blue-btn"></RoleDropBtn>
+                          <RoleDropBtn />
                           <h3>
                             {member.User.firstName}
                           </h3>
@@ -123,17 +141,19 @@ class ProjectDetail extends Component {
                 ) : (
                   <h3>No Roles Created</h3>
                 )}
+                </div>
+                <div className="detail-list-section">
                 <h2>Milestones</h2>
                 <Form >
                   <FormGroup >
-                    <Label htmlFor="Milestone Title">Add a New Milestone</Label>
+                    <Label htmlFor="Milestone Title" className="field-head">Add a New Milestone</Label>
                     <Input
                       type="text"
                       id="milestone"
                     />
                   </FormGroup>
                   <FormBtn
-                  className="blue-btn"
+                  className="btn blue-btn"
                   >Submit</FormBtn>
                 </Form>
                 {this.state.milestones.length ? (
@@ -156,6 +176,7 @@ class ProjectDetail extends Component {
                 ) : (
                   <h3>No Milestones for this Project</h3>
                 )}
+                </div>
               </Card>
               </div>
             </Col>
