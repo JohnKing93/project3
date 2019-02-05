@@ -15,8 +15,7 @@ passport.use(
       passwordField: 'password',
       passReqToCallback: true,
       session: false,
-    },
-    (req, username, password, done) => {
+       }, (req, username, password, done) => {
       try {
         db.User.findOne({
           where: {
@@ -56,8 +55,7 @@ passport.use(
       usernameField: 'username',
       passwordField: 'password',
       session: false,
-    },
-    (username, password, done) => {
+    }, (username, password, done) => {
       try {
         db.User.findOne({
           where: {
@@ -88,8 +86,7 @@ passport.use(
   new JWTstrategy({
     jwtFromRequest: req => req.cookies.jwt,
     secretOrKey: jwtSecret.secret,
-  },
-  (jwtPayload, done) => {
+  }, (jwtPayload, done) => {
     try {
       db.User.findOne({
         where: {

@@ -61,35 +61,37 @@ module.exports = {
   register: (req, res, next) => {
     passport.authenticate('register', (err, user, info) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
       }
-      if (info != undefined) {
+      if (info !== undefined) {
         res.status(403).send({ message: info.message });
       } else {
         req.logIn(user, (error) => {
           if (error) {
-            console.log(err);
+            // console.log(err);
           }
-          const data = {
-            firstName: req.body.firstname,
-            lastName: req.body.lastname,
-            email: req.body.email,
-            username: user.username,
-          };
-          db.User.findOne({
-            where: {
-              email: data.email,
-            },
-          })
+          // Destructure req.body
+          const {
+            firstName,
+            lastName,
+            email,
+          } = req.body;
+
+          db.User
+            .findOne({
+              where: {
+                email,
+              },
+            })
             .then((foundUser) => {
               foundUser
                 .update({
-                  firstName: data.firstName,
-                  lastName: data.lastName,
+                  firstName,
+                  lastName,
                 })
                 .then(() => {
-                  console.log('User sucessfully created');
-                  res.status(200).send({ message: 'User sucessfully created' });
+                  // console.log('User successfully created');
+                  res.status(200).send({ message: 'User successfully created' });
                 });
             });
         });
@@ -99,9 +101,10 @@ module.exports = {
   login: (req, res, next) => {
     passport.authenticate('login', (err, user, info) => {
       if (err) {
-        console.log(err);
+        // console.error(err);
       }
-      if (info != undefined) {
+
+      if (info !== undefined) {
         if (info.message === 'User does not exist') {
           res.status(401).send({ message: info.message });
         } else {
@@ -111,6 +114,7 @@ module.exports = {
         const payload = {
           username: user.email,
         };
+
         req.login(payload, { session: false }, (error) => {
           if (error) {
             res.status(400).send({ error });
@@ -125,9 +129,9 @@ module.exports = {
   authenticate: (req, res, next) => {
     passport.authenticate('jwt', { session: false }, (err, user, info) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
       }
-      if (info != undefined) {
+      if (info !== undefined) {
         res.status(401).send({
           auth: false,
           message: info.message,
@@ -138,7 +142,7 @@ module.exports = {
           message: 'User authenticated',
         });
       } else {
-        console.log('Invalid token');
+        // console.log('Invalid token');
         res.status(403).send({
           auth: false,
           message: 'Invalid token',

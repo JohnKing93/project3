@@ -8,7 +8,6 @@ import { Card } from "../components/Card";
 import API from "../utils/API";
 
 class LiveProjects extends Component {
-
   state = {
     projects: []
   };
@@ -18,12 +17,9 @@ class LiveProjects extends Component {
   };
 
   loadProjects = () => {
-    API.getProjects()
-      .then(res =>
-        this.setState({
-          projects: res.data
-        })
-      )
+    API
+      .getProjects()
+      .then(res => this.setState({ projects: res.data }))
       .catch(err => console.log(err));
   };
 

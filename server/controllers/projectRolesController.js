@@ -2,21 +2,21 @@ const db = require('../models');
 
 module.exports = {
   findAll: (req, res) => {
-    db.ProjectMember
+    db.ProjectRole
       .findAll({
         include: [{
           model: db.Status,
           where: {
-            type: 'userAppSts',
+            type: 'projectRole',
           },
         }],
-        order: ['projectID', 'id'],
+        order: ['id'],
       })
       .then(results => res.status(200).json(results))
       .catch(err => res.status(500).send(err));
   },
-  findAllByProject: (req, res) => {
-    db.ProjectMember
+  findAllByProjectID: (req, res) => {
+    db.ProjectRole
       .findAll({
         where: {
           projectID: Number(req.params.id),
@@ -24,10 +24,27 @@ module.exports = {
         include: [{
           model: db.Status,
           where: {
-            type: 'userAppSts',
+            type: 'projectRole',
           },
         }],
-        order: ['projectID', 'id'],
+        order: ['id'],
+      })
+      .then(results => res.status(200).json(results))
+      .catch(err => res.status(500).send(err));
+  },
+  findByID: (req, res) => {
+    db.ProjectRole
+      .findOne({
+        where: {
+          id: Number(req.params.id),
+        },
+        include: [{
+          model: db.Status,
+          where: {
+            type: 'projectRole',
+          },
+        }],
+        order: ['id'],
       })
       .then(results => res.status(200).json(results))
       .catch(err => res.status(500).send(err));
@@ -35,25 +52,24 @@ module.exports = {
   create: (req, res) => {
     // Destructure req.body
     const {
+      title,
+      description,
       projectID,
-      userID,
-      role,
-      statusID,
     } = req.body;
 
-    db.ProjectMember
+    db.ProjectRole
       .create({
-        projectID: Number(projectID),
-        userID: Number(userID),
-        role,
-        statusID: Number(statusID),
+        title,
+        description,
+        projectID,
+        statusID: 4,
       })
       .then(results => res.status(201).json(results))
       .catch(err => res.status(500).send(err));
   },
   updateByID: (req, res) => {
     // Update record from fields passed in from req.body and id from req.params
-    db.ProjectMember
+    db.ProjectRole
       .update(req.body, {
         where: {
           id: req.params.id,
@@ -61,7 +77,7 @@ module.exports = {
       })
       .then(() => {
         // After successful update of record, search for record and return to user
-        db.ProjectMember
+        db.ProjectRole
           .findOne({
             where: {
               id: req.params.id,
@@ -73,8 +89,8 @@ module.exports = {
       .catch(err => res.status(500).send(err));
   },
   deleteByID: (req, res) => {
-    // Delete record from id passed in req.params
-    db.ProjectMember
+    // Delete record of id passed in from req.params
+    db.ProjectRole
       .destroy({
         where: {
           id: req.params.id,

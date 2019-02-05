@@ -13,7 +13,6 @@ import { ProjectDetailMainModal } from "../components/Modal";
 //managers should be able to approve ideas, converting them to projects
 
 class Ideas extends Component {
-
   state = {
     ideas: [],
     ownerID: 1,
@@ -27,10 +26,11 @@ class Ideas extends Component {
 
   //Display previous Ideas
   loadIdeas = () => {
-    API.getIdeas()
+    API
+      .getIdeas()
       .then(res =>
         this.setState({
-          ideas:res.data,
+          ideas: res.data,
           ownerID: 1,
           title: '',
           description: ''
@@ -42,32 +42,30 @@ class Ideas extends Component {
   //Inputting New Ideas
   handleInputChange = event => {
     const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
+    this.setState({ [name]: value });
   };
 
   handleFormSubmit = event => {
     event.preventDefault();
-    if (this.state.title && this.state.description) {
-      API.submitIdea({
-        title: this.state.title,
-        description: this.state.description,
-        ownerID: this.state.ownerID
-      })
-      .then(res => this.loadIdeas())
-      .catch(err => console.log(err));
-    }
-  };
+        if (this.state.title && this.state.description) {
+          API.submitIdea({
+            title: this.state.title,
+            description: this.state.description,
+            ownerID: this.state.ownerID
+          })
+          .then(res => this.loadIdeas())
+          .catch(err => console.log(err));
+        }
+      };
 
-  approveIdea = idea => {
-    API.updateIdea({
-      id: idea.id,
-      endorsed: true
-    })
-    .then(res => this.convertIdea(idea))
-    .then(res => this.loadIdeas())
-    .catch(err => console.log(err));
+      approveIdea = idea => {
+        API.updateIdea({
+          id: idea.id,
+          endorsed: true
+        })
+          .then(res => this.convertIdea(idea))
+          .then(res => this.loadIdeas())
+          .catch(err => console.log(err));
   };
 
   convertIdea = idea => {
