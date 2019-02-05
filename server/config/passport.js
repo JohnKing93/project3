@@ -66,7 +66,11 @@ passport.use(
           if (user === null) {
             return done(null, false, { message: 'User does not exist' });
           }
-          console.log('Login successful');
+          bcrypt.compare(password, user.password).then((response) => {
+            if (response !== true) {
+              return done(null, false, { message: 'Incorrect password' });
+            }
+            console.log('Login successful');
             return done(null, user);
           });
         });
