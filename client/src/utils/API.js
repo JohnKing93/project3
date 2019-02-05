@@ -21,7 +21,7 @@ export default {
 
   //Get a single Project by ID
   getThisProject: function(projectID) {
-    return axios.get("/api/projects0 + projectID");
+    return axios.get("/api/projects/" + projectID);
   },
 
   //Creates a new project
