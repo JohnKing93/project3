@@ -149,19 +149,19 @@ class Ideas extends Component {
                     {this.state.ideas.map(idea => (
                       <ListItem key={idea.id}>
                         <div>
+                          <div className="vote-block">
                           <VoteUpBtn
-                            className="btn blue-btn"
                             onClick={() => this.upvote(idea)}
                           >
                           </VoteUpBtn>
-                          <div>
+                          <div className="vote-count field-head">
                             {idea.voteCount}
                           </div>
                           <VoteDownBtn
-                            className="btn blue-btn"
                             onClick={() => this.downvote(idea)}
                           >
                           </VoteDownBtn>
+                          </div>
                         </div>
                         <h2> {idea.title}</h2>
                         <p> {idea.description} </p>
