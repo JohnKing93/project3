@@ -9,6 +9,14 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        title: 'Test Project 2 from Seeder',
+        description: 'This is a second test project that was inserted from a seeder file.',
+        ownerID: 2,
+        statusID: 2,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ], {});
   },
 };
