@@ -95,7 +95,7 @@ const Routes = () => (
       <PrivateRoute exact path="/ideas" component={Ideas} />
       {/* <Route exact path="/ideas/:id" component={Detail} /> */}
       <PrivateRoute exact path="/projects" component={LiveProjects} />
-      <PrivateRoute exact path="/projects/:id" component={ProjectDetail} />
+      <PrivateRoute path="/projects/:id" component={ProjectDetail} />
       <PrivateRoute exact path="/profile" component={UserProfile} />
       {/* <Route exact path="/profile/:id" component={Detail} /> */}
       <Route component={NoMatch} />

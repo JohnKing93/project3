@@ -25,16 +25,16 @@ class ProjectDetail extends Component {
   };
 
   loadProject = () => {
-    API.getThisProject(this.props.location.search)
+    API.getThisProject(this.props.match.params.id)
       .then(res =>
         this.setState({
-          title:res.data[0].title,
-          description: res.data[0].description,
-          owner: res.data[0].User.firstName + ' ' + res.data[0].User.lastName,
-          projectID: res.data[0].id,
-          statusID: res.data[0].statusID,
-          projectMembers: res.data[0].ProjectMembers || '',
-          milestones: res.data[0].ProjectMilestones || ''
+          title:res.data.title,
+          description: res.data.description,
+          owner: res.data.User.firstName + ' ' + res.data.User.lastName,
+          projectID: res.data.id,
+          statusID: res.data.statusID,
+          projectMembers: res.data.ProjectMembers || '',
+          milestones: res.data.ProjectMilestones || ''
         })
       )
       .catch(err => console.log(err));

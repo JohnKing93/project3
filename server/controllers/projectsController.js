@@ -26,11 +26,6 @@ module.exports = {
           where: {
             type: 'project',
           },
-        }, {
-          model: db.ProjectMember,
-          include: [{
-            model: db.User,
-          }],
         }, db.User, db.ProjectMilestone],
         order: ['id'],
       })
