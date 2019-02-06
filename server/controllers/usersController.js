@@ -26,11 +26,34 @@ module.exports = {
   findByID: (req, res) => {
     db.User
       .findOne({
-        where: {
-          id: Number(req.params.id),
-        },
-        include: [db.Permission],
-        order: ['id'],
+        attributes: { exclude: ['password', 'permissionID', 'createdAt', 'updatedAt'] },
+        where: { id: req.params.id },
+        include: [
+          {
+            model: db.RoleMember,
+            as: 'Roles',
+            attributes: { exclude: ['projectID', 'userID', 'createdAt', 'updatedAt'] },
+            where: { id: db.Sequelize.col('User.id') },
+            include: [
+              {
+                model: db.ProjectRole,
+                attributes: { exclude: ['roleID', 'projectID', 'statusID', 'createdAt', 'updatedAt'] },
+                where: { id: db.Sequelize.col('Roles.roleID') },
+              },
+              {
+                model: db.Project,
+                attributes: { exclude: ['createdAt', 'updatedAt'] },
+                where: { id: db.Sequelize.col('Roles.projectID') },
+                include: [
+                  {
+                    model: db.Status,
+                    attributes: { exclude: ['id', 'type', 'createdAt', 'updatedAt'] },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       })
       .then(results => res.status(200).json(results))
       .catch(err => res.status(500).send(err));
