@@ -33,16 +33,15 @@ class UserProfile extends Component {
           position,
           hoursEarned,
           hoursRedeemed,
-          projects
+          Roles
         } = user.data;
 
-        console.log(user);
         this.setState({
           name: `${firstName} ${lastName}`,
           email,
           position,
           hoursRemaining: hoursEarned - hoursRedeemed,
-          // projects
+          projects: Roles
         });
       })
       .catch(err => {
@@ -75,13 +74,13 @@ class UserProfile extends Component {
                         <div id="project-box">
                           <List>
                             {this.state.projects.map(project => (
-                              <ListItem key={project.id}>
-                                <Link to={"/projects/" + project.id}>
+                              <ListItem key={project.Project.id}>
+                                <Link to={`/projects/${project.Project.id}`}>
                                   <h2>
-                                    {project.title} : {project.role}
+                                    {project.Project.title} : {project.ProjectRole.title}
                                   </h2>
                                   <p>
-                                    {project.status} hrs: {project.time}
+                                    {project.Project.Status.description}
                                     <EditBtn />
                                   </p>
                                 </Link>
