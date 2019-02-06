@@ -16,6 +16,11 @@ module.exports = (sequelize) => {
     models.RoleMember.belongsTo(models.ProjectRole, {
       foreignKey: 'roleID',
     });
+
+    // Associate role member back to project
+    models.RoleMember.belongsTo(models.Project, {
+      foreignKey: 'projectID',
+    });
   };
 
   return RoleMember;
