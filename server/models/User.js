@@ -83,6 +83,7 @@ module.exports = (sequelize, DataTypes) => {
 
     // User can have a role on many projects
     models.User.hasMany(models.RoleMember, {
+      as: 'Roles',
       foreignKey: {
         name: 'userID',
         allowNull: false,
