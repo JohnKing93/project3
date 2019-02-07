@@ -86,39 +86,38 @@ module.exports = {
       if (err) {
         // console.log(err);
       }
-      if (info !== undefined) {
-        res.status(403).send({ message: info.message });
-      } else {
-        req.logIn(user, (error) => {
-          if (error) {
-            // console.log(err);
-          }
-          // Destructure req.body
-          const {
-            firstName,
-            lastName,
-            email,
-          } = req.body;
 
-          db.User
-            .findOne({
-              where: {
-                email,
-              },
-            })
-            .then((foundUser) => {
-              foundUser
-                .update({
-                  firstName,
-                  lastName,
-                })
-                .then(() => {
-                  // console.log('User successfully created');
-                  res.status(200).send({ message: 'User successfully created' });
-                });
-            });
-        });
+      if (info !== undefined) {
+        return res.status(403).send({ message: info.message });
       }
+
+      req.logIn(user, (error) => {
+        if (error) {
+          // console.log(err);
+        }
+        // Destructure req.body
+        const {
+          firstName,
+          lastName,
+          email,
+        } = req.body;
+
+        db.User
+          .findOne({
+            where: { email },
+          })
+          .then((foundUser) => {
+            foundUser
+              .update({
+                firstName,
+                lastName,
+              })
+              .then(() => {
+                // console.log('User successfully created');
+                res.status(200).send({ message: 'User successfully created' });
+              });
+          });
+      });
     })(req, res, next);
   },
   login: (req, res, next) => {
