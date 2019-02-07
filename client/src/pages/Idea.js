@@ -47,14 +47,14 @@ class Ideas extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-        if (this.state.title && this.state.description) {
-          API.submitIdea({
-            title: this.state.title,
-            description: this.state.description,
-            ownerID: this.state.ownerID
-          })
-          .then(res => this.loadIdeas())
-          .catch(err => console.log(err));
+      if (this.state.title && this.state.description) {
+        API.submitIdea({
+          title: this.state.title,
+          description: this.state.description,
+          ownerID: this.state.ownerID
+        })
+        .then(res => this.loadIdeas())
+        .catch(err => console.log(err));
         }
       };
 
