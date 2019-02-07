@@ -157,6 +157,25 @@ body #dash-card #profile-project-div #project-box {
   border-radius: 5px;
 }
 
+body #dash-card #profile-project-div #project-box h2 {
+  font-weight: bold;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #0ca54d;
+}
+
+body #dash-card #profile-project-div #project-box a, body #dash-card #profile-project-div #project-box a:visited {
+  text-decoration: none;
+  color: #021a0c;
+}
+
+body #dash-card #profile-project-div #project-box a:hover {
+  color: #0ca54d;
+  -webkit-transition: color .15s ease-in-out;
+  transition: color .15s ease-in-out;
+}
+
 body #new-idea-div {
   margin: 3rem auto 1rem auto;
   -webkit-box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
@@ -295,5 +314,13 @@ body #project-detail-div .detail-list-section .add-project-card .field-head {
   margin-bottom: 1rem;
   margin-top: 1rem;
   width: 60%;
+}
+
+body #project-detail-div .detail-list-section .project-pg-list {
+  margin: 1rem;
+}
+
+body #project-detail-div .detail-list-section .project-pg-list .listed-details {
+  text-align: center;
 }
 /*# sourceMappingURL=main.css.map */

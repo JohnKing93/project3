@@ -164,6 +164,24 @@ body {
             #project-box {
                 background-color: color(neutral);
                 border-radius: 5px;
+            
+                    h2 {
+                        font-weight: bold;
+                        font-size: 2rem;
+                        text-align: center;
+                        margin-bottom: 1rem;
+                        color: color(primary);
+                    }
+            
+                    a, a:visited {
+                        text-decoration: none;
+                        color: color(darkest);
+                    }
+            
+                    a:hover {
+                        color: color(primary);
+                        transition: color .15s ease-in-out;
+                    }
             }
         }
     }
@@ -294,6 +312,14 @@ body {
                     margin-top: 1rem;
                     width: 60%;
                 }
+                }
+                
+                .project-pg-list {
+                    margin: 1rem;
+
+                    .listed-details {
+                        text-align: center;
+                    }
             }
         }
     }
