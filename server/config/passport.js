@@ -15,7 +15,7 @@ passport.use(
       passwordField: 'password',
       passReqToCallback: true,
       session: false,
-       }, (req, username, password, done) => {
+    }, (req, username, password, done) => {
       try {
         db.User.findOne({
           where: {
