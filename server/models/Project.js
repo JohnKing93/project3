@@ -31,6 +31,15 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'cascade',
     });
 
+    // Project can have many roles
+    models.Project.hasMany(models.RoleMember, {
+      foreignKey: {
+        name: 'projectID',
+        allowNull: false,
+      },
+      onDelete: 'cascade',
+    });
+
     // Project can have many comments
     models.Project.hasMany(models.ProjectComment, {
       foreignKey: {

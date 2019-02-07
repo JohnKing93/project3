@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export default {
+  getUser: (id) => axios.get(`/api/users/${id}`),
 
   registerUser: function(user) {
     return axios.post("/api/users/register", user);

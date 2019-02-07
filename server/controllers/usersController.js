@@ -26,11 +26,34 @@ module.exports = {
   findByID: (req, res) => {
     db.User
       .findOne({
-        where: {
-          id: Number(req.params.id),
-        },
-        include: [db.Permission],
-        order: ['id'],
+        attributes: { exclude: ['password', 'permissionID', 'createdAt', 'updatedAt'] },
+        where: { id: req.params.id },
+        include: [
+          {
+            model: db.RoleMember,
+            as: 'Roles',
+            attributes: { exclude: ['projectID', 'userID', 'createdAt', 'updatedAt'] },
+            where: { id: db.Sequelize.col('User.id') },
+            include: [
+              {
+                model: db.ProjectRole,
+                attributes: { exclude: ['roleID', 'projectID', 'statusID', 'createdAt', 'updatedAt'] },
+                where: { id: db.Sequelize.col('Roles.roleID') },
+              },
+              {
+                model: db.Project,
+                attributes: { exclude: ['createdAt', 'updatedAt'] },
+                where: { id: db.Sequelize.col('Roles.projectID') },
+                include: [
+                  {
+                    model: db.Status,
+                    attributes: { exclude: ['id', 'type', 'createdAt', 'updatedAt'] },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       })
       .then(results => res.status(200).json(results))
       .catch(err => res.status(500).send(err));
@@ -63,39 +86,38 @@ module.exports = {
       if (err) {
         // console.log(err);
       }
-      if (info !== undefined) {
-        res.status(403).send({ message: info.message });
-      } else {
-        req.logIn(user, (error) => {
-          if (error) {
-            // console.log(err);
-          }
-          // Destructure req.body
-          const {
-            firstName,
-            lastName,
-            email,
-          } = req.body;
 
-          db.User
-            .findOne({
-              where: {
-                email,
-              },
-            })
-            .then((foundUser) => {
-              foundUser
-                .update({
-                  firstName,
-                  lastName,
-                })
-                .then(() => {
-                  // console.log('User successfully created');
-                  res.status(200).send({ message: 'User successfully created' });
-                });
-            });
-        });
+      if (info !== undefined) {
+        return res.status(403).send({ message: info.message });
       }
+
+      req.logIn(user, (error) => {
+        if (error) {
+          // console.log(err);
+        }
+        // Destructure req.body
+        const {
+          firstName,
+          lastName,
+          email,
+        } = req.body;
+
+        db.User
+          .findOne({
+            where: { email },
+          })
+          .then((foundUser) => {
+            foundUser
+              .update({
+                firstName,
+                lastName,
+              })
+              .then(() => {
+                // console.log('User successfully created');
+                res.status(200).send({ message: 'User successfully created' });
+              });
+          });
+      });
     })(req, res, next);
   },
   login: (req, res, next) => {
