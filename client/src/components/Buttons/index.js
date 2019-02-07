@@ -2,13 +2,13 @@ import React from "react";
 
 export function VoteUpBtn(props) {
   return (
-    <i class="fas fa-arrow-alt-circle-up vote-btn" {...props} role="button"></i>
+    <i className="fas fa-arrow-alt-circle-up vote-btn" {...props} role="button"></i>
   );
 }
 
 export function VoteDownBtn(props) {
   return (
-    <i class="fas fa-arrow-alt-circle-down vote-btn" {...props} role="button"></i>
+    <i className="fas fa-arrow-alt-circle-down vote-btn" {...props} role="button"></i>
   );
 }
 

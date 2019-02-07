@@ -2,9 +2,11 @@ module.exports = (sequelize, DataTypes) => {
   const Status = sequelize.define('Status', {
     type: {
       type: DataTypes.STRING,
+      trim: true,
       allowNull: false,
     },
     description: {
+      trim: true,
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -14,6 +16,10 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'Status_Ref',
     indexes: [
       {
+        /*
+          Composite table key where you can not have a type
+          with a duplicate description
+        */
         unique: true,
         fields: ['type', 'description'],
       },

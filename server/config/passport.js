@@ -15,7 +15,7 @@ passport.use(
       passwordField: 'password',
       passReqToCallback: true,
       session: false,
-       }, (req, username, password, done) => {
+    }, (req, username, password, done) => {
       try {
         db.User.findOne({
           where: {
@@ -32,8 +32,8 @@ passport.use(
             db.User.create({
               email: username,
               password: hashedPassword,
-              firstName: req.body.firstname,
-              lastName: req.body.lastname,
+              firstName: req.body.firstName,
+              lastName: req.body.lastName,
               permissionID: 1,
             }).then((createdUser) => {
               console.log('User sucessfully created');
