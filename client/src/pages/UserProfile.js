@@ -20,17 +20,19 @@ class UserProfile extends Component {
             <div id="dash-card">
               <Card >
                 <Row >
-                <Col size="md-4">
+                <Col size="lg-4 m-12">
                 <div id="profile-info-div">
+                <div className="user-name-box">
+                <img className="profile-logo" src="images/progrologo.png" />
                 <h1>UserName here</h1>
-                <h2>Position</h2>
-                <p>insert position here</p>
+                <p className="my-position">insert position here</p>
                 {/* <h3>Skills</h3>
                 <p>insert skills here</p> */}
-                <h3>Total Hours: 0.00</h3>
+                {/* <h3>Total Hours: 0.00</h3> */}
+                </div>
                 </div>
                 </Col>
-                <Col size="md-8">
+                <Col size="lg-8 md-12">
                 <div id="profile-project-div">
                 <h1>My Projects</h1>
                 <div id="project-box">
