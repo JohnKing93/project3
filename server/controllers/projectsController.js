@@ -26,7 +26,13 @@ module.exports = {
           where: {
             type: 'project',
           },
-        }, db.User, db.ProjectMilestone],
+        }, db.User, {
+          model: db.ProjectMilestone,
+          include: [{
+            model: db.Status,
+            where: { id: db.Sequelize.col('statusID') },
+          }],
+        }],
         order: ['id'],
       })
       .then(results => res.status(200).json(results))
