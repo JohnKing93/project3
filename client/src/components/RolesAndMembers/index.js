@@ -46,7 +46,6 @@ class RolesAndMembers extends Component {
     },
     roles: [],
     roleMembers: [],
-    open: false,
     loading: true,
   };
 
@@ -61,7 +60,7 @@ class RolesAndMembers extends Component {
           roles: res.data
         })
         if (this.state.loading) {
-          loadRoleMembers();
+          this.loadRoleMembers();
         }
       })
       .catch(err => console.log(err));
@@ -70,12 +69,13 @@ class RolesAndMembers extends Component {
   loadRoleMembers = () => {
     API.getRoleMembers(this.state.project.id)
       .then(res => {
-        let roleMembers = this.state.roles;
-        let usersRoles = roleMembers.filter(role => role.userID = this.state.user.id);
-        let roles = data.map(role => {
+        let roleMembers = res;
+        let usersRoles = res.filter(role => role.userID = this.state.user.id);
+        let roles = this.state.roles.map(role => {
           for (i = 0; i < usersRoles.length; i++) {
             if (role.userID = this.state.user.id) {
-              role.usersStatus = userRoles[i].statusID;
+              role.usersStatus = usersRoles[i].statusID;
+              role.usersRoleMemberId = usersRoles[i].id;
               return role;
             }
             role.usersStatus = "Not Applied";
@@ -91,33 +91,49 @@ class RolesAndMembers extends Component {
       .catch(err => console.log(err));
   };
 
-  createRoleMember = (event) => {
+  createRoleMember = (roleId) => {
     let roleMember = {
       statusID: 6,
       userID: this.state.user.id,
-      roleID: event
+      roleID: roleId
     }
     API.postRoleMember(roleMember)
     .then(res => {
-      loadRoleMembers();
+      this.loadRoleMembers();
     })
     .catch(err => console.log(err));
   };
 
-  updateRoleMembers = (roles) => {
-    // When a user applies to a role, do we update the state locally or rerender the whole state?
+  updateRoleMember = (id, action) => {
+
   }
 
-  deleteRoleMember = () => {
-
+  deleteRoleMember = (id) => {
+    API.deleteRoleMember(id)
+    .then(res => {
+      this.loadRoleMembers();
+    })
+    .catch(err => console.log(err));
   };
 
-  updateRole = (id, action) => {
-
+  updateRole = (roleId, newStatus) => {
+    let role = {
+      id: roleId,
+      statusID: newStatus
+    }
+    API.updateRole(role)
+    .then(res => {
+      this.loadRoles();
+    })
+    .catch(err => console.log(err));
   };
 
-  deleteRole = () => {
-
+  deleteRole = (roleId) => {
+    API.deleteRole(roleId)
+    .then(res => {
+      this.loadRoles();
+    })
+    .catch(err => console.log(err));
   };
 
   render() {
@@ -128,43 +144,53 @@ class RolesAndMembers extends Component {
           <Col size="md-2">
             <ColorCard key={role.id}>
               <ColorCardBody>
-                {role.status.description == "Open" && <span className="badge badge-success">Open</span>}
-                {role.status.description == "Closed" && <span className="badge badge-danger">Closed</span>}
+                {role.statusID == 4 && <span className="badge badge-success">Open</span>}
+                {role.statusID == 5 && <span className="badge badge-danger">Closed</span>}
               </ColorCardBody>
               <ColorCardFooter>
-                {/*
-                if not member, show apply
-                if member but applied, show cancel application
-                if member but approved, show approved
-                */}
+                {role.userStatus == "Applied" && <span className="badge badge-primary">Applied</span>}
+                {role.userStatus == "Approved" && <span className="badge badge-success">Approved</span>}
+                {role.userStatus == "Declined" && <span className="badge badge-danger">Declined</span>}
                 <div className="btn-group btn-group-sm" role="group" aria-label="Role Options">
                   {this.state.user.id == this.state.project.ownerId ? (
                     // Owner buttons
-                    role.status.description == "Open" &&
+                    role.statusID == 4 &&
                       <Button
                         className="btn btn-secondary"
-                        onClick={() => this.updateRole(role.id, "Close")}
+                        onClick={() => this.updateRole(role.id, 5)}
                       >
                         Close
                       </Button>,
-                    role.status.description == "Open" &&
+                    role.statusID == 4 &&
                       <Button
                         className="btn btn-secondary"
-                        onClick={() => this.updateRole(role.id, "Delete")}
+                        onClick={() => this.deleteRole(role.id)}
                       >
                         Delete
                       </Button>,
-                    role.status.description == "Closed" &&
+                    role.statusID == 5 &&
                       <Button
                         className="btn btn-secondary"
-                        onClick={() => this.updateRole(role.id, "Open")}
+                        onClick={() => this.updateRole(role.id, 4)}
                       >
                         Open
                       </Button>
                   ):(
                     // User buttons
-                    role.status.description == "Open" && <span className="badge badge-success">Open</span>,
-                    role.status.description == "Closed" && <span className="badge badge-danger">Closed</span>
+                    role.userStatus == "Not Applied" &&
+                      <Button
+                        className="btn btn-secondary"
+                        onClick={() => this.createRoleMember(role.usersRoleMemberId, "Applied")}
+                      >
+                        Apply
+                      </Button>,
+                    role.userStatus == "Applied" &&
+                      <Button
+                        className="btn btn-secondary"
+                        onClick={() => this.deleteRoleMember(role.usersRoleMemberId)}
+                      >
+                        Cancel
+                      </Button>
                   )}
                 </div>
               </ColorCardFooter>

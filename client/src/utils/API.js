@@ -62,11 +62,23 @@ export default {
     return axios.get(`api/projectroles/project/${projectId}`)
   },
 
-  postRoleMember: function () {
-    return axios.post("api/rolemembers/")
+  updateRole: function(role) {
+    return axios.put(`api/projectroles/${role.id}`, role)
+  },
+
+  deleteRole: function(roleId) {
+    return axios.delete(`api/projectroles/${roleId}`)
   },
 
   getRoleMembers: function(projectId) {
     return axios.get(`api/rolemembers/${projectId}`)
+  },
+
+  postRoleMember: function (roleMember) {
+    return axios.post("api/rolemembers/", roleMember)
+  },
+
+  deleteRoleMembers: function(roleMemberId) {
+    return axios.get(`api/rolemembers/${roleMemberId}`)
   }
 };
