@@ -56,5 +56,17 @@ export default {
 
   deleteIdea: function(idea) {
     return axios.delete("/api/ideas/" + idea.id);
+  },
+
+  getRoles: function(projectId) {
+    return axios.get(`api/projectroles/project/${projectId}`)
+  },
+
+  postRoleMember: function () {
+    return axios.post("api/rolemembers/")
+  },
+
+  getRoleMembers: function(projectId) {
+    return axios.get(`api/rolemembers/${projectId}`)
   }
 };
