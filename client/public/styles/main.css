@@ -45,11 +45,6 @@ body .bottom-art {
   z-index: -1;
 }
 
-body .nav-logo {
-  height: 2rem;
-  margin-right: .2rem;
-}
-
 body #login-logo {
   width: 3.5rem;
   position: fixed;
