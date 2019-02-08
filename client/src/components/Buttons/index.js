@@ -55,7 +55,7 @@ export function DropDown(props) {
   return (
     <div className="dropdown">
       <button
-          className="btn blue-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          className="btn blue-btn dropdown-toggle top-right-drop" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Options
       </button>
       <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">

@@ -55,20 +55,24 @@ class UserProfile extends Component {
         <Navigation />
         <Container fluid>
           <Row>
-          <Col size="md-2" />
+            <Col size="md-2" />
             <Col size="md-8">
               <div id="dash-card">
-                <Card>
-                  <Row>
-                    <Col size="md-4">
+                <Card >
+                  <Row >
+                    <Col size="lg-4 m-12">
                       <div id="profile-info-div">
-                        <h1>{this.state.name}</h1>
-                        <h2>Position</h2>
-                        <p>{this.state.position}</p>
-                        <h3>Total Hours: {this.state.hoursRemaining}</h3>
+                        <div className="user-name-box">
+                          <img className="profile-logo" src="images/progrologo.png" />
+                          <h1>{this.state.name}</h1>
+                          <p className="my-position">{this.state.position}</p>
+                          {/* <h3>Skills</h3>
+                <p>insert skills here</p> */}
+                          {/* <h3>Total Hours: {this.state.hoursRemaining}</h3> */}
+                        </div>
                       </div>
                     </Col>
-                    <Col size="md-8">
+                    <Col size="lg-8 md-12">
                       <div id="profile-project-div">
                         <h1>My Projects</h1>
                         <div id="project-box">
@@ -81,7 +85,7 @@ class UserProfile extends Component {
                                   </h2>
                                   <p>
                                     {project.Project.Status.description}
-                                    <EditBtn />
+                                    {/* <EditBtn /> */}
                                   </p>
                                 </Link>
                               </ListItem>
