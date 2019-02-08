@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Col, Row, Container } from "../components/Grid";
 import { Card } from "../components/Card";
 import { Input, FormGroup, Label, Form, FormBtn } from "../components/Form";
-import { RoleDropBtn, DropDown, DropDownBtn, DetailBtn } from "../components/Buttons";
+import { RoleDropBtn, DropDown, DropDownBtn } from "../components/Buttons";
 import { List, ListItem } from "../components/List";
 import { Navigation } from "../components/Navigation";
 import API from "../utils/API";
@@ -16,6 +16,8 @@ class ProjectDetail extends Component {
     owner: '',
     projectID: '',
     statusID: '',
+    role: 3,
+    newMilestone: '',
     projectMembers: [],
     milestones: []
   };
@@ -38,6 +40,39 @@ class ProjectDetail extends Component {
         })
       )
       .catch(err => console.log(err));
+  };
+
+  loadMilestones = () => {
+    API.getProjectMilestones(this.props.match.params.id)
+      .then(res =>
+        this.setState({
+          milestones: res.data,
+          newMilestone: ''
+        })
+      )
+      .catch(err => console.log(err));
+  };
+
+  //Handler for input change -- can be used for Role or Milestone
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  };
+
+  submitMilestone = event => {
+    event.preventDefault();
+    console.log(this.state.newMilestone);
+    if (this.state.newMilestone) {
+      API.createMilestone({
+        milestone: this.state.newMilestone,
+        projectID: this.state.projectID,
+        userID: this.state.owner,
+        role: this.state.role,
+        statusID: 9
+      })
+      .then(res => this.loadMilestones())
+      .catch(err => console.log(err));
+    }
   };
 
   makeArchived = (id) => {
@@ -161,10 +196,14 @@ class ProjectDetail extends Component {
                               <Input
                                 type="text"
                                 id="milestone"
+                                name="newMilestone"
+                                onChange={this.handleInputChange}
                               />
                             </FormGroup>
                             <FormBtn
                               className="btn blue-btn card-item-submit"
+                              type="submit"
+                              onClick={this.submitMilestone}
                             >Submit</FormBtn>
                           </Form>
                         </div>
@@ -179,9 +218,9 @@ class ProjectDetail extends Component {
                                     {milestone.milestone}
                                   </h2>
                                   {/* <DetailBtn className="blue-btn"></DetailBtn> */}
-                                  <p className="listed-details">
+                                  {/* <p className="listed-details">
                                     {milestone.statusID}
-                                  </p>
+                                  </p> */}
                                 </Card>
                               </ListItem>
                             ))}
