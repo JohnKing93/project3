@@ -57,5 +57,14 @@ export default {
 
   deleteIdea: function(idea) {
     return axios.delete("/api/ideas/" + idea.id);
+  },
+
+  //milestones for project detail page
+  createMilestone: function(newMilestone) {
+    return axios.post("/api/projectmilestones", newMilestone);
+  },
+
+  getProjectMilestones: function(id) {
+    return axios.get("/api/projectmilestones/" + id);
   }
 };
