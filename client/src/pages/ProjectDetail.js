@@ -174,7 +174,6 @@ class ProjectDetail extends Component {
                             <MilestoneEditModal />
                             {this.state.milestones.map(milestone => (
                               <ListItem key={milestone.id}>
-                                <Card >
                                   <h2>
                                     {milestone.milestone}
                                   </h2>
@@ -182,7 +181,6 @@ class ProjectDetail extends Component {
                                   <p className="listed-details">
                                     {milestone.Status.description}
                                   </p>
-                                </Card>
                               </ListItem>
                             ))}
                           </List>
