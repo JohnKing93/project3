@@ -213,15 +213,13 @@ class ProjectDetail extends Component {
                             <MilestoneEditModal />
                             {this.state.milestones.map(milestone => (
                               <ListItem key={milestone.id}>
-                                <Card >
                                   <h2>
                                     {milestone.milestone}
                                   </h2>
                                   {/* <DetailBtn className="blue-btn"></DetailBtn> */}
-                                  {/* <p className="listed-details">
-                                    {milestone.statusID}
-                                  </p> */}
-                                </Card>
+                                  <p className="listed-details">
+                                    {milestone.Status.description}
+                                  </p>
                               </ListItem>
                             ))}
                           </List>
