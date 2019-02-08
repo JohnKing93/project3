@@ -165,9 +165,11 @@ class ProjectDetail extends Component {
                           <h2>
                             {milestone.milestone}
                           </h2>
-                          <DetailBtn className="blue-btn"></DetailBtn>
+                          {/* Commented out...do we need a detail button since
+                              the milestones have no details of their own, other than status? */}
+                          {/* <DetailBtn className="blue-btn"></DetailBtn> */}
                           <p>
-                            {milestone.statusID}
+                            {milestone.Status.description}
                           </p>
                           </Card>
                       </ListItem>
