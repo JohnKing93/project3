@@ -19,7 +19,10 @@ class LiveProjects extends Component {
   loadProjects = () => {
     API
       .getProjects()
-      .then(res => this.setState({ projects: res.data }))
+      .then(res => {
+        let projectData = res.data.filter(project => project.Status.description === 'In Progress');
+        this.setState({ projects: projectData });
+      })
       .catch(err => console.log(err));
   };
 
