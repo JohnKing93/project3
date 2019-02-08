@@ -6,9 +6,7 @@ module.exports = {
       .findAll({
         include: [{
           model: db.Status,
-          where: {
-            type: 'project',
-          },
+          where: { id: db.Sequelize.col('statusID') },
         }, db.User],
         order: ['id'],
       })
@@ -21,18 +19,28 @@ module.exports = {
         where: {
           id: Number(req.params.id),
         },
-        include: [{
-          model: db.Status,
-          where: {
-            type: 'project',
-          },
-        }, db.User, {
-          model: db.ProjectMilestone,
-          include: [{
+        include: [
+          {
             model: db.Status,
             where: { id: db.Sequelize.col('statusID') },
-          }],
-        }],
+          },
+          {
+            model: db.ProjectMilestone,
+            include: [{
+              model: db.Status,
+            }],
+          },
+          {
+            model: db.ProjectRole,
+            as: 'Roles',
+            include:
+              {
+                model: db.RoleMember,
+                include: {
+                  model: db.User,
+                },
+              },
+          }, db.User],
         order: ['id'],
       })
       .then(results => res.status(200).json(results))
