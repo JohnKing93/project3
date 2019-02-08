@@ -179,7 +179,7 @@ class ProjectDetail extends Component {
                                   </h2>
                                   {/* <DetailBtn className="blue-btn"></DetailBtn> */}
                                   <p className="listed-details">
-                                    {milestone.statusID}
+                                    {milestone.Status.description}
                                   </p>
                               </ListItem>
                             ))}
