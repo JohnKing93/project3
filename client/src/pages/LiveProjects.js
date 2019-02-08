@@ -34,7 +34,6 @@ class LiveProjects extends Component {
             <Col size="md-8">
             <div id="projects-div">
               <Card >
-                <h1>Live Projects</h1>
                 {this.state.projects.length ? (
                   <List >
                     {this.state.projects.map(project => (

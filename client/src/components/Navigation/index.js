@@ -3,7 +3,7 @@ import React from "react";
 export function Navigation(props) {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark">
-  <a href="/profile" className="navbar-brand">ProGro</a>
+  <a href="/profile" className="navbar-brand"><img src="images/progrologo.png" className="nav-logo"></img>ProGro</a>
   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span className="navbar-toggler-icon"></span>
   </button>

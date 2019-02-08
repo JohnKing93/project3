@@ -16,6 +16,14 @@ $colors: (
     @return map-get($colors, $color-name)
 };
 
+$mobile: 800px;
+
+@mixin mobile {
+    @media (max-width: #{$mobile}) {
+        @content;
+    }
+}
+
 body {
     background-color: color(neutral);
 
@@ -50,6 +58,7 @@ body {
 
     .my-list-item {
         margin: .5rem;
+        margin-bottom: 0;
         border-width: 0px;
         border-radius: .25rem !important;
     }
@@ -62,16 +71,27 @@ body {
         z-index: -1;
     }
 
+    .nav-logo {
+        height: 2rem;
+        margin-right: .2rem;
+    }
+
     #login-logo {
-        width: 4rem;
+        width: 3.5rem;
         position: fixed;
         top: 1rem;
         left: 2rem;
         z-index: -2;
+
+        @include mobile {
+            position: fixed;
+            top: 1rem;
+            left: 43%;
+        }
     }
 
     #login-card {
-        margin: 5rem auto 4rem auto;
+        margin: 7rem auto 4rem auto;
         box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
         border-radius: .25rem;
 
@@ -105,6 +125,8 @@ body {
         border-radius: .25rem;
 
         #profile-info-div {
+            position: relative;
+
             h1 {
                 color: color(primary);
                 font-size: 1.75rem;
@@ -175,7 +197,7 @@ body {
             
                     a, a:visited {
                         text-decoration: none;
-                        color: color(darkest);
+                        color: color(tertiary);
                     }
             
                     a:hover {
@@ -258,7 +280,7 @@ body {
             font-weight: bold;
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
             line-height: .75;
-            margin-bottom: 1.5rem;
+            margin: 1.5rem auto;
             text-align: center;
         }
         h3 {
@@ -272,6 +294,7 @@ body {
         }
         h4 {
             color: color(tertiary);
+            font-size: 1rem;
         }
 
         .top-right-drop {
@@ -319,6 +342,7 @@ body {
 
                     .listed-details {
                         text-align: center;
+                        margin-bottom: .2rem;
                     }
             }
         }
