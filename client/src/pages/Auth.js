@@ -43,14 +43,15 @@ class Register extends Component {
             lastName: this.state.lastName,
             email: this.state.email,
             username: this.state.email,
-            password: this.state.password
+            password: this.state.password,
+            permissionID: 1
           })
         .then(res => {
           // console.log(res.data);
           this.setState({ message: res.data.message });
         })
         .catch(error => {
-          console.log(error.response.data.message);
+          console.log(error);
           this.setState({ message: error.response.data.message });
         });
     }

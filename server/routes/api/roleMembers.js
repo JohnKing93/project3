@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const RoleMembersController = require('../../controllers/RoleMembersController');
 
-// Matches with 'api/rolemembers'
+// Matches with '/api/rolemembers'
 router.route('/')
   .get(RoleMembersController.findAll)
   .post(RoleMembersController.create);
