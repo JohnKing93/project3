@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Col, Row, Container } from "../components/Grid";
 import { Card } from "../components/Card";
-import { EditBtn } from "../components/Buttons";
+// import { EditBtn } from "../components/Buttons";
 import { List, ListItem } from "../components/List";
 import { Link } from "react-router-dom";
 import { Navigation } from "../components/Navigation";
