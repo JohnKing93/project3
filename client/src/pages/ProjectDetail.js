@@ -7,6 +7,7 @@ import { List, ListItem } from "../components/List";
 import { Navigation } from "../components/Navigation";
 import API from "../utils/API";
 import { ProjectDetailMainModal, ProjectRoleEditModal, RoleApplicantModal, MilestoneEditModal } from "../components/Modal";
+import RolesAndMembers from "../components/RolesAndMembers";
 
 class ProjectDetail extends Component {
 
@@ -164,6 +165,7 @@ class ProjectDetail extends Component {
                           </Form>
                         </div>
                         <div className="project-pg-list">
+                        <RolesAndMembers />
                         {this.state.projectMembers.length ? (
                           <List >
                             <ProjectRoleEditModal />

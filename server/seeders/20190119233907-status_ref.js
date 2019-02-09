@@ -61,6 +61,12 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        type: 'roleMember',
+        description: 'Retired',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ], {});
   },
 };
