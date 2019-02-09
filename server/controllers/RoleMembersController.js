@@ -37,10 +37,12 @@ module.exports = {
   },
   create: (req, res) => {
     // Destructure req.body
+    console.log('Create Role Member');
     const {
       roleID,
       userID,
       statusID,
+      projectID,
     } = req.body;
 
     db.RoleMember
@@ -48,6 +50,7 @@ module.exports = {
         roleID: Number(roleID),
         userID: Number(userID),
         statusID: Number(statusID),
+        projectID: Number(projectID),
       })
       .then(results => res.status(201).json(results))
       .catch(err => res.status(500).send(err));

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Col, Row, Container } from "../Grid";
-import { ColorCard, ColorCardBody, ColorCardFooter } from "../Card";
+import { ColorCard, ColorCardBody, ColorCardFooter, MemberCard, MemberCardListItem, MemberCardListGroup } from "../Card";
 import { Button } from "../Form";
 import API from "../../utils/API";
 import { ProjectDetailMainModal, ProjectRoleEditModal, RoleApplicantModal, MilestoneEditModal } from "../Modal";
@@ -96,8 +96,11 @@ class RolesAndMembers extends Component {
             return role;
           }
         })
-        console.log("Altered Roles");
+        console.log("Altered Roles:");
         console.log(roles);
+        console.log("Role Members:");
+        console.log(usersRoles);
+        roleMembers.sort((a, b) => (a.User.id > b.User.id) ? 1 : ((b.User.id > a.User.id) ? -1 : 0));
         this.setState({
           roles,
           roleMembers,
@@ -110,25 +113,38 @@ class RolesAndMembers extends Component {
   };
 
   createRoleMember = (roleId) => {
+    console.log("createRoleMember");
     const roleMember = {
-      statusID: 6,
+      roleID: roleId,
       userID: this.state.user.id,
-      roleID: roleId
+      statusID: 6,
+      projectID: this.state.project.id
     }
     console.log(roleMember);
     API.postRoleMember(roleMember)
     .then(res => {
       this.loadRoleMembers();
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      console.log("Error:");
+      console.log(err);
+    });
   };
 
-  updateRoleMember = (id, action) => {
-
+  updateRoleMember = (roleMemberId, newStatus) => {
+    let roleMember = {
+      id: roleMemberId,
+      statusID: newStatus
+    }
+    API.updateRoleMember(roleMember)
+    .then(res => {
+      this.loadRoleMembers();
+    })
+    .catch(err => console.log(err));
   }
 
-  deleteRoleMember = (id) => {
-    API.deleteRoleMember(id)
+  deleteRoleMember = (roleMemberId) => {
+    API.deleteRoleMember(roleMemberId)
     .then(res => {
       this.loadRoleMembers();
     })
@@ -165,24 +181,24 @@ class RolesAndMembers extends Component {
               {role.statusID == 5 && <span className="badge badge-danger">Closed</span>}
             </ColorCardBody>
             <ColorCardFooter>
-              {role.userStatus == "Applied" && <span className="badge badge-primary">Applied</span>}
-              {role.userStatus == "Approved" && <span className="badge badge-success">Approved</span>}
-              {role.userStatus == "Declined" && <span className="badge badge-danger">Declined</span>}
+              {role.usersStatus == 6 && <span className="badge badge-primary">Applied</span>}
+              {role.usersStatus == 7 && <span className="badge badge-success">Approved</span>}
+              {role.usersStatus == 8 && <span className="badge badge-danger">Declined</span>}
               <div className="btn-group btn-group-sm" role="group" aria-label="Role Options">
                 {(this.state.user.id == this.state.project.ownerId && role.statusID == 4) &&
                   <>
-                  <Button
-                    className="btn btn-secondary"
-                    onClick={() => this.updateRole(role.id, 5)}
-                  >
-                    Close
-                  </Button>
-                  <Button
-                    className="btn btn-secondary"
-                    onClick={() => this.deleteRole(role.id)}
-                  >
-                    Delete
-                  </Button>
+                    <Button
+                      className="btn btn-secondary"
+                      onClick={() => this.updateRole(role.id, 5)}
+                    >
+                      Close
+                    </Button>
+                    <Button
+                      className="btn btn-secondary"
+                      onClick={() => this.deleteRole(role.id)}
+                    >
+                      Delete
+                    </Button>
                   </>
                 }
                 {(this.state.user.id == this.state.project.ownerId && role.statusID == 5) &&
@@ -212,6 +228,46 @@ class RolesAndMembers extends Component {
               </div>
             </ColorCardFooter>
           </ColorCard>
+        ))}
+        {this.state.roleMembers.map(roleMember => (
+          // (roleMember.statusID != 11 &&
+            <MemberCard
+              key={roleMember.ProjectRole.id}
+              membersName={`${roleMember.User.firstName} ${roleMember.User.lastName}`}
+              membersPosition={roleMember.User.position}
+            >
+              <MemberCardListGroup>
+                <MemberCardListItem roleName={roleMember.ProjectRole.title}>
+                  <div className="btn-group btn-group-sm" role="group" aria-label="Role Member Options">
+                    {(this.state.user.id == this.state.project.ownerId && roleMember.statusID == 6) &&
+                      <>
+                        <Button
+                          className="btn btn-secondary"
+                          onClick={() => this.updateRoleMember(roleMember.id, 7)}
+                        >
+                          Accept
+                        </Button>
+                        <Button
+                          className="btn btn-secondary"
+                          onClick={() => this.updateRoleMember(roleMember.id, 8)}
+                        >
+                          Decline
+                        </Button>
+                      </>
+                    }
+                    {((this.state.user.id == this.state.project.ownerId || this.state.user.id == roleMember.User.id) && roleMember.statusID == 7) &&
+                      <Button
+                        className="btn btn-secondary"
+                        onClick={() => this.updateRoleMember(roleMember.id, 11)}
+                      >
+                        Retire
+                      </Button>
+                    }
+                  </div>
+                </MemberCardListItem>
+              </MemberCardListGroup>
+            </MemberCard>
+          // )
         ))}
       </div>
     );

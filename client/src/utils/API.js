@@ -22,7 +22,7 @@ export default {
 
   //Get a single Project by ID
   getThisProject: function(projectID) {
-    return axios.get("/api/projects/" + projectID);
+    return axios.get(`/api/projects/${projectID}`);
   },
 
   //Creates a new project
@@ -32,7 +32,7 @@ export default {
 
   //Updates an existing project
   updateProject: function(project) {
-    return axios.put("/api/projects/" + project.id, project);
+    return axios.put(`/api/projects/${project.id}`, project);
   },
 
   //Get all Ideas (conditional to exclude approved ideas, see: api route and controller)
@@ -52,35 +52,39 @@ export default {
 
   //update part of an existing Idea
   updateIdea: function(idea) {
-    return axios.put("/api/ideas/" + idea.id, idea);
+    return axios.put(`/api/ideas/${idea.id}`, idea);
   },
 
   deleteIdea: function(idea) {
-    return axios.delete("/api/ideas/" + idea.id);
+    return axios.delete(`/api/ideas/${idea.id}`);
   },
 
   getRoles: function(projectId) {
-    return axios.get(`/api/projectroles/projects/${projectId}`)
+    return axios.get(`/api/projectroles/projects/${projectId}`);
   },
 
   updateRole: function(role) {
-    return axios.put(`/api/projectroles/${role.id}`, role)
+    return axios.put(`/api/projectroles/${role.id}`, role);
   },
 
   deleteRole: function(roleId) {
-    return axios.delete(`/api/projectroles/${roleId}`)
+    return axios.delete(`/api/projectroles/${roleId}`);
   },
 
   getRoleMembers: function(projectId) {
-    return axios.get(`/api/rolemembers/${projectId}`)
+    return axios.get(`/api/rolemembers/${projectId}`);
   },
 
-  postRoleMember: function (roleMember) {
-    return axios.post("/api/rolemembers/", roleMember)
+  postRoleMember: function(roleMember) {
+    return axios.post("/api/rolemembers", roleMember);
   },
 
-  deleteRoleMembers: function(roleMemberId) {
-    return axios.get(`/api/rolemembers/${roleMemberId}`)
+  updateRoleMember: function(roleMember) {
+    return axios.put(`/api/rolemembers/${roleMember.id}`, roleMember);
+  },
+
+  deleteRoleMember: function(roleMemberId) {
+    return axios.delete(`/api/rolemembers/${roleMemberId}`);
   },
 
   createMilestone: function(newMilestone) {
@@ -88,6 +92,6 @@ export default {
   },
 
   getProjectMilestones: function(id) {
-    return axios.get("/api/projectmilestones/" + id);
+    return axios.get(`/api/projectmilestones/${id}`);
   }
 };
