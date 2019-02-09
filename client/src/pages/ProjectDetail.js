@@ -278,7 +278,8 @@ class ProjectDetail extends Component {
                   <p className="text-center detail-text">{this.state.description}</p>
                   <Row>
                     <Col size="md-12">
-                      <h1>Members</h1>
+                      <h2>Members</h2>
+                      <div className="member-list-group">
                       {this.state.roleMembers.length ? (
                         this.state.roleMembers.map(roleMember => (
                         // (roleMember.statusID != 11 &&
@@ -293,13 +294,13 @@ class ProjectDetail extends Component {
                                   {(this.state.user.id == this.state.project.ownerId && roleMember.statusID == 6) &&
                                     <>
                                       <Button
-                                        className="btn btn-secondary"
+                                        className="btn blue-btn"
                                         onClick={() => this.updateRoleMember(roleMember.id, 7)}
                                       >
                                         Accept
                                       </Button>
                                       <Button
-                                        className="btn btn-secondary"
+                                        className="btn blue-btn"
                                         onClick={() => this.updateRoleMember(roleMember.id, 8)}
                                       >
                                         Decline
@@ -308,7 +309,7 @@ class ProjectDetail extends Component {
                                   }
                                   {((this.state.user.id == this.state.project.ownerId || this.state.user.id == roleMember.User.id) && roleMember.statusID == 7) &&
                                     <Button
-                                      className="btn btn-secondary"
+                                      className="btn blue-btn"
                                       onClick={() => this.updateRoleMember(roleMember.id, 11)}
                                     >
                                       Retire
@@ -323,6 +324,7 @@ class ProjectDetail extends Component {
                       ) : (
                         <h3 className="none-listed">No Current Members</h3>
                       )}
+                      </div>
                     </Col>
                   </Row>
                   <Row>
@@ -348,24 +350,24 @@ class ProjectDetail extends Component {
                             this.state.roles.map(role => (
                               <ColorCard key={role.id}>
                                 <ColorCardBody roleTitle={role.title} description={role.description}>
-                                  {role.statusID == 4 && <span className="badge badge-success">Open</span>}
-                                  {role.statusID == 5 && <span className="badge badge-danger">Closed</span>}
+                                  {role.statusID == 4 && <span className="badge badge-success float-right">Open</span>}
+                                  {role.statusID == 5 && <span className="badge badge-danger float-right">Closed</span>}
                                 </ColorCardBody>
                                 <ColorCardFooter>
-                                  {role.usersStatus == 6 && <span className="badge badge-primary">Applied</span>}
-                                  {role.usersStatus == 7 && <span className="badge badge-success">Approved</span>}
-                                  {role.usersStatus == 8 && <span className="badge badge-danger">Declined</span>}
+                                  {role.usersStatus == 6 && <span className="badge badge-primary float-right">Applied</span>}
+                                  {role.usersStatus == 7 && <span className="badge badge-success float-right">Approved</span>}
+                                  {role.usersStatus == 8 && <span className="badge badge-danger float-right">Declined</span>}
                                   <div className="btn-group btn-group-sm" role="group" aria-label="Role Options">
                                     {(this.state.user.id == this.state.project.ownerId && role.statusID == 4) &&
                                       <>
                                         <Button
-                                          className="btn btn-secondary"
+                                          className="btn blue-btn"
                                           onClick={() => this.updateRole(role.id, 5)}
                                         >
                                           Close
                                         </Button>
                                         <Button
-                                          className="btn btn-secondary"
+                                          className="btn blue-btn"
                                           onClick={() => this.deleteRole(role.id)}
                                         >
                                           Delete
@@ -374,7 +376,7 @@ class ProjectDetail extends Component {
                                     }
                                     {(this.state.user.id == this.state.project.ownerId && role.statusID == 5) &&
                                       <Button
-                                        className="btn btn-secondary"
+                                        className="btn blue-btn"
                                         onClick={() => this.updateRole(role.id, 4)}
                                       >
                                         Open
@@ -382,7 +384,7 @@ class ProjectDetail extends Component {
                                     }
                                     {(this.state.user.id != this.state.project.ownerId && role.usersStatus == "Not Applied") &&
                                       <Button
-                                        className="btn btn-secondary"
+                                        className="btn blue-btn"
                                         onClick={() => this.createRoleMember(role.id)}
                                       >
                                         Apply
@@ -390,7 +392,7 @@ class ProjectDetail extends Component {
                                     }
                                     {(this.state.user.id != this.state.project.ownerId && role.usersStatus == 6) &&
                                       <Button
-                                        className="btn btn-secondary"
+                                        className="btn blue-btn"
                                         onClick={() => this.deleteRoleMember(role.usersRoleMemberId)}
                                       >
                                         Cancel

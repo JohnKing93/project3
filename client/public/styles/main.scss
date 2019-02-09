@@ -291,6 +291,13 @@ body {
             color: color(tertiary);
             font-size: 1rem;
         }
+        h5 {
+            color: color(primary);
+            font-size: 1.75rem;
+        }
+        h6 {
+            color: color(secondary);
+        }
 
         .detail-text {
             margin-bottom: 2rem;
@@ -301,6 +308,22 @@ body {
             font-size: 1rem;
             text-align: center;
             margin: .5rem;
+        }
+
+        .member-card {
+            margin: .5rem;
+        }
+
+        .member-list-group {
+            background-color: color(neutral);
+            padding: .25rem 0;
+            margin: 0 auto 2rem auto;
+            width: 80%;
+        }
+
+        .no-border {
+            border-style: none;
+            padding-top: none;
         }
 
         .detail-list-section {

@@ -21,11 +21,11 @@ export function ColorCard(props) {
 export function MemberCard(props) {
   return (
     <>
-      <div className="card">
+      <div className="card member-card">
         <div className="card-body">
+          <a href="/profile" className="btn blue-btn float-right"> View Profile</a>
           <h5 className="card-title">{props.membersName}</h5>
-          <h6 className="card-subtitle mb-2 text-muted">{props.membersPosition}</h6>
-          <a href="/profile" className="card-link">See members profile</a>
+          <h6 className="card-subtitle mb-2">{props.membersPosition}</h6>
         </div>
         {props.children}
       </div>
@@ -35,7 +35,7 @@ export function MemberCard(props) {
 
 export function MemberCardListGroup(props) {
   return (
-    <ul className="list-group list-group-flush">
+    <ul className="list-group">
       {props.children}
     </ul>
   );
@@ -43,7 +43,7 @@ export function MemberCardListGroup(props) {
 
 export function MemberCardListItem(props) {
   return (
-    <li className="list-group-item">
+    <li className="list-group-item no-border">
       {props.roleName}
       {props.children}
     </li>
