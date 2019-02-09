@@ -76,22 +76,37 @@ class ProjectDetail extends Component {
     }
   };
 
+  completeMilestone = (id) => {
+    API.updateMilestone({
+      id,
+      statusID: 10
+    })
+    .then(res => this.loadMilestones())
+    .catch(err => console.log(err));
+  };
+
+  deleteMilestone = (id) => {
+    API.deleteMilestone(id)
+    .then(res => this.loadMilestones())
+    .catch(err => console.log(err));
+  };
+
   makeArchived = (id) => {
     API.updateProject({
-      projectID: id,
+      id,
       statusID: 3
     })
-      .then(res => this.props.history.push('/projects'))
-      .catch(err => console.log(err));
+    .then(res => this.props.history.push('/projects'))
+    .catch(err => console.log(err));
   };
 
   makeCompleted = (id) => {
     API.updateProject({
-      projectID: id,
+      id,
       statusID: 2
     })
-      .then(res => this.props.history.push('/projects'))
-      .catch(err => console.log(err));
+    .then(res => this.props.history.push('/projects'))
+    .catch(err => console.log(err));
   };
 
   render() {
@@ -111,12 +126,6 @@ class ProjectDetail extends Component {
                     </Col>
                     <Col size="md-6">
                       <DropDown>
-                        {/* <DropDownBtn
-                    data-toggle="modal"
-                    data-target="#editModal"
-                  >
-                  <p>Edit</p>
-                  </DropDownBtn> */}
                         <DropDownBtn
                           onClick={() => this.makeCompleted(this.state.projectID)}
                         >
@@ -199,6 +208,7 @@ class ProjectDetail extends Component {
                                 type="text"
                                 id="milestone"
                                 name="newMilestone"
+                                value= {this.state.newMilestone}
                                 onChange={this.handleInputChange}
                               />
                             </FormGroup>
@@ -215,13 +225,24 @@ class ProjectDetail extends Component {
                             <MilestoneEditModal />
                             {this.state.milestones.map(milestone => (
                               <ListItem key={milestone.id}>
-                                  <h2>
-                                    {milestone.milestone}
-                                  </h2>
-                                  {/* <DetailBtn className="blue-btn"></DetailBtn> */}
-                                  <p className="listed-details">
-                                    {milestone.Status.description}
-                                  </p>
+                                <DropDown>
+                                  <DropDownBtn
+                                    onClick={() => this.completeMilestone(milestone.id)}
+                                  >
+                                    <p>Complete</p>
+                                  </DropDownBtn>
+                                  <DropDownBtn
+                                    onClick={() => this.deleteMilestone(milestone.id)}
+                                  >
+                                    <p>Delete</p>
+                                  </DropDownBtn>
+                                </DropDown>
+                                <h2>
+                                  {milestone.milestone}
+                                </h2>
+                                <p className="listed-details">
+                                  {milestone.Status.description}
+                                </p>
                               </ListItem>
                             ))}
                           </List>
