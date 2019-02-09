@@ -20,7 +20,6 @@ class LiveProjects extends Component {
   loadProjects = () => {
     API
       .getProjects()
-      .then(res => this.setState({ projects: res.data }))
       .then(res => {
         let projectData = res.data.filter(project => project.Status.description === this.state.projectStatus);
         this.setState({ projects: projectData });
