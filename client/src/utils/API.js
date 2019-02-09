@@ -64,6 +64,14 @@ export default {
     return axios.post("/api/projectmilestones", newMilestone);
   },
 
+  updateMilestone: function(milestone) {
+    return axios.put("/api/projectmilestones/" + milestone.id, milestone);
+  },
+
+  deleteMilestone: function(milestoneId) {
+    return axios.delete("/api/projectmilestones/" + milestoneId);
+  },
+
   getProjectMilestones: function(id) {
     return axios.get("/api/projectmilestones/" + id);
   }
