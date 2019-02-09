@@ -363,6 +363,7 @@ class ProjectDetail extends Component {
                                 value={this.state.roleName}
                                 placeholder="Title"
                                 onChange={this.handleInputChange}
+                                className="role-input"
                               />
                               <Input
                                 type="text"
@@ -371,6 +372,7 @@ class ProjectDetail extends Component {
                                 value={this.state.roleDescription}
                                 placeholder="Description"
                                 onChange={this.handleInputChange}
+                                className="role-input"
                               />
                             </FormGroup>
                             <FormBtn
@@ -383,6 +385,7 @@ class ProjectDetail extends Component {
                           </Form>
                         </div>
                         <div className="project-pg-list">
+                        <div className="role-list-group">
                           {this.state.roles.length ? (
                             this.state.roles.map(role => (
                               <ColorCard key={role.id}>
@@ -442,6 +445,7 @@ class ProjectDetail extends Component {
                           ) : (
                             <h3 className="none-listed">No Roles Created</h3>
                           )}
+                          </div>
                           </div>
                       </div>
                     </Col>

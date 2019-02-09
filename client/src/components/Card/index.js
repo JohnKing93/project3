@@ -12,7 +12,7 @@ export function Card({ children }) {
 
 export function ColorCard(props) {
   return (
-    <div className="card bg-light mb-3">
+    <div className="card bg-light mb-2 my-list-item">
       {props.children}
     </div>
   );
@@ -53,8 +53,8 @@ export function MemberCardListItem(props) {
 export function ColorCardBody(props) {
   return (
       <div className="card-body">
-        <h5 className="card-title">{props.roleTitle}{props.children}</h5>
-        <p className="card-text">{props.description}</p>
+        <h2 className="card-title">{props.roleTitle}{props.children}</h2>
+        <p className="card-text listed-details">{props.description}</p>
       </div>
   );
 }
