@@ -4,12 +4,13 @@ import { Link } from "react-router-dom";
 import { Navigation } from "../components/Navigation";
 import { Col, Row, Container } from "../components/Grid";
 import { Card } from "../components/Card";
-// import { DetailBtn } from "../components/Buttons";
+import { DropDownBtn, DropDown } from "../components/Buttons";
 import API from "../utils/API";
 
 class LiveProjects extends Component {
   state = {
-    projects: []
+    projects: [],
+    projectStatus: 'In Progress'
   };
 
   componentDidMount() {
@@ -19,12 +20,16 @@ class LiveProjects extends Component {
   loadProjects = () => {
     API
       .getProjects()
-      .then(res => this.setState({ projects: res.data }))
       .then(res => {
-        let projectData = res.data.filter(project => project.Status.description === 'In Progress');
+        let projectData = res.data.filter(project => project.Status.description === this.state.projectStatus);
         this.setState({ projects: projectData });
       })
       .catch(err => console.log(err));
+  };
+
+  defineStatus = (newStatus) => {
+    this.setState({ projectStatus: newStatus});
+    this.loadProjects();
   };
 
   render() {
@@ -38,6 +43,23 @@ class LiveProjects extends Component {
             <Col size="md-8">
             <div id="projects-div">
               <Card >
+                <DropDown>
+                  <DropDownBtn
+                    onClick={() => this.defineStatus('In Progress')}
+                  >
+                    <p>In Progress</p>
+                  </DropDownBtn>
+                  <DropDownBtn
+                    onClick={() => this.defineStatus('Completed')}
+                  >
+                    <p>Completed</p>
+                  </DropDownBtn>
+                  <DropDownBtn
+                    onClick={() => this.defineStatus('Archived')}
+                    >
+                    <p>Archived</p>
+                  </DropDownBtn>
+                </DropDown>
                 {this.state.projects.length ? (
                   <List >
                     {this.state.projects.map(project => (

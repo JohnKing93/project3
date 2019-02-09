@@ -92,7 +92,7 @@ class ProjectDetail extends Component {
 
   makeArchived = (id) => {
     API.updateProject({
-      projectID: id,
+      id,
       statusID: 3
     })
     .then(res => this.props.history.push('/projects'))
@@ -101,7 +101,7 @@ class ProjectDetail extends Component {
 
   makeCompleted = (id) => {
     API.updateProject({
-      projectID: id,
+      id,
       statusID: 2
     })
     .then(res => this.props.history.push('/projects'))
@@ -125,12 +125,6 @@ class ProjectDetail extends Component {
                     </Col>
                     <Col size="md-6">
                       <DropDown>
-                        {/* <DropDownBtn
-                    data-toggle="modal"
-                    data-target="#editModal"
-                  >
-                  <p>Edit</p>
-                  </DropDownBtn> */}
                         <DropDownBtn
                           onClick={() => this.makeCompleted(this.state.projectID)}
                         >

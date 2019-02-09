@@ -56,16 +56,16 @@ class Ideas extends Component {
           .then(res => this.loadIdeas())
           .catch(err => console.log(err));
         }
-      };
+  };
 
-      approveIdea = idea => {
-        API.updateIdea({
-          id: idea.id,
-          endorsed: true
-        })
-          .then(res => this.convertIdea(idea))
-          .then(res => this.loadIdeas())
-          .catch(err => console.log(err));
+  approveIdea = idea => {
+    API.updateIdea({
+      id: idea.id,
+      endorsed: true
+    })
+      .then(res => this.convertIdea(idea))
+      .then(res => this.loadIdeas())
+      .catch(err => console.log(err));
   };
 
   convertIdea = idea => {
