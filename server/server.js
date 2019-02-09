@@ -27,7 +27,7 @@ app.use(routes);
 
 // Connect to DB
 db.sequelize
-  .sync({ force: true })
+  .sync()
   .then(() => {
     app.listen(PORT, () => {
       console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);

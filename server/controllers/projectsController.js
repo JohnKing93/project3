@@ -6,9 +6,7 @@ module.exports = {
       .findAll({
         include: [{
           model: db.Status,
-          where: {
-            type: 'project',
-          },
+          where: { id: db.Sequelize.col('statusID') },
         }, db.User],
         order: ['id'],
       })
@@ -18,21 +16,38 @@ module.exports = {
   findByID: (req, res) => {
     db.Project
       .findOne({
+        attributes: { exclude: ['statusID', 'ownerID', 'createdAt', 'updatedAt'] },
         where: {
           id: Number(req.params.id),
         },
-        include: [{
-          model: db.Status,
-          where: {
-            type: 'project',
-          },
-        }, db.User, {
-          model: db.ProjectMilestone,
-          include: [{
+        include: [
+          {
             model: db.Status,
+            attributes: { exclude: ['type', 'createdAt', 'updatedAt'] },
             where: { id: db.Sequelize.col('statusID') },
-          }],
-        }],
+          },
+          {
+            model: db.ProjectMilestone,
+            attributes: { exclude: ['projectID', 'statusID', 'createdAt', 'updatedAt'] },
+            include: [{
+              model: db.Status,
+              attributes: { exclude: ['type', 'createdAt', 'updatedAt'] },
+            }],
+          },
+          {
+            model: db.ProjectRole,
+            as: 'Roles',
+            attributes: { exclude: ['projectID', 'statusID', 'createdAt', 'updatedAt'] },
+            include:
+              {
+                model: db.RoleMember,
+                attributes: { exclude: ['projectID', 'roleID', 'userID', 'statusID', 'createdAt', 'updatedAt'] },
+                include: {
+                  model: db.User,
+                  attributes: { exclude: ['password', 'permissionID', 'createdAt', 'updatedAt'] },
+                },
+              },
+          }, db.User],
         order: ['id'],
       })
       .then(results => res.status(200).json(results))
