@@ -7,7 +7,6 @@ import { List, ListItem } from "../components/List";
 import { Navigation } from "../components/Navigation";
 import API from "../utils/API";
 import { ProjectDetailMainModal, ProjectRoleEditModal, RoleApplicantModal, MilestoneEditModal } from "../components/Modal";
-import RolesAndMembers from "../components/RolesAndMembers";
 
 class ProjectDetail extends Component {
 
@@ -31,27 +30,32 @@ class ProjectDetail extends Component {
     milestones: [],
     roles: [],
     roleMembers: [],
+    roleName: '',
+    roleDescription: '',
     loading: true,
   };
 
   componentDidMount() {
     this.loadProject();
-    this.loadRoles();
   };
 
   loadProject = () => {
     API.getThisProject(this.props.match.params.id)
-      .then(res =>
+      .then(res => {
         this.setState({
           title:res.data.title,
           description: res.data.description,
           owner: res.data.User.firstName + ' ' + res.data.User.lastName,
           projectID: res.data.id,
+          project: {
+            id: res.data.id
+          },
           statusID: res.data.statusID,
           projectMembers: res.data.ProjectMembers || '',
           milestones: res.data.ProjectMilestones || ''
         })
-      )
+        this.loadRoles();
+      })
       .catch(err => console.log(err));
   };
 
@@ -201,6 +205,23 @@ class ProjectDetail extends Component {
     .catch(err => console.log(err));
   };
 
+  createRole = event => {
+    event.preventDefault();
+    if (this.state.roleName) {
+      let role = {
+        title: this.state.roleName,
+        description: this.state.roleDescription,
+        statusID: 4,
+        projectID: this.state.project.id
+      }
+      API.postRole(role)
+      .then(res => {
+        this.loadRoles();
+      })
+      .catch(err => console.log(err));
+    }
+  };
+
   updateRole = (roleId, newStatus) => {
     let role = {
       id: roleId,
@@ -336,11 +357,27 @@ class ProjectDetail extends Component {
                               <Input
                                 type="text"
                                 id="role"
+                                name="roleName"
+                                value={this.state.roleName}
+                                placeholder="Title"
+                                onChange={this.handleInputChange}
+                              />
+                              <Input
+                                type="text"
+                                id="role"
+                                name="roleDescription"
+                                value={this.state.roleDescription}
+                                placeholder="Description"
+                                onChange={this.handleInputChange}
                               />
                             </FormGroup>
                             <FormBtn
-                              className="btn blue-btn card-item-submit">
-                              Submit</FormBtn>
+                              className="btn blue-btn card-item-submit"
+                              type="submit"
+                              onClick={this.createRole}
+                            >
+                              Submit
+                            </FormBtn>
                           </Form>
                         </div>
                         <div className="project-pg-list">
@@ -417,7 +454,7 @@ class ProjectDetail extends Component {
                                 type="text"
                                 id="milestone"
                                 name="newMilestone"
-                                value= {this.state.newMilestone}
+                                value={this.state.newMilestone}
                                 onChange={this.handleInputChange}
                               />
                             </FormGroup>

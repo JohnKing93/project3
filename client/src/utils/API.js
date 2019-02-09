@@ -63,6 +63,10 @@ export default {
     return axios.get(`/api/projectroles/projects/${projectId}`);
   },
 
+  postRole: function(role) {
+    return axios.post("/api/projectroles", role);
+  },
+
   updateRole: function(role) {
     return axios.put(`/api/projectroles/${role.id}`, role);
   },
