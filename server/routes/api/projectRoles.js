@@ -6,7 +6,7 @@ router.route('/')
   .get(projectRolesController.findAll)
   .post(projectRolesController.create);
 
-// Matches with 'api/projectroles/project/:id'
+// Matches with 'api/projectroles/projects/:id'
 router.route('/projects/:id')
   .get(projectRolesController.findAllByProjectID);
 

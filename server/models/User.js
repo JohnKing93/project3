@@ -31,12 +31,12 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   User.associate = (models) => {
-    // Associate user back to permissions
+    // User has a permission level
     models.User.belongsTo(models.Permission, {
       foreignKey: 'permissionID',
     });
 
-    // User can own many ideas
+    // User can have many ideas
     models.User.hasMany(models.Idea, {
       foreignKey: {
         name: 'ownerID',
@@ -45,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'cascade',
     });
 
-    // User can have many idea comments
+    // User can have many comments on an idea
     models.User.hasMany(models.IdeaComment, {
       foreignKey: {
         name: 'userID',
@@ -54,7 +54,7 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'cascade',
     });
 
-    // User can have many votes
+    // User can vote on many ideas
     models.User.hasMany(models.IdeaVote, {
       foreignKey: {
         name: 'userID',
@@ -63,7 +63,7 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'cascade',
     });
 
-    // User can own many projects
+    // User can have many projects
     models.User.hasMany(models.Project, {
       foreignKey: {
         name: 'ownerID',
@@ -72,7 +72,7 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'cascade',
     });
 
-    // User can have many project comments
+    // User can have many comments on an project
     models.User.hasMany(models.ProjectComment, {
       foreignKey: {
         name: 'userID',
@@ -81,8 +81,9 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'cascade',
     });
 
-    // User can have many roles
+    // User can have a role on many projects
     models.User.hasMany(models.RoleMember, {
+      as: 'Roles',
       foreignKey: {
         name: 'userID',
         allowNull: false,
@@ -101,6 +102,15 @@ module.exports = (sequelize, DataTypes) => {
 
     // User can have many timesheets
     models.User.hasMany(models.Timesheet, {
+      foreignKey: {
+        name: 'userID',
+        allowNull: false,
+      },
+      onDelete: 'cascade',
+    });
+
+    // User can have many skills
+    models.User.hasMany(models.UserSkill, {
       foreignKey: {
         name: 'userID',
         allowNull: false,

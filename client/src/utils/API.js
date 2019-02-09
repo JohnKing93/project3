@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export default {
+  getUser: (id) => axios.get(`/api/users/${id}`),
 
   registerUser: function(user) {
     return axios.post("/api/users/register", user);
@@ -11,7 +12,7 @@ export default {
   },
 
   authenticateUser: function() {
-    return axios.post("api/users/authenticate", { withCredentials: true });
+    return axios.post("/api/users/authenticate", { withCredentials: true });
   },
 
   // Get all Live Projects (approved, in progress)
@@ -59,26 +60,34 @@ export default {
   },
 
   getRoles: function(projectId) {
-    return axios.get(`api/projectroles/project/${projectId}`)
+    return axios.get(`/api/projectroles/projects/${projectId}`)
   },
 
   updateRole: function(role) {
-    return axios.put(`api/projectroles/${role.id}`, role)
+    return axios.put(`/api/projectroles/${role.id}`, role)
   },
 
   deleteRole: function(roleId) {
-    return axios.delete(`api/projectroles/${roleId}`)
+    return axios.delete(`/api/projectroles/${roleId}`)
   },
 
   getRoleMembers: function(projectId) {
-    return axios.get(`api/rolemembers/${projectId}`)
+    return axios.get(`/api/rolemembers/${projectId}`)
   },
 
   postRoleMember: function (roleMember) {
-    return axios.post("api/rolemembers/", roleMember)
+    return axios.post("/api/rolemembers/", roleMember)
   },
 
   deleteRoleMembers: function(roleMemberId) {
-    return axios.get(`api/rolemembers/${roleMemberId}`)
+    return axios.get(`/api/rolemembers/${roleMemberId}`)
+  },
+
+  createMilestone: function(newMilestone) {
+    return axios.post("/api/projectmilestones", newMilestone);
+  },
+
+  getProjectMilestones: function(id) {
+    return axios.get("/api/projectmilestones/" + id);
   }
 };

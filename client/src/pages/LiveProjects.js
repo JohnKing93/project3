@@ -20,6 +20,10 @@ class LiveProjects extends Component {
     API
       .getProjects()
       .then(res => this.setState({ projects: res.data }))
+      .then(res => {
+        let projectData = res.data.filter(project => project.Status.description === 'In Progress');
+        this.setState({ projects: projectData });
+      })
       .catch(err => console.log(err));
   };
 
@@ -34,7 +38,6 @@ class LiveProjects extends Component {
             <Col size="md-8">
             <div id="projects-div">
               <Card >
-                <h1>Live Projects</h1>
                 {this.state.projects.length ? (
                   <List >
                     {this.state.projects.map(project => (

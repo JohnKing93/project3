@@ -2,10 +2,12 @@ $colors: (
     primary: #0ca54d,
     primary-dark: darken(#0ca54d, 15%),
     accent: #14b7d4,
+    accent-dark: darken(#14b7d4, 10%),
     secondary: #66d8ac,
     tertiary: #bbf18f,
     negative: #ee744e,
     neutral: #e6eae9,
+    neutral-dark: darken(#e6eae9, 20%),
     neutral-lightest: lighten(#e6eae9, 30%),
     darkest: #021a0c
 );
@@ -13,6 +15,14 @@ $colors: (
 @function color($color-name) {
     @return map-get($colors, $color-name)
 };
+
+$mobile: 800px;
+
+@mixin mobile {
+    @media (max-width: #{$mobile}) {
+        @content;
+    }
+}
 
 body {
     background-color: color(neutral);
@@ -30,6 +40,11 @@ body {
         color: white;
     }
 
+    .blue-btn:hover {
+        background-color: color(accent-dark);
+        transition: color .15s ease-in-out;
+    }
+
     .field-head {
         font-weight: bold;
         font-size: 1.1rem;
@@ -43,6 +58,7 @@ body {
 
     .my-list-item {
         margin: .5rem;
+        margin-bottom: 0;
         border-width: 0px;
         border-radius: .25rem !important;
     }
@@ -56,15 +72,21 @@ body {
     }
 
     #login-logo {
-        width: 4rem;
+        width: 3.5rem;
         position: fixed;
         top: 1rem;
         left: 2rem;
         z-index: -2;
+
+        @include mobile {
+            position: fixed;
+            top: 1rem;
+            left: 43%;
+        }
     }
 
     #login-card {
-        margin: 5rem auto 4rem auto;
+        margin: 7rem auto 4rem auto;
         box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
         border-radius: .25rem;
 
@@ -98,36 +120,85 @@ body {
         border-radius: .25rem;
 
         #profile-info-div {
+            position: relative;
+
             h1 {
                 color: color(primary);
-                font-size: 2rem;
-                font-weight: bold;
+                font-size: 1.75rem;
+                font-weight: 500;
                 font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-                line-height: .75;
-                margin-bottom: 1.5rem;
+                line-height: .8;
+                text-align: center;
+                background-color: white;
+                width: 15rem;
+                position: absolute;
+                bottom: 6.75rem;
+                padding: .3rem 0;
             }
             h2 {
-                color: color(secondary);
+                color: color(darkest);
                 font-size: 1.5rem;
-                line-height: .8;
+                line-height: .65;
             }
             h3 {
                 font-size: 1.2rem;
+                margin: 2rem;
+                color: color(secondary);
             }
-        }
 
+            .my-position {
+                font-weight: 450;
+                color: color(secondary);
+                width: 15rem;
+                position: absolute;
+                bottom: 5rem;
+                background-color: white;
+            }
+            .user-name-box {
+                background-color: color(tertiary);
+                border-radius: 50%;
+                width: 15rem;
+                height: 15rem;
+                margin: 1rem auto;
+            }
+            .profile-logo {
+                height: 15rem;
+            }
+            }
         #profile-project-div {
+            padding: 1rem;
+            padding-top: 0;
+            
             h1 {
-                color: color(primary);
+                color: color(darkest);
                 font-size: 2rem;
                 font-weight: bold;
                 font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-                margin-bottom: 1.5rem;
+                margin: 1rem;
+                margin-top: 0;
             }
 
             #project-box {
                 background-color: color(neutral);
                 border-radius: 5px;
+            
+                    h2 {
+                        font-weight: bold;
+                        font-size: 2rem;
+                        text-align: center;
+                        margin-bottom: 1rem;
+                        color: color(primary);
+                    }
+            
+                    a, a:visited {
+                        text-decoration: none;
+                        color: color(tertiary);
+                    }
+            
+                    a:hover {
+                        color: color(primary);
+                        transition: color .15s ease-in-out;
+                    }
             }
         }
     }
@@ -158,6 +229,11 @@ body {
                 display: inline;
             }
 
+            .vote-btn:hover {
+                color: color(tertiary);
+                transition: color .15s ease-in-out;
+            }
+
             .vote-count {
                 display: inline;
             }
@@ -174,6 +250,17 @@ body {
             font-size: 2rem;
             text-align: center;
             margin-bottom: 1rem;
+            color: color(primary);
+        }
+
+        a, a:visited {
+            text-decoration: none;
+            color: color(darkest);
+        }
+
+        a:hover {
+            color: color(primary);
+            transition: color .15s ease-in-out;
         }
     }
 
@@ -188,7 +275,7 @@ body {
             font-weight: bold;
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
             line-height: .75;
-            margin-bottom: 1.5rem;
+            margin: 1.5rem auto;
             text-align: center;
         }
         h3 {
@@ -196,20 +283,63 @@ body {
             font-size: 1rem;
         }
         h2 {
-            color: color(primary);
-            font-size: 2rem;
+            color: color(darkest);
+            font-size: 1.5rem;
             text-align: center;
         }
         h4 {
             color: color(tertiary);
+            font-size: 1rem;
         }
 
         .top-right-drop {
             float: right;
         }
 
+        .detail-text {
+            margin-bottom: 2rem;
+        }
+
+        .none-listed {
+            color: color(neutral-dark);
+            font-size: 1rem;
+            text-align: center;
+            margin: .5rem;
+        }
+
         .detail-list-section {
             margin-bottom: 2rem;
+
+            .add-project-card {
+                width: 95%;
+                border-style: solid;
+                border-width: 2px;
+                border-color: color(neutral);
+                border-radius: .25rem;
+                padding: 0 1rem;
+                margin: auto;
+                
+                .card-item-submit {
+                    position: absolute;
+                    right: 3.5rem;
+                    top: 3rem;
+                }
+
+                .field-head {
+                    margin-bottom: 1rem;
+                    margin-top: 1rem;
+                    width: 60%;
+                }
+                }
+                
+                .project-pg-list {
+                    margin: 1rem;
+
+                    .listed-details {
+                        text-align: center;
+                        margin-bottom: .2rem;
+                    }
+            }
         }
     }
 }

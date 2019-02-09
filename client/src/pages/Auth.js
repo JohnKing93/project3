@@ -7,8 +7,8 @@ import { Card } from "../components/Card";
 
 class Register extends Component {
   state = {
-    firstname: '',
-    lastname: '',
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
     message: '',
@@ -28,8 +28,8 @@ class Register extends Component {
   handleRegisterUser = event => {
     event.preventDefault();
     if (
-          this.state.firstname === '' ||
-          this.state.lastname === '' ||
+          this.state.firstName === '' ||
+          this.state.lastName === '' ||
           this.state.email === '' ||
           this.state.password === ''
         ) {
@@ -39,11 +39,11 @@ class Register extends Component {
         }
         else {
           API.registerUser({
-            firstname: this.state.firstname,
-            lastname: this.state.lastname,
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
             email: this.state.email,
             username: this.state.email,
-            password: this.state.password,
+            password: this.state.password
           })
         .then(res => {
           // console.log(res.data);
@@ -87,6 +87,7 @@ class Register extends Component {
   render() {
     return (
       <Container fluid>
+      <img id="login-logo" src="images/progrologo.png"></img>
         <Row>
           <Col size="md-4">
           </Col>
@@ -109,20 +110,20 @@ class Register extends Component {
                   {this.state.register &&
                     <div>
                       <FormGroup>
-                        <Label htmlFor="firstname" className="field-head">First Name</Label>
+                        <Label htmlFor="firstName" className="field-head">First Name</Label>
                         <Input
                           type="text"
-                          id="firstname"
-                          value={this.state.firstname}
+                          id="firstName"
+                          value={this.state.firstName}
                           onChange={this.handleInputChange}
                         />
                       </FormGroup>
                       <FormGroup>
-                        <Label htmlFor="lastname" className="field-head">Last Name</Label>
+                        <Label htmlFor="lastName" className="field-head">Last Name</Label>
                         <Input
                           type="text"
-                          id="lastname"
-                          value={this.state.lastname}
+                          id="lastName"
+                          value={this.state.lastName}
                           onChange={this.handleInputChange}
                         />
                       </FormGroup>
@@ -167,7 +168,6 @@ class Register extends Component {
           </Col>
         </Row>
         <img className="bottom-art" src="images/progrobg.png"></img>
-        <img id="login-logo" src="images/progrologo.png"></img>
       </Container>
     );
   }

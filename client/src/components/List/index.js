@@ -5,7 +5,7 @@ import "./style.css";
 
 export function List({ children }) {
   return (
-    <div className="list-overflow-container">
+    <div>
       <ul className="list-group my-list-group">{children}</ul>
     </div>
   );

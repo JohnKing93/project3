@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { Col, Row, Container } from "../components/Grid";
-import { ColorCard, ColorCardBody, ColorCardFooter } from "../components/Card";
-import { Button } from "../components/Form";
-import API from "../utils/API";
-import { ProjectDetailMainModal, ProjectRoleEditModal, RoleApplicantModal, MilestoneEditModal } from "../components/Modal";
+import { Col, Row, Container } from "../Grid";
+import { ColorCard, ColorCardBody, ColorCardFooter } from "../Card";
+import { Button } from "../Form";
+import API from "../../utils/API";
+import { ProjectDetailMainModal, ProjectRoleEditModal, RoleApplicantModal, MilestoneEditModal } from "../Modal";
 
 class RolesAndMembers extends Component {
 
@@ -37,7 +37,7 @@ class RolesAndMembers extends Component {
 
   state = {
     user: {
-      id: 1,
+      id: 2,
       permission: 1,
     },
     project: {
@@ -54,8 +54,11 @@ class RolesAndMembers extends Component {
   };
 
   loadRoles = () => {
+    console.log(this.state.project.id)
     API.getRoles(this.state.project.id)
       .then(res => {
+        console.log("loadRoles");
+        console.log(res.data);
         this.setState({
           roles: res.data
         })
@@ -67,13 +70,24 @@ class RolesAndMembers extends Component {
   };
 
   loadRoleMembers = () => {
+    console.log("loadRoleMembers");
     API.getRoleMembers(this.state.project.id)
       .then(res => {
-        let roleMembers = res;
-        let usersRoles = res.filter(role => role.userID = this.state.user.id);
-        let roles = this.state.roles.map(role => {
-          for (i = 0; i < usersRoles.length; i++) {
-            if (role.userID = this.state.user.id) {
+        console.log("Role Members:")
+        console.log(res.data);
+        let roleMembers = res.data;
+        const usersRoles = roleMembers.filter(role => role.userID == this.state.user.id);
+        console.log("User's Roles:");
+        console.log(usersRoles);
+        console.log("Roles:");
+        console.log(this.state.roles);
+        const roles = this.state.roles.map(role => {
+          if (usersRoles.length == 0 || null || typeof usersRole == undefined) {
+            role.usersStatus = "Not Applied";
+            return role;
+          }
+          for (let i = 0; i < usersRoles.length; i++) {
+            if (usersRoles[i].roleID == role.id) {
               role.usersStatus = usersRoles[i].statusID;
               role.usersRoleMemberId = usersRoles[i].id;
               return role;
@@ -82,21 +96,26 @@ class RolesAndMembers extends Component {
             return role;
           }
         })
+        console.log("Altered Roles");
+        console.log(roles);
         this.setState({
           roles,
           roleMembers,
           loading: false
         })
+        console.log("Roles");
+        console.log(roles);
       })
       .catch(err => console.log(err));
   };
 
   createRoleMember = (roleId) => {
-    let roleMember = {
+    const roleMember = {
       statusID: 6,
       userID: this.state.user.id,
       roleID: roleId
     }
+    console.log(roleMember);
     API.postRoleMember(roleMember)
     .then(res => {
       this.loadRoleMembers();
@@ -138,66 +157,63 @@ class RolesAndMembers extends Component {
 
   render() {
     return (
-      <Container fluid>
-        {/* Create new role button */}
-        {this.state.role.map(role => (
-          <Col size="md-2">
-            <ColorCard key={role.id}>
-              <ColorCardBody>
-                {role.statusID == 4 && <span className="badge badge-success">Open</span>}
-                {role.statusID == 5 && <span className="badge badge-danger">Closed</span>}
-              </ColorCardBody>
-              <ColorCardFooter>
-                {role.userStatus == "Applied" && <span className="badge badge-primary">Applied</span>}
-                {role.userStatus == "Approved" && <span className="badge badge-success">Approved</span>}
-                {role.userStatus == "Declined" && <span className="badge badge-danger">Declined</span>}
-                <div className="btn-group btn-group-sm" role="group" aria-label="Role Options">
-                  {this.state.user.id == this.state.project.ownerId ? (
-                    // Owner buttons
-                    role.statusID == 4 &&
-                      <Button
-                        className="btn btn-secondary"
-                        onClick={() => this.updateRole(role.id, 5)}
-                      >
-                        Close
-                      </Button>,
-                    role.statusID == 4 &&
-                      <Button
-                        className="btn btn-secondary"
-                        onClick={() => this.deleteRole(role.id)}
-                      >
-                        Delete
-                      </Button>,
-                    role.statusID == 5 &&
-                      <Button
-                        className="btn btn-secondary"
-                        onClick={() => this.updateRole(role.id, 4)}
-                      >
-                        Open
-                      </Button>
-                  ):(
-                    // User buttons
-                    role.userStatus == "Not Applied" &&
-                      <Button
-                        className="btn btn-secondary"
-                        onClick={() => this.createRoleMember(role.usersRoleMemberId, "Applied")}
-                      >
-                        Apply
-                      </Button>,
-                    role.userStatus == "Applied" &&
-                      <Button
-                        className="btn btn-secondary"
-                        onClick={() => this.deleteRoleMember(role.usersRoleMemberId)}
-                      >
-                        Cancel
-                      </Button>
-                  )}
-                </div>
-              </ColorCardFooter>
-            </ColorCard>
-          </Col>
+      <div>
+        {this.state.roles.map(role => (
+          <ColorCard key={role.id}>
+            <ColorCardBody roleTitle={role.title} description={role.description}>
+              {role.statusID == 4 && <span className="badge badge-success">Open</span>}
+              {role.statusID == 5 && <span className="badge badge-danger">Closed</span>}
+            </ColorCardBody>
+            <ColorCardFooter>
+              {role.userStatus == "Applied" && <span className="badge badge-primary">Applied</span>}
+              {role.userStatus == "Approved" && <span className="badge badge-success">Approved</span>}
+              {role.userStatus == "Declined" && <span className="badge badge-danger">Declined</span>}
+              <div className="btn-group btn-group-sm" role="group" aria-label="Role Options">
+                {(this.state.user.id == this.state.project.ownerId && role.statusID == 4) &&
+                  <>
+                  <Button
+                    className="btn btn-secondary"
+                    onClick={() => this.updateRole(role.id, 5)}
+                  >
+                    Close
+                  </Button>
+                  <Button
+                    className="btn btn-secondary"
+                    onClick={() => this.deleteRole(role.id)}
+                  >
+                    Delete
+                  </Button>
+                  </>
+                }
+                {(this.state.user.id == this.state.project.ownerId && role.statusID == 5) &&
+                  <Button
+                    className="btn btn-secondary"
+                    onClick={() => this.updateRole(role.id, 4)}
+                  >
+                    Open
+                  </Button>
+                }
+                {(this.state.user.id != this.state.project.ownerId && role.usersStatus == "Not Applied") &&
+                  <Button
+                    className="btn btn-secondary"
+                    onClick={() => this.createRoleMember(role.id)}
+                  >
+                    Apply
+                  </Button>
+                }
+                {(this.state.user.id != this.state.project.ownerId && role.usersStatus == 6) &&
+                  <Button
+                    className="btn btn-secondary"
+                    onClick={() => this.deleteRoleMember(role.usersRoleMemberId)}
+                  >
+                    Cancel
+                  </Button>
+                }
+              </div>
+            </ColorCardFooter>
+          </ColorCard>
         ))}
-      </Container>
+      </div>
     );
   }
 }
