@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import { Col, Row, Container } from "../components/Grid";
 import { Card, ColorCard, ColorCardBody, ColorCardFooter, MemberCard, MemberCardListItem, MemberCardListGroup } from "../components/Card";
 import { Input, FormGroup, Label, Form, FormBtn, Button } from "../components/Form";
-import { RoleDropBtn, DropDown, DropDownBtn } from "../components/Buttons";
+import { DropDown, DropDownBtn } from "../components/Buttons";
 import { List, ListItem } from "../components/List";
 import { Navigation } from "../components/Navigation";
 import API from "../utils/API";
-import { ProjectDetailMainModal, ProjectRoleEditModal, RoleApplicantModal, MilestoneEditModal } from "../components/Modal";
+import { ProjectDetailMainModal, MilestoneEditModal } from "../components/Modal";
 
 class ProjectDetail extends Component {
 

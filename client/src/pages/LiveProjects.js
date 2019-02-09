@@ -43,15 +43,7 @@ class LiveProjects extends Component {
             <Col size="md-8">
               <div id="projects-div">
                 <Card >
-                  {this.state.projects.length ? (
-                    <List >
-                      {this.state.projects.map(project => (
-                        <ListItem key={project.id}>
-                          <Link to={"/projects/" + project.id}>
-                            <h2>
-                              {project.title}
-                            </h2>
-                            <div className="top-right-drop">
+                <div className="top-right-drop">
                             <DropDown>
                               <DropDownBtn
                                 onClick={() => this.defineStatus('In Progress')}
@@ -70,6 +62,14 @@ class LiveProjects extends Component {
                               </DropDownBtn>
                             </DropDown>
                             </div>
+                  {this.state.projects.length ? (
+                    <List >
+                      {this.state.projects.map(project => (
+                        <ListItem key={project.id}>
+                          <Link to={"/projects/" + project.id}>
+                            <h2>
+                              {project.title}
+                            </h2>
                             <p>
                               {project.description}
                             </p>
