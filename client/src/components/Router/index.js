@@ -73,7 +73,7 @@ class PrivateRoute extends React.Component {
         {...rest}
         render={props => {
           return isAuthenticated ? (
-            <Component {...props} />
+            <Component {...props} user={this.state.user} />
           ) : (
             <Redirect
               to={{
@@ -97,7 +97,7 @@ const Routes = () => (
       <PrivateRoute exact path="/ideas" component={Ideas} />
       {/* <Route exact path="/ideas/:id" component={Detail} /> */}
       <PrivateRoute exact path="/projects" component={LiveProjects} />
-      <PrivateRoute exact path="/projects/:id" component={ProjectDetail} user={this.state.user} />
+      <PrivateRoute exact path="/projects/:id" component={ProjectDetail} />
       <PrivateRoute exact path="/profile" component={UserProfile} />
       {/* <PrivateRoute
         path='/projects/:id'
