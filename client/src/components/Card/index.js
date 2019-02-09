@@ -12,7 +12,7 @@ export function Card({ children }) {
 
 export function ColorCard(props) {
   return (
-    <div className="card bg-light mb-3" style={{maxWidth: 18 + 'rem'}}>
+    <div className="card bg-light mb-3">
       {props.children}
     </div>
   );
@@ -21,7 +21,7 @@ export function ColorCard(props) {
 export function MemberCard(props) {
   return (
     <>
-      <div className="card" style={{width: 18 + 'rem'}}>
+      <div className="card">
         <div className="card-body">
           <h5 className="card-title">{props.membersName}</h5>
           <h6 className="card-subtitle mb-2 text-muted">{props.membersPosition}</h6>
