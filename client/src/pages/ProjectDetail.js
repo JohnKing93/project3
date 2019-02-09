@@ -11,6 +11,7 @@ import { ProjectDetailMainModal, ProjectRoleEditModal, RoleApplicantModal, Miles
 class ProjectDetail extends Component {
 
   state = {
+    testUser: props.user,
     user: {
       id: 2,
       permission: 1,
@@ -37,6 +38,7 @@ class ProjectDetail extends Component {
 
   componentDidMount() {
     this.loadProject();
+    console.log(this.state.testUser);
   };
 
   loadProject = () => {
