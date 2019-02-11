@@ -90,18 +90,18 @@ class ProjectDetail extends Component {
         console.log("Role Members:")
         console.log(res.data);
         let roleMembers = res.data;
-        const usersRoles = roleMembers.filter(role => role.userID == this.state.user.id);
+        const usersRoles = roleMembers.filter(role => role.userID === this.state.user.id);
         console.log("User's Roles:");
         console.log(usersRoles);
         console.log("Roles:");
         console.log(this.state.roles);
         const roles = this.state.roles.map(role => {
-          if (usersRoles.length == 0 || null || typeof usersRole == undefined) {
+          if (usersRoles.length === 0 || null || typeof usersRole === undefined) {
             role.usersStatus = "Not Applied";
             return role;
           }
           for (let i = 0; i < usersRoles.length; i++) {
-            if (usersRoles[i].roleID == role.id) {
+            if (usersRoles[i].roleID === role.id) {
               role.usersStatus = usersRoles[i].statusID;
               role.usersRoleMemberId = usersRoles[i].id;
               return role;
@@ -109,6 +109,7 @@ class ProjectDetail extends Component {
             role.usersStatus = "Not Applied";
             return role;
           }
+          return null;
         })
         console.log("Altered Roles:");
         console.log(roles);
@@ -294,7 +295,7 @@ class ProjectDetail extends Component {
                     </Col>
                   </Row>
                   <p className="text-center detail-text">{this.state.description}</p>
-                  
+
                       <h2>Members</h2>
                       <div className="member-list-group">
                       <Row>
@@ -310,7 +311,7 @@ class ProjectDetail extends Component {
                             <MemberCardListGroup>
                               <MemberCardListItem roleName={roleMember.ProjectRole.title}>
                                 <div className="btn-group btn-group-sm" role="group" aria-label="Role Member Options">
-                                  {(this.state.user.id == this.state.project.ownerId && roleMember.statusID == 6) &&
+                                  {(this.state.user.id === this.state.project.ownerId && roleMember.statusID === 6) &&
                                     <>
                                       <Button
                                         className="btn blue-btn"
@@ -326,7 +327,7 @@ class ProjectDetail extends Component {
                                       </Button>
                                     </>
                                   }
-                                  {((this.state.user.id == this.state.project.ownerId || this.state.user.id == roleMember.User.id) && roleMember.statusID == 7) &&
+                                  {((this.state.user.id === this.state.project.ownerId || this.state.user.id === roleMember.User.id) && roleMember.statusID === 7) &&
                                     <Button
                                       className="btn blue-btn"
                                       onClick={() => this.updateRoleMember(roleMember.id, 11)}
@@ -390,15 +391,15 @@ class ProjectDetail extends Component {
                             this.state.roles.map(role => (
                               <ColorCard key={role.id}>
                                 <ColorCardBody roleTitle={role.title} description={role.description}>
-                                  {role.statusID == 4 && <span className="badge badge-success float-right">Open</span>}
-                                  {role.statusID == 5 && <span className="badge badge-danger float-right">Closed</span>}
+                                  {role.statusID === 4 && <span className="badge badge-success float-right">Open</span>}
+                                  {role.statusID === 5 && <span className="badge badge-danger float-right">Closed</span>}
                                 </ColorCardBody>
                                 <ColorCardFooter>
-                                  {role.usersStatus == 6 && <span className="badge badge-primary float-right">Applied</span>}
-                                  {role.usersStatus == 7 && <span className="badge badge-success float-right">Approved</span>}
-                                  {role.usersStatus == 8 && <span className="badge badge-danger float-right">Declined</span>}
+                                  {role.usersStatus === 6 && <span className="badge badge-primary float-right">Applied</span>}
+                                  {role.usersStatus === 7 && <span className="badge badge-success float-right">Approved</span>}
+                                  {role.usersStatus === 8 && <span className="badge badge-danger float-right">Declined</span>}
                                   <div className="btn-group btn-group-sm" role="group" aria-label="Role Options">
-                                    {(this.state.user.id == this.state.project.ownerId && role.statusID == 4) &&
+                                    {(this.state.user.id === this.state.project.ownerId && role.statusID === 4) &&
                                       <>
                                         <Button
                                           className="btn blue-btn"
@@ -414,7 +415,7 @@ class ProjectDetail extends Component {
                                         </Button>
                                       </>
                                     }
-                                    {(this.state.user.id == this.state.project.ownerId && role.statusID == 5) &&
+                                    {(this.state.user.id === this.state.project.ownerId && role.statusID === 5) &&
                                       <Button
                                         className="btn blue-btn"
                                         onClick={() => this.updateRole(role.id, 4)}
@@ -422,7 +423,7 @@ class ProjectDetail extends Component {
                                         Open
                                       </Button>
                                     }
-                                    {(this.state.user.id != this.state.project.ownerId && role.usersStatus == "Not Applied") &&
+                                    {(this.state.user.id !== this.state.project.ownerId && role.usersStatus === "Not Applied") &&
                                       <Button
                                         className="btn blue-btn"
                                         onClick={() => this.createRoleMember(role.id)}
@@ -430,7 +431,7 @@ class ProjectDetail extends Component {
                                         Apply
                                       </Button>
                                     }
-                                    {(this.state.user.id != this.state.project.ownerId && role.usersStatus == 6) &&
+                                    {(this.state.user.id !== this.state.project.ownerId && role.usersStatus === 6) &&
                                       <Button
                                         className="btn blue-btn"
                                         onClick={() => this.deleteRoleMember(role.usersRoleMemberId)}

@@ -87,7 +87,7 @@ class Register extends Component {
   render() {
     return (
       <Container fluid>
-      <img id="login-logo" src="images/progrologo.png"></img>
+      <img id="login-logo" src="images/progrologo.png" alt="brand logo"></img>
         <Row>
           <Col size="md-4">
           </Col>
@@ -167,7 +167,7 @@ class Register extends Component {
               </div>
           </Col>
         </Row>
-        <img className="bottom-art" src="images/progrobg.png"></img>
+        <img className="bottom-art" src="images/progrobg.png" alt="decorative background"></img>
       </Container>
     );
   }

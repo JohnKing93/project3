@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Col, Row, Container } from "../components/Grid";
 import { Card } from "../components/Card";
-import { EditBtn } from "../components/Buttons";
+// import { EditBtn } from "../components/Buttons";
 import { List, ListItem } from "../components/List";
 import { Link } from "react-router-dom";
 import { Navigation } from "../components/Navigation";
@@ -65,7 +65,7 @@ class UserProfile extends Component {
                     <Col size="lg-4 m-12">
                       <div id="profile-info-div">
                         <div className="user-name-box">
-                          <img className="profile-logo" src="images/progrologo.png" />
+                          <img className="profile-logo" src="images/progrologo.png" alt="account user"/>
                           <h1>{this.state.name}</h1>
                           <p className="my-position">{this.state.position}</p>
                           {/* <h3>Skills</h3>
