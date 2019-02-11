@@ -9,7 +9,7 @@ import API from "../utils/API";
 
 class UserProfile extends Component {
   state = {
-    id: 1,
+    user: this.props.user,
     name: '',
     email: '',
     position: '',
@@ -22,10 +22,12 @@ class UserProfile extends Component {
   }
 
   getUserData = () => {
+    console.log(this.state.user);
     API
-      .getUser(this.state.id)
+      .getUser(this.state.user.id)
       .then(user => {
         //Destructure user data
+        console.log(user.data);
         const {
           firstName,
           lastName,

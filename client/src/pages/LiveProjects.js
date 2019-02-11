@@ -9,6 +9,7 @@ import API from "../utils/API";
 
 class LiveProjects extends Component {
   state = {
+    user: this.props.user,
     projects: [],
     projectStatus: 'In Progress'
   };

@@ -11,10 +11,7 @@ import { ProjectDetailMainModal, MilestoneEditModal } from "../components/Modal"
 class ProjectDetail extends Component {
 
   state = {
-    user: {
-      id: 2,
-      permission: 1,
-    },
+    user: this.props.user,
     project: {
       id: 1,
       ownerId: 1
