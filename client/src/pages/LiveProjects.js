@@ -63,6 +63,7 @@ class LiveProjects extends Component {
                               </DropDownBtn>
                             </DropDown>
                             </div>
+                            <div id="live-project-box">
                   {this.state.projects.length ? (
                     <List >
                       {this.state.projects.map(project => (
@@ -81,6 +82,7 @@ class LiveProjects extends Component {
                   ) : (
                       <h3>No Results to Display</h3>
                     )}
+                    </div>
                 </Card>
               </div>
             </Col>

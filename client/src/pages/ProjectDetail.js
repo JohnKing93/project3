@@ -294,13 +294,14 @@ class ProjectDetail extends Component {
                     </Col>
                   </Row>
                   <p className="text-center detail-text">{this.state.description}</p>
-                  <Row>
-                    <Col size="md-12">
+                  
                       <h2>Members</h2>
                       <div className="member-list-group">
+                      <Row>
                       {this.state.roleMembers.length ? (
                         this.state.roleMembers.map(roleMember => (
                         // (roleMember.statusID != 11 &&
+                        <Col size="lg-4 md-6">
                           <MemberCard
                             key={roleMember.ProjectRole.id}
                             membersName={`${roleMember.User.firstName} ${roleMember.User.lastName}`}
@@ -337,14 +338,14 @@ class ProjectDetail extends Component {
                               </MemberCardListItem>
                             </MemberCardListGroup>
                           </MemberCard>
+                          </Col>
                         // )
                         ))
                       ) : (
                         <h3 className="none-listed">No Current Members</h3>
                       )}
+                      </Row>
                       </div>
-                    </Col>
-                  </Row>
                   <Row>
                     <Col size="lg-6 md-12">
                       <div className="detail-list-section">
@@ -352,6 +353,7 @@ class ProjectDetail extends Component {
                         <div className="add-project-card">
                           <Form >
                             <FormGroup >
+                              <div className="role-input">
                               <Label htmlFor="Role Title" className="field-head">Create Role</Label>
                               <Input
                                 type="text"
@@ -360,8 +362,9 @@ class ProjectDetail extends Component {
                                 value={this.state.roleName}
                                 placeholder="Title"
                                 onChange={this.handleInputChange}
-                                className="role-input"
                               />
+                              </div>
+                              <div className="role-input">
                               <Input
                                 type="text"
                                 id="role"
@@ -369,8 +372,8 @@ class ProjectDetail extends Component {
                                 value={this.state.roleDescription}
                                 placeholder="Description"
                                 onChange={this.handleInputChange}
-                                className="role-input"
                               />
+                              </div>
                             </FormGroup>
                             <FormBtn
                               className="btn blue-btn card-item-submit"

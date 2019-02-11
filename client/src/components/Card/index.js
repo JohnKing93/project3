@@ -23,9 +23,9 @@ export function MemberCard(props) {
     <>
       <div className="card member-card">
         <div className="card-body">
-          <a href="/profile" className="btn blue-btn float-right"> View Profile</a>
           <h5 className="card-title">{props.membersName}</h5>
           <h6 className="card-subtitle mb-2">{props.membersPosition}</h6>
+          <a href="/profile" className="btn outline-blue-btn top-space"> View Profile</a>
         </div>
         {props.children}
       </div>
@@ -61,7 +61,7 @@ export function ColorCardBody(props) {
 
 export function ColorCardFooter(props) {
   return (
-    <div className="card-footer">
+    <div className="card-footer role-footer">
       {props.children}
     </div>
   );

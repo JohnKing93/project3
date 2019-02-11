@@ -15,8 +15,23 @@ body .blue-btn {
 
 body .blue-btn:hover {
   background-color: #108fa5;
-  -webkit-transition: color .15s ease-in-out;
-  transition: color .15s ease-in-out;
+  -webkit-transition: background-color .15s ease-in-out;
+  transition: background-color .15s ease-in-out;
+}
+
+body .outline-blue-btn {
+  background-color: white;
+  border-style: solid;
+  border-width: 3px;
+  border-color: #14b7d4;
+  color: #14b7d4;
+}
+
+body .outline-blue-btn:hover {
+  background-color: #14b7d4;
+  color: white;
+  -webkit-transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+  transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
 }
 
 body .field-head {
@@ -256,6 +271,10 @@ body #projects-div a:hover {
   transition: color .15s ease-in-out;
 }
 
+body #projects-div #live-project-box {
+  margin-top: 3rem;
+}
+
 body #project-detail-div {
   margin: 3rem auto 4rem auto;
   -webkit-box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
@@ -310,14 +329,20 @@ body #project-detail-div .none-listed {
 }
 
 body #project-detail-div .member-card {
-  margin: .5rem;
+  margin: .5rem auto;
+  text-align: center;
+  -webkit-box-shadow: 0 5px 8px rgba(2, 26, 12, 0.1);
+          box-shadow: 0 5px 8px rgba(2, 26, 12, 0.1);
 }
 
 body #project-detail-div .member-list-group {
-  background-color: #e6eae9;
-  padding: .25rem 0;
+  padding: .25rem .75rem;
   margin: 0 auto 2rem auto;
-  width: 80%;
+  width: 95%;
+}
+
+body #project-detail-div .top-space {
+  margin-top: .5rem;
 }
 
 body #project-detail-div .no-border {
@@ -327,10 +352,6 @@ body #project-detail-div .no-border {
 
 body #project-detail-div .role-input {
   margin-bottom: .5rem;
-  border-style: solid;
-  border-width: 1px;
-  border-color: #afbbb8;
-  border-radius: .25rem;
 }
 
 body #project-detail-div .detail-list-section {
@@ -372,5 +393,9 @@ body #project-detail-div .detail-list-section .project-pg-list .role-list-group 
   background-color: #e6eae9;
   padding: .25rem 0;
   margin: 0 auto 2rem auto;
+}
+
+body #project-detail-div .detail-list-section .project-pg-list .role-footer {
+  background-color: #f9fafa;
 }
 /*# sourceMappingURL=main.css.map */
