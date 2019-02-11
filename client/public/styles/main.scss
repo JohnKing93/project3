@@ -8,7 +8,7 @@ $colors: (
     negative: #ee744e,
     neutral: #e6eae9,
     neutral-dark: darken(#e6eae9, 20%),
-    neutral-lightest: lighten(#e6eae9, 30%),
+    neutral-lightest: lighten(#e6eae9, 7%),
     darkest: #021a0c
 );
 
@@ -42,7 +42,21 @@ body {
 
     .blue-btn:hover {
         background-color: color(accent-dark);
-        transition: color .15s ease-in-out;
+        transition: background-color .15s ease-in-out;
+    }
+
+    .outline-blue-btn {
+        background-color: white;
+        border-style: solid;
+        border-width: 3px;
+        border-color: color(accent);
+        color: color(accent);
+    }
+
+    .outline-blue-btn:hover {
+        background-color: color(accent);
+        color: white;
+        transition: background-color .15s ease-in-out, color .15s ease-in-out, ;
     }
 
     .field-head {
@@ -262,6 +276,10 @@ body {
             color: color(primary);
             transition: color .15s ease-in-out;
         }
+
+        #live-project-box {
+            margin-top: 3rem;
+        }
     }
 
     #project-detail-div {
@@ -291,9 +309,12 @@ body {
             color: color(tertiary);
             font-size: 1rem;
         }
-
-        .top-right-drop {
-            float: right;
+        h5 {
+            color: color(primary);
+            font-size: 1.75rem;
+        }
+        h6 {
+            color: color(secondary);
         }
 
         .detail-text {
@@ -305,6 +326,31 @@ body {
             font-size: 1rem;
             text-align: center;
             margin: .5rem;
+        }
+
+        .member-card {
+            margin: .5rem auto;
+            text-align: center;
+            box-shadow: 0 5px 8px rgba(2, 26, 12, 0.1);
+        }
+
+        .member-list-group {
+            padding: .25rem .75rem;
+            margin: 0 auto 2rem auto;
+            width: 95%;
+        }
+
+        .top-space {
+            margin-top: .5rem;
+        }
+
+        .no-border {
+            border-style: none;
+            padding-top: none;
+        }
+
+        .role-input {
+            margin-bottom: .5rem;
         }
 
         .detail-list-section {
@@ -338,6 +384,14 @@ body {
                     .listed-details {
                         text-align: center;
                         margin-bottom: .2rem;
+                    }
+                    .role-list-group {
+                        background-color: color(neutral);
+                        padding: .25rem 0;
+                        margin: 0 auto 2rem auto;
+                    }
+                    .role-footer {
+                        background-color: color(neutral-lightest);
                     }
             }
         }

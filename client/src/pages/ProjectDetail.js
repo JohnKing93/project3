@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import { Col, Row, Container } from "../components/Grid";
 import { Card, ColorCard, ColorCardBody, ColorCardFooter, MemberCard, MemberCardListItem, MemberCardListGroup } from "../components/Card";
 import { Input, FormGroup, Label, Form, FormBtn, Button } from "../components/Form";
-import { RoleDropBtn, DropDown, DropDownBtn } from "../components/Buttons";
+import { DropDown, DropDownBtn } from "../components/Buttons";
 import { List, ListItem } from "../components/List";
 import { Navigation } from "../components/Navigation";
 import API from "../utils/API";
-import { ProjectDetailMainModal, ProjectRoleEditModal, RoleApplicantModal, MilestoneEditModal } from "../components/Modal";
+import { ProjectDetailMainModal, MilestoneEditModal } from "../components/Modal";
 
 class ProjectDetail extends Component {
 
@@ -294,12 +294,14 @@ class ProjectDetail extends Component {
                     </Col>
                   </Row>
                   <p className="text-center detail-text">{this.state.description}</p>
-                  <Row>
-                    <Col size="md-12">
-                      <h1>Members</h1>
+                  
+                      <h2>Members</h2>
+                      <div className="member-list-group">
+                      <Row>
                       {this.state.roleMembers.length ? (
                         this.state.roleMembers.map(roleMember => (
                         // (roleMember.statusID != 11 &&
+                        <Col size="lg-4 md-6">
                           <MemberCard
                             key={roleMember.ProjectRole.id}
                             membersName={`${roleMember.User.firstName} ${roleMember.User.lastName}`}
@@ -311,13 +313,13 @@ class ProjectDetail extends Component {
                                   {(this.state.user.id == this.state.project.ownerId && roleMember.statusID == 6) &&
                                     <>
                                       <Button
-                                        className="btn btn-secondary"
+                                        className="btn blue-btn"
                                         onClick={() => this.updateRoleMember(roleMember.id, 7)}
                                       >
                                         Accept
                                       </Button>
                                       <Button
-                                        className="btn btn-secondary"
+                                        className="btn blue-btn"
                                         onClick={() => this.updateRoleMember(roleMember.id, 8)}
                                       >
                                         Decline
@@ -326,7 +328,7 @@ class ProjectDetail extends Component {
                                   }
                                   {((this.state.user.id == this.state.project.ownerId || this.state.user.id == roleMember.User.id) && roleMember.statusID == 7) &&
                                     <Button
-                                      className="btn btn-secondary"
+                                      className="btn blue-btn"
                                       onClick={() => this.updateRoleMember(roleMember.id, 11)}
                                     >
                                       Retire
@@ -336,13 +338,14 @@ class ProjectDetail extends Component {
                               </MemberCardListItem>
                             </MemberCardListGroup>
                           </MemberCard>
+                          </Col>
                         // )
                         ))
                       ) : (
                         <h3 className="none-listed">No Current Members</h3>
                       )}
-                    </Col>
-                  </Row>
+                      </Row>
+                      </div>
                   <Row>
                     <Col size="lg-6 md-12">
                       <div className="detail-list-section">
@@ -350,6 +353,7 @@ class ProjectDetail extends Component {
                         <div className="add-project-card">
                           <Form >
                             <FormGroup >
+                              <div className="role-input">
                               <Label htmlFor="Role Title" className="field-head">Create Role</Label>
                               <Input
                                 type="text"
@@ -359,6 +363,8 @@ class ProjectDetail extends Component {
                                 placeholder="Title"
                                 onChange={this.handleInputChange}
                               />
+                              </div>
+                              <div className="role-input">
                               <Input
                                 type="text"
                                 id="role"
@@ -367,6 +373,7 @@ class ProjectDetail extends Component {
                                 placeholder="Description"
                                 onChange={this.handleInputChange}
                               />
+                              </div>
                             </FormGroup>
                             <FormBtn
                               className="btn blue-btn card-item-submit"
@@ -378,28 +385,29 @@ class ProjectDetail extends Component {
                           </Form>
                         </div>
                         <div className="project-pg-list">
+                        <div className="role-list-group">
                           {this.state.roles.length ? (
                             this.state.roles.map(role => (
                               <ColorCard key={role.id}>
                                 <ColorCardBody roleTitle={role.title} description={role.description}>
-                                  {role.statusID == 4 && <span className="badge badge-success">Open</span>}
-                                  {role.statusID == 5 && <span className="badge badge-danger">Closed</span>}
+                                  {role.statusID == 4 && <span className="badge badge-success float-right">Open</span>}
+                                  {role.statusID == 5 && <span className="badge badge-danger float-right">Closed</span>}
                                 </ColorCardBody>
                                 <ColorCardFooter>
-                                  {role.usersStatus == 6 && <span className="badge badge-primary">Applied</span>}
-                                  {role.usersStatus == 7 && <span className="badge badge-success">Approved</span>}
-                                  {role.usersStatus == 8 && <span className="badge badge-danger">Declined</span>}
+                                  {role.usersStatus == 6 && <span className="badge badge-primary float-right">Applied</span>}
+                                  {role.usersStatus == 7 && <span className="badge badge-success float-right">Approved</span>}
+                                  {role.usersStatus == 8 && <span className="badge badge-danger float-right">Declined</span>}
                                   <div className="btn-group btn-group-sm" role="group" aria-label="Role Options">
                                     {(this.state.user.id == this.state.project.ownerId && role.statusID == 4) &&
                                       <>
                                         <Button
-                                          className="btn btn-secondary"
+                                          className="btn blue-btn"
                                           onClick={() => this.updateRole(role.id, 5)}
                                         >
                                           Close
                                         </Button>
                                         <Button
-                                          className="btn btn-secondary"
+                                          className="btn blue-btn"
                                           onClick={() => this.deleteRole(role.id)}
                                         >
                                           Delete
@@ -408,7 +416,7 @@ class ProjectDetail extends Component {
                                     }
                                     {(this.state.user.id == this.state.project.ownerId && role.statusID == 5) &&
                                       <Button
-                                        className="btn btn-secondary"
+                                        className="btn blue-btn"
                                         onClick={() => this.updateRole(role.id, 4)}
                                       >
                                         Open
@@ -416,7 +424,7 @@ class ProjectDetail extends Component {
                                     }
                                     {(this.state.user.id != this.state.project.ownerId && role.usersStatus == "Not Applied") &&
                                       <Button
-                                        className="btn btn-secondary"
+                                        className="btn blue-btn"
                                         onClick={() => this.createRoleMember(role.id)}
                                       >
                                         Apply
@@ -424,7 +432,7 @@ class ProjectDetail extends Component {
                                     }
                                     {(this.state.user.id != this.state.project.ownerId && role.usersStatus == 6) &&
                                       <Button
-                                        className="btn btn-secondary"
+                                        className="btn blue-btn"
                                         onClick={() => this.deleteRoleMember(role.usersRoleMemberId)}
                                       >
                                         Cancel
@@ -437,6 +445,7 @@ class ProjectDetail extends Component {
                           ) : (
                             <h3 className="none-listed">No Roles Created</h3>
                           )}
+                          </div>
                           </div>
                       </div>
                     </Col>
