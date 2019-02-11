@@ -156,9 +156,15 @@ module.exports = {
           message: info.message,
         });
       } else if (user) {
+        const userInfo = {
+          id: user.id,
+          name: `${user.firstName} ${user.lastName}`,
+          permissionID: user.permissionID,
+        };
         res.status(200).send({
           auth: true,
           message: 'User authenticated',
+          user: userInfo,
         });
       } else {
         // console.log('Invalid token');

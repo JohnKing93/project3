@@ -14,6 +14,7 @@ import { ProjectDetailMainModal } from "../components/Modal";
 
 class Ideas extends Component {
   state = {
+    user: this.props.user,
     ideas: [],
     ownerID: 1,
     title: '',
