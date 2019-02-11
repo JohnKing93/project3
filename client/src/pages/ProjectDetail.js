@@ -109,6 +109,7 @@ class ProjectDetail extends Component {
             role.usersStatus = "Not Applied";
             return role;
           }
+          return null;
         })
         console.log("Altered Roles:");
         console.log(roles);
