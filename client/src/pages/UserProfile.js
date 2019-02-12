@@ -9,7 +9,7 @@ import API from "../utils/API";
 
 class UserProfile extends Component {
   state = {
-    id: 1,
+    user: this.props.user,
     name: '',
     email: '',
     position: '',
@@ -22,10 +22,12 @@ class UserProfile extends Component {
   }
 
   getUserData = () => {
+    console.log(this.state.user);
     API
-      .getUser(this.state.id)
+      .getUser(this.state.user.id)
       .then(user => {
         //Destructure user data
+        console.log(user.data);
         const {
           firstName,
           lastName,
@@ -63,7 +65,7 @@ class UserProfile extends Component {
                     <Col size="lg-4 m-12">
                       <div id="profile-info-div">
                         <div className="user-name-box">
-                          <img className="profile-logo" src="images/progrologo.png" />
+                          <img className="profile-logo" src="images/progrologo.png" alt="account user"/>
                           <h1>{this.state.name}</h1>
                           <p className="my-position">{this.state.position}</p>
                           {/* <h3>Skills</h3>

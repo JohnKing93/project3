@@ -9,6 +9,7 @@ import API from "../utils/API";
 
 class LiveProjects extends Component {
   state = {
+    user: this.props.user,
     projects: [],
     projectStatus: 'In Progress'
   };
@@ -28,7 +29,7 @@ class LiveProjects extends Component {
   };
 
   defineStatus = (newStatus) => {
-    this.setState({ projectStatus: newStatus});
+    this.setState({ projectStatus: newStatus });
     this.loadProjects();
   };
 
@@ -38,51 +39,55 @@ class LiveProjects extends Component {
         <Navigation ></Navigation>
         <Container fluid>
           <Row>
-          <Col size="md-2">
+            <Col size="md-2">
             </Col>
             <Col size="md-8">
-            <div id="projects-div">
-              <Card >
-                <DropDown>
-                  <DropDownBtn
-                    onClick={() => this.defineStatus('In Progress')}
-                  >
-                    <p>In Progress</p>
-                  </DropDownBtn>
-                  <DropDownBtn
-                    onClick={() => this.defineStatus('Completed')}
-                  >
-                    <p>Completed</p>
-                  </DropDownBtn>
-                  <DropDownBtn
-                    onClick={() => this.defineStatus('Archived')}
-                    >
-                    <p>Archived</p>
-                  </DropDownBtn>
-                </DropDown>
-                {this.state.projects.length ? (
-                  <List >
-                    {this.state.projects.map(project => (
-                      <ListItem key={project.id}>
-                        <Link to={"/projects/" + project.id}>
+              <div id="projects-div">
+                <Card >
+                <div className="top-right-drop">
+                            <DropDown>
+                              <DropDownBtn
+                                onClick={() => this.defineStatus('In Progress')}
+                              >
+                                <p>In Progress</p>
+                              </DropDownBtn>
+                              <DropDownBtn
+                                onClick={() => this.defineStatus('Completed')}
+                              >
+                                <p>Completed</p>
+                              </DropDownBtn>
+                              <DropDownBtn
+                                onClick={() => this.defineStatus('Archived')}
+                              >
+                                <p>Archived</p>
+                              </DropDownBtn>
+                            </DropDown>
+                            </div>
+                            <div id="live-project-box">
+                  {this.state.projects.length ? (
+                    <List >
+                      {this.state.projects.map(project => (
+                        <ListItem key={project.id}>
+                          <Link to={"/projects/" + project.id}>
                             <h2>
                               {project.title}
                             </h2>
                             <p>
                               {project.description}
                             </p>
-                        </Link>
-                      </ListItem>
-                    ))}
-                  </List>
-                ) : (
-                  <h3>No Results to Display</h3>
-                )}
-              </Card>
+                          </Link>
+                        </ListItem>
+                      ))}
+                    </List>
+                  ) : (
+                      <h3>No Results to Display</h3>
+                    )}
+                    </div>
+                </Card>
               </div>
             </Col>
-            </Row>
-            </Container>
+          </Row>
+        </Container>
 
       </div>
     );

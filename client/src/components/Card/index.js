@@ -12,7 +12,7 @@ export function Card({ children }) {
 
 export function ColorCard(props) {
   return (
-    <div className="card bg-light mb-3" style={{maxWidth: 17 + 'rem'}}>
+    <div className="card bg-light mb-2 my-list-item">
       {props.children}
     </div>
   );
@@ -21,11 +21,11 @@ export function ColorCard(props) {
 export function MemberCard(props) {
   return (
     <>
-      <div className="card" style={{width: 18 + 'rem'}}>
+      <div className="card member-card">
         <div className="card-body">
           <h5 className="card-title">{props.membersName}</h5>
-          <h6 className="card-subtitle mb-2 text-muted">{props.membersPosition}</h6>
-          <a href="/profile" className="card-link">See members profile</a>
+          <h6 className="card-subtitle mb-2">{props.membersPosition}</h6>
+          <a href="/profile" className="btn outline-blue-btn top-space"> View Profile</a>
         </div>
         {props.children}
       </div>
@@ -35,7 +35,7 @@ export function MemberCard(props) {
 
 export function MemberCardListGroup(props) {
   return (
-    <ul className="list-group list-group-flush">
+    <ul className="list-group">
       {props.children}
     </ul>
   );
@@ -43,7 +43,7 @@ export function MemberCardListGroup(props) {
 
 export function MemberCardListItem(props) {
   return (
-    <li className="list-group-item">
+    <li className="list-group-item no-border">
       {props.roleName}
       {props.children}
     </li>
@@ -53,15 +53,15 @@ export function MemberCardListItem(props) {
 export function ColorCardBody(props) {
   return (
       <div className="card-body">
-        <h5 className="card-title">{props.roleTitle}{props.children}</h5>
-        <p className="card-text">{props.description}</p>
+        <h2 className="card-title">{props.roleTitle}{props.children}</h2>
+        <p className="card-text listed-details">{props.description}</p>
       </div>
   );
 }
 
 export function ColorCardFooter(props) {
   return (
-    <div className="card-footer">
+    <div className="card-footer role-footer">
       {props.children}
     </div>
   );

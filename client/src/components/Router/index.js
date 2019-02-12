@@ -21,7 +21,8 @@ class PrivateRoute extends React.Component {
   state = {
     loaded: false,
     isAuthenticated: false,
-    message: ''
+    message: '',
+    user: {},
   }
 
   componentDidMount() {
@@ -47,6 +48,7 @@ class PrivateRoute extends React.Component {
         loaded: true,
         isAuthenticated: res.data.auth,
         message: res.data.message,
+        user: res.data.user
       });
     })
     .catch(err => {
@@ -64,14 +66,14 @@ class PrivateRoute extends React.Component {
 
   render() {
     const { component: Component, ...rest } = this.props
-    const { loaded , isAuthenticated} = this.state
+    const { loaded, isAuthenticated } = this.state
     if (!loaded) return null
     return (
       <Route
         {...rest}
         render={props => {
           return isAuthenticated ? (
-            <Component {...props} />
+            <Component {...props} user={this.state.user} />
           ) : (
             <Redirect
               to={{
@@ -97,7 +99,11 @@ const Routes = () => (
       <PrivateRoute exact path="/projects" component={LiveProjects} />
       <PrivateRoute exact path="/projects/:id" component={ProjectDetail} />
       <PrivateRoute exact path="/profile" component={UserProfile} />
-      {/* <Route exact path="/profile/:id" component={Detail} /> */}
+      {/* <PrivateRoute
+        path='/projects/:id'
+        render={() => <ProjectDetail user={this.state.user} />}
+      /> */}
+      {/* <Route exact path="/profile/:id" component={UserProfile} /> */}
       <Route component={NoMatch} />
     </Switch>
   </Router>
