@@ -68,11 +68,11 @@ class ProjectDetail extends Component {
   };
 
   loadRoles = () => {
-    console.log(this.state.project.id)
+    // console.log(this.state.project.id)
     API.getRoles(this.state.project.id)
       .then(res => {
-        console.log("loadRoles");
-        console.log(res.data);
+        // console.log("loadRoles");
+        // console.log(res.data);
         this.setState({
           roles: res.data
         })
@@ -84,17 +84,17 @@ class ProjectDetail extends Component {
   };
 
   loadRoleMembers = () => {
-    console.log("loadRoleMembers");
+    //console.log("loadRoleMembers");
     API.getRoleMembers(this.state.project.id)
       .then(res => {
-        console.log("Role Members:")
-        console.log(res.data);
+        // console.log("Role Members:")
+        // console.log(res.data);
         let roleMembers = res.data;
         const usersRoles = roleMembers.filter(role => role.userID === this.state.user.id);
-        console.log("User's Roles:");
-        console.log(usersRoles);
-        console.log("Roles:");
-        console.log(this.state.roles);
+        // console.log("User's Roles:");
+        // console.log(usersRoles);
+        // console.log("Roles:");
+        // console.log(this.state.roles);
         const roles = this.state.roles.map(role => {
           if (usersRoles.length === 0 || null || typeof usersRole === undefined) {
             role.usersStatus = "Not Applied";
@@ -111,18 +111,18 @@ class ProjectDetail extends Component {
           }
           return null;
         })
-        console.log("Altered Roles:");
-        console.log(roles);
-        console.log("Role Members:");
-        console.log(usersRoles);
+        // console.log("Altered Roles:");
+        // console.log(roles);
+        // console.log("Role Members:");
+        // console.log(usersRoles);
         roleMembers.sort((a, b) => (a.User.id > b.User.id) ? 1 : ((b.User.id > a.User.id) ? -1 : 0));
         this.setState({
           roles,
           roleMembers,
           loading: false
         })
-        console.log("Roles");
-        console.log(roles);
+        // console.log("Roles");
+        // console.log(roles);
       })
       .catch(err => console.log(err));
   };
@@ -135,7 +135,7 @@ class ProjectDetail extends Component {
 
   submitMilestone = event => {
     event.preventDefault();
-    console.log(this.state.newMilestone);
+    // console.log(this.state.newMilestone);
     if (this.state.newMilestone) {
       API.createMilestone({
         milestone: this.state.newMilestone,
@@ -165,20 +165,20 @@ class ProjectDetail extends Component {
   };
 
   createRoleMember = (roleId) => {
-    console.log("createRoleMember");
+    // console.log("createRoleMember");
     const roleMember = {
       roleID: roleId,
       userID: this.state.user.id,
       statusID: 6,
       projectID: this.state.project.id
     }
-    console.log(roleMember);
+    // console.log(roleMember);
     API.postRoleMember(roleMember)
     .then(res => {
       this.loadRoleMembers();
     })
     .catch(err => {
-      console.log("Error:");
+      // console.log("Error:");
       console.log(err);
     });
   };
@@ -301,7 +301,7 @@ class ProjectDetail extends Component {
                       <Row>
                       {this.state.roleMembers.length ? (
                         this.state.roleMembers.map(roleMember => (
-                        // (roleMember.statusID != 11 &&
+                        // (roleMember.statusID !== 11 &&
                         <Col size="lg-4 md-6">
                           <MemberCard
                             key={roleMember.ProjectRole.id}
