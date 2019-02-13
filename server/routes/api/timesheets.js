@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const timesheetsController = require('../../controllers/TimesheetsController');
 
-// Matches with 'api/incentivesredeemed'
+// Matches with 'api/timesheets'
 router.route('/')
   .get(timesheetsController.findAll)
   .post(timesheetsController.create);

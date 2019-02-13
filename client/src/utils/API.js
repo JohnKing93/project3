@@ -105,5 +105,9 @@ export default {
 
   getProjectMilestones: function(id) {
     return axios.get(`/api/projectmilestones/${id}`);
+  },
+
+  submitTimesheet: function(data) {
+    return axios.post("/api/timesheets", data);
   }
 };
