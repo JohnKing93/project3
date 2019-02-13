@@ -9,6 +9,7 @@ import API from "../utils/API";
 
 class UserProfile extends Component {
   state = {
+    pageTitle: 'ProGro Profile',
     user: this.props.user,
     name: '',
     email: '',
@@ -18,6 +19,7 @@ class UserProfile extends Component {
   };
 
   componentDidMount() {
+    document.title=this.state.pageTitle;
     this.getUserData();
   }
 

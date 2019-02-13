@@ -11,6 +11,7 @@ import { ProjectDetailMainModal, MilestoneEditModal } from "../components/Modal"
 class ProjectDetail extends Component {
 
   state = {
+    pageTitle: 'ProGro Project',
     user: this.props.user,
     project: {
       id: 1,
@@ -33,6 +34,7 @@ class ProjectDetail extends Component {
   };
 
   componentDidMount() {
+    document.title=this.state.pageTitle;
     this.loadProject();
   };
 
