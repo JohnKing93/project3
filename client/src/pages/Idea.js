@@ -14,6 +14,7 @@ import { ProjectDetailMainModal } from "../components/Modal";
 
 class Ideas extends Component {
   state = {
+    pageTitle: 'ProGro Ideas',
     user: this.props.user,
     ideas: [],
     ownerID: 1,
@@ -22,6 +23,7 @@ class Ideas extends Component {
   };
 
   componentDidMount() {
+    document.title=this.state.pageTitle;
     this.loadIdeas();
   };
 
