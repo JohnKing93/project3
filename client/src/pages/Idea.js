@@ -18,7 +18,8 @@ class Ideas extends Component {
     ideas: [],
     ownerID: 1,
     title: '',
-    description: ''
+    description: '',
+    votes: []
   };
 
   componentDidMount() {
@@ -29,14 +30,28 @@ class Ideas extends Component {
   loadIdeas = () => {
     API
       .getIdeas()
-      .then(res =>
+      .then(res => {
+        let votes = [];
+
+        // Map res array
+        res.data.map(idea => {
+          //filter IdeaVotes array
+          idea.IdeaVotes.filter(vote => {
+            // Only get the ideaID's that the authenticated user has voted on
+            if (vote.userID === this.state.user.id) {
+              votes.push(vote.ideaID)
+            }
+          });
+        });
+
         this.setState({
           ideas: res.data,
           ownerID: 1,
           title: '',
-          description: ''
+          description: '',
+          votes
         })
-      )
+      })
       .catch(err => console.log(err));
   };
 
@@ -87,11 +102,18 @@ class Ideas extends Component {
   }
 
   upvote = idea => {
+    //Upvote an idea
     API.updateIdea({
       id: idea.id,
       voteCount: idea.voteCount + 1
     })
-    .then(res => this.loadIdeas())
+    .then(res => {
+      // Add userID and ideaID to IdeaVotes table
+      API
+        .castVote(res.data.id, this.state.user.id)
+        .then(() => this.loadIdeas())
+        .catch(err => console.log(err));
+    })
     .catch(err => console.log(err));
   };
 
@@ -100,7 +122,13 @@ class Ideas extends Component {
       id: idea.id,
       voteCount: idea.voteCount - 1
     })
-    .then(res => this.loadIdeas())
+    .then(res => {
+      // Add userID and ideaID to IdeaVotes table
+      API
+        .castVote(res.data.id, this.state.user.id)
+        .then(() => this.loadIdeas())
+        .catch(err => console.log(err));
+    })
     .catch(err => console.log(err));
   };
 
@@ -152,14 +180,30 @@ class Ideas extends Component {
                         <div>
                           <div className="vote-block">
                           <VoteUpBtn
-                            onClick={() => this.upvote(idea)}
+                            onClick={() => {
+                              const {
+                                votes = []
+                              } = this.state;
+
+                              if (votes.indexOf(idea.id) === -1) {
+                                this.upvote(idea);
+                              }
+                            }}
                           >
                           </VoteUpBtn>
                           <div className="vote-count field-head">
                             {idea.voteCount}
                           </div>
                           <VoteDownBtn
-                            onClick={() => this.downvote(idea)}
+                            onClick={() => {
+                              const {
+                                votes = []
+                              } = this.state;
+
+                              if (votes.indexOf(idea.id) === -1) {
+                                this.downvote(idea);
+                              }
+                            }}
                           >
                           </VoteDownBtn>
                           </div>

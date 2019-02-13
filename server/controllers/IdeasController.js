@@ -16,7 +16,10 @@ module.exports = {
         where: {
           endorsed: false,
         },
-        include: [db.User],
+        include: [{
+          model: db.IdeaVote,
+          attribute: { exclude: ['id', 'ideaID', 'createdAt', 'updatedAt'] },
+        }, db.User],
         order: ['id'],
       })
       .then(results => res.status(200).json(results))
