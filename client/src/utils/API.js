@@ -40,6 +40,8 @@ export default {
     return axios.get("/api/ideas");
   },
 
+  castVote: (ideaID, userID) => axios.post('/api/ideavotes', { ideaID, userID }),
+
   //Get all Approved ideas
   getApproved: function() {
     return axios.get("/api/ideas/approved");
