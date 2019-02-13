@@ -299,52 +299,53 @@ class ProjectDetail extends Component {
                       <h2>Members</h2>
                       <div className="member-list-group">
                       <Row>
-                      {this.state.roleMembers.length ? (
-                        this.state.roleMembers.map(roleMember => (
-                        // (roleMember.statusID !== 11 &&
                         <Col size="lg-4 md-6">
-                          <MemberCard
-                            key={roleMember.ProjectRole.id}
-                            membersName={`${roleMember.User.firstName} ${roleMember.User.lastName}`}
-                            membersPosition={roleMember.User.position}
-                          >
-                            <MemberCardListGroup>
-                              <MemberCardListItem roleName={roleMember.ProjectRole.title}>
-                                <div className="btn-group btn-group-sm" role="group" aria-label="Role Member Options">
-                                  {(this.state.user.id === this.state.project.ownerId && roleMember.statusID === 6) &&
-                                    <>
-                                      <Button
-                                        className="btn blue-btn"
-                                        onClick={() => this.updateRoleMember(roleMember.id, 7)}
-                                      >
-                                        Accept
-                                      </Button>
-                                      <Button
-                                        className="btn blue-btn"
-                                        onClick={() => this.updateRoleMember(roleMember.id, 8)}
-                                      >
-                                        Decline
-                                      </Button>
-                                    </>
-                                  }
-                                  {((this.state.user.id === this.state.project.ownerId || this.state.user.id === roleMember.User.id) && roleMember.statusID === 7) &&
-                                    <Button
-                                      className="btn blue-btn"
-                                      onClick={() => this.updateRoleMember(roleMember.id, 11)}
-                                    >
-                                      Retire
-                                    </Button>
-                                  }
-                                </div>
-                              </MemberCardListItem>
-                            </MemberCardListGroup>
-                          </MemberCard>
-                          </Col>
-                        // )
-                        ))
-                      ) : (
-                        <h3 className="none-listed">No Current Members</h3>
-                      )}
+                          {this.state.roleMembers.length ? (
+                            this.state.roleMembers.map(roleMember => (
+                            // (roleMember.statusID !== 11 &&
+                              <MemberCard
+                                key={roleMember.User.id}
+                                userID={roleMember.User.id}
+                                membersName={`${roleMember.User.firstName} ${roleMember.User.lastName}`}
+                                membersPosition={roleMember.User.position}
+                              >
+                                <MemberCardListGroup>
+                                  <MemberCardListItem roleName={roleMember.ProjectRole.title}>
+                                    <div className="btn-group btn-group-sm" role="group" aria-label="Role Member Options">
+                                      {(this.state.user.id === this.state.project.ownerId && roleMember.statusID === 6) &&
+                                        <>
+                                          <Button
+                                            className="btn blue-btn"
+                                            onClick={() => this.updateRoleMember(roleMember.id, 7)}
+                                          >
+                                            Accept
+                                          </Button>
+                                          <Button
+                                            className="btn blue-btn"
+                                            onClick={() => this.updateRoleMember(roleMember.id, 8)}
+                                          >
+                                            Decline
+                                          </Button>
+                                        </>
+                                      }
+                                      {((this.state.user.id === this.state.project.ownerId || this.state.user.id === roleMember.User.id) && roleMember.statusID === 7) &&
+                                        <Button
+                                          className="btn blue-btn"
+                                          onClick={() => this.updateRoleMember(roleMember.id, 11)}
+                                        >
+                                          Retire
+                                        </Button>
+                                      }
+                                    </div>
+                                  </MemberCardListItem>
+                                </MemberCardListGroup>
+                              </MemberCard>
+                            // )
+                            ))
+                          ) : (
+                            <h3 className="none-listed">No Current Members</h3>
+                          )}
+                        </Col>
                       </Row>
                       </div>
                   <Row>

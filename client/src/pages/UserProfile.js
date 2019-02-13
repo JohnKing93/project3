@@ -22,12 +22,13 @@ class UserProfile extends Component {
   }
 
   getUserData = () => {
-    console.log(this.state.user);
+    //Determine which user profile to render
+    const id = this.props.match.params.id || this.state.user.id;
+
     API
-      .getUser(this.state.user.id)
+      .getUser(id)
       .then(user => {
         //Destructure user data
-        console.log(user.data);
         const {
           firstName,
           lastName,
@@ -60,16 +61,16 @@ class UserProfile extends Component {
             <Col size="md-2" />
             <Col size="md-8">
               <div id="dash-card">
-                <Card >
-                  <Row >
+                <Card>
+                  <Row>
                     <Col size="lg-4 m-12">
                       <div id="profile-info-div">
                         <div className="user-name-box">
-                          <img className="profile-logo" src="images/progrologo.png" alt="account user"/>
+                          <img className="profile-logo" src="/images/progrologo.png" alt="account user"/>
                           <h1>{this.state.name}</h1>
                           <p className="my-position">{this.state.position}</p>
                           {/* <h3>Skills</h3>
-                <p>insert skills here</p> */}
+                            <p>insert skills here</p> */}
                           {/* <h3>Total Hours: {this.state.hoursRemaining}</h3> */}
                         </div>
                       </div>
