@@ -98,7 +98,7 @@ const Routes = () => (
       {/* <Route exact path="/ideas/:id" component={Detail} /> */}
       <PrivateRoute exact path="/projects" component={LiveProjects} />
       <PrivateRoute exact path="/projects/:id" component={ProjectDetail} />
-      <PrivateRoute exact path="/profile" component={UserProfile} />
+      <PrivateRoute exact path="/profile/:id?" component={UserProfile} />
       {/* <PrivateRoute
         path='/projects/:id'
         render={() => <ProjectDetail user={this.state.user} />}
