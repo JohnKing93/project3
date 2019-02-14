@@ -31,10 +31,8 @@ class Incentives extends Component {
         // let activeIncentives = res.data.filter(incentive => incentive.Status.description === 'Active');
         let activeIncentives = res.data;
         this.setState({ incentives: activeIncentives});
+        this.loadCredits(this.state.user.id)
       })
-      .then(
-        this.loadCredits(this.state.user)
-      )
       .catch(err => console.log(err));
   };
 
@@ -53,7 +51,7 @@ class Incentives extends Component {
   removeIncentive = (incentiveId) => {
     API.updateIncentive({
       id: incentiveId,
-      // status: archived
+      statusID: 13
     })
       .then(res=> {
         this.loadIncentives();
@@ -67,7 +65,8 @@ class Incentives extends Component {
       let newIncentive = {
         title: this.state.newTitle,
         description: this.state.newDescription,
-        price: parseFloat(this.state.newPrice)
+        price: this.state.newPrice,
+        statusID: 12
       }
       API.createIncentive(newIncentive)
         .then(res => this.loadIncentives())
