@@ -41,13 +41,13 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // Associate timesheet back to project
-    models.Timesheet.belongsTo(models.User, {
-      foreignKey: 'userID',
+    Timesheet.belongsTo(models.Project, {
+      foreignKey: 'projectID',
     });
 
-    // Associate timesheet back to project
-    models.Timesheet.belongsTo(models.Project, {
-      foreignKey: 'projectID',
+    // Timesheet has a status level
+    Timesheet.belongsTo(models.Status, {
+      foreignKey: 'statusID',
     });
   };
 

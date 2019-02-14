@@ -103,7 +103,7 @@ module.exports = (sequelize, DataTypes) => {
     // User can have many timesheets
     User.hasMany(models.Timesheet, {
       foreignKey: {
-        name: 'userID',
+        name: 'ownerID',
         allowNull: false,
       },
       onDelete: 'cascade',

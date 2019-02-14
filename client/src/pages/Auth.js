@@ -7,6 +7,7 @@ import { Card } from "../components/Card";
 
 class Register extends Component {
   state = {
+    pageTitle: 'ProGro Login',
     firstName: '',
     lastName: '',
     email: '',
@@ -14,6 +15,10 @@ class Register extends Component {
     message: '',
     success: false,
     register: false,
+  };
+
+  componentDidMount() {
+    document.title=this.state.pageTitle;
   };
 
   handleInputChange = event => {

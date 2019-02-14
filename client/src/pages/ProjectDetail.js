@@ -11,6 +11,7 @@ import { ProjectDetailMainModal, MilestoneEditModal } from "../components/Modal"
 class ProjectDetail extends Component {
 
   state = {
+    pageTitle: 'ProGro Project',
     user: this.props.user,
     project: {
       id: '',
@@ -31,6 +32,7 @@ class ProjectDetail extends Component {
   };
 
   componentDidMount() {
+    document.title=this.state.pageTitle;
     this.loadProject();
   };
 
@@ -69,7 +71,9 @@ class ProjectDetail extends Component {
     API.getRoles(this.state.project.id)
       .then(res => {
         this.setState({
-          roles: res.data
+          roles: res.data,
+          roleName: '',
+          roleDescription: ''
         })
       })
       .then(res => this.state.loading && this.loadRoleMembers())
@@ -272,7 +276,6 @@ class ProjectDetail extends Component {
                       <h2>Members</h2>
                       <div className="member-list-group">
                       <Row>
-                        <Col size="lg-4 md-6">
                           {this.state.roleMembers.length ? (
                             this.state.roleMembers.map(roleMember => (
                               (roleMember.statusID == 7 || ((this.state.user.id == this.state.project.ownerID) && roleMember.statusID == 6)) && (
@@ -318,7 +321,6 @@ class ProjectDetail extends Component {
                           ) : (
                             <h3 className="none-listed">No Current Members</h3>
                           )}
-                        </Col>
                       </Row>
                       </div>
                   <Row>

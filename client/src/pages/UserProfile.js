@@ -10,6 +10,7 @@ import { Input } from "../components/Form";
 
 class UserProfile extends Component {
   state = {
+    pageTitle: 'ProGro Profile',
     user: this.props.user,
     name: '',
     email: '',
@@ -31,6 +32,7 @@ class UserProfile extends Component {
   };
 
   componentDidMount() {
+    document.title = this.state.pageTitle;
     this.getUserData();
   }
 
@@ -51,7 +53,6 @@ class UserProfile extends Component {
     else {
       API
       .submitTimesheet({
-        userID: this.state.user.id,
         ownerID: this.state.user.id,
         projectID: this.state.project,
         start: this.state.date,
@@ -61,7 +62,8 @@ class UserProfile extends Component {
         thursday: this.state.thursday,
         friday: this.state.friday,
         saturday: this.state.saturday,
-        sunday: this.state.sunday
+        sunday: this.state.sunday,
+        statusID: 15
       })
       .then(res => {
         console.log(res.data);
@@ -102,7 +104,7 @@ class UserProfile extends Component {
         let projectNames = [];
         let projects = [];
         this.state.roles.forEach(role => {
-          if (projects.indexOf(role.Project.title == -1)) {
+          if (projects.indexOf(role.Project.title === -1)) {
             let data = { id: role.Project.id, title: role.Project.title };
             projectNames.push(role.Project.title);
             projects.push(data);
@@ -120,20 +122,20 @@ class UserProfile extends Component {
     console.log("Projects:");
     console.log(this.state.projects);
     API
-    .getUsersTimesheets(this.state.user.id)
-    .then(res => {
-      console.log("Timesheets:")
-      console.log(res.data);
-      this.setState({ timesheets: res.data })
-    })
-    .catch(error => {
-      console.log(error);
-    });
+      .getUsersTimesheets(this.state.user.id)
+      .then(res => {
+        console.log("Timesheets:")
+        console.log(res.data);
+        this.setState({ timesheets: res.data })
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   getProjectTitle = (timesheet) => {
     this.state.projects.map(project => {
-      if (project.id == timesheet.projectID) {
+      if (project.id === timesheet.projectID) {
         console.log(project.title);
         return project.title
       }
@@ -154,9 +156,9 @@ class UserProfile extends Component {
                     <Col size="lg-4 m-12">
                       <div id="profile-info-div">
                         <div className="user-name-box">
-                          <img className="profile-logo" src="/images/progrologo.png" alt="account user"/>
+                          <img className="profile-logo" src="/images/progrologo.png" alt="account user" />
                           <h1>{this.state.name}</h1>
-                          <p className="my-position">{this.state.position}</p>
+                          {/* <p className="my-position">{this.state.position}</p> */}
                           {/* <h3>Skills</h3>
                             <p>insert skills here</p> */}
                           {/* <h3>Total Hours: {this.state.hoursRemaining}</h3> */}
@@ -224,7 +226,7 @@ class UserProfile extends Component {
                       </table>
                     </Col>
                   </Row>
-                  <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                  <button type="button" className="btn blue-btn" data-toggle="modal" data-target="#exampleModalCenter">
                     Add Timesheet
                   </button>
                 </Card>
@@ -326,7 +328,7 @@ class UserProfile extends Component {
                       <div className="form-group col">
                         <label htmlFor="project">Select Project</label>
                         <select className="form-control" id="project" onClick={this.handleInputChange}>
-                            {this.state.projects.map(project => { return <option key={project.id} value={project.id}>{project.title}</option> })}
+                          {this.state.projects.map(project => { return <option key={project.id} value={project.id}>{project.title}</option> })}
                         </select>
                       </div>
                     </div>
@@ -334,7 +336,7 @@ class UserProfile extends Component {
                 </div>
                 <div className="modal-footer">
                   <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button onClick={this.handleSubmitTimesheet} type="submit" className="btn btn-primary" data-dismiss="modal">Save</button>
+                  <button onClick={this.handleSubmitTimesheet} type="submit" className="btn blue-btn" data-dismiss="modal">Save</button>
                 </div>
               </div>
             </div>

@@ -66,6 +66,14 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
     });
+
+    // Timesheet has one overall status
+    Status.hasOne(models.Timesheet, {
+      foreignKey: {
+        name: 'statusID',
+        allowNull: false,
+      },
+    });
   };
 
   return Status;

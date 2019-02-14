@@ -129,7 +129,7 @@ body #dash-card #profile-info-div h1 {
   background-color: white;
   width: 15rem;
   position: absolute;
-  bottom: 6.75rem;
+  bottom: 6rem;
   padding: .3rem 0;
 }
 
@@ -143,15 +143,6 @@ body #dash-card #profile-info-div h3 {
   font-size: 1.2rem;
   margin: 2rem;
   color: #66d8ac;
-}
-
-body #dash-card #profile-info-div .my-position {
-  font-weight: 450;
-  color: #66d8ac;
-  width: 15rem;
-  position: absolute;
-  bottom: 5rem;
-  background-color: white;
 }
 
 body #dash-card #profile-info-div .user-name-box {
@@ -397,5 +388,81 @@ body #project-detail-div .detail-list-section .project-pg-list .role-list-group 
 
 body #project-detail-div .detail-list-section .project-pg-list .role-footer {
   background-color: #f9fafa;
+}
+
+body #incentives-div {
+  margin: 3rem auto 4rem auto;
+  -webkit-box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
+          box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
+  border-radius: 15px;
+}
+
+body #incentives-div h2 {
+  text-align: center;
+  margin-top: .5rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+body #incentives-div h3 {
+  color: #0ca54d;
+  font-size: 1.5rem;
+}
+
+body #incentives-div .incentive-title {
+  width: 45%;
+  margin: 0 auto;
+}
+
+@media (max-width: 480px) {
+  body #incentives-div .incentive-title {
+    width: 90%;
+  }
+}
+
+body #incentives-div .select-area {
+  display: block;
+  position: absolute;
+  right: 1rem;
+  bottom: .5rem;
+}
+
+body #incentives-div .check-label {
+  display: inline;
+  margin-right: 2rem;
+  color: #14b7d4;
+}
+
+body #incentives-div .incentive-details {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+body #incentives-div .cost {
+  position: absolute;
+  left: 1rem;
+  top: .25rem;
+  color: #66d8ac;
+  font-weight: bold;
+}
+
+body #incentives-div .main-content {
+  position: relative;
+  top: -2rem;
+}
+
+@media (max-width: 480px) {
+  body #incentives-div .main-content {
+    position: relative;
+    top: 0;
+    padding-bottom: 1.25rem;
+  }
+}
+
+body #incentives-div .none-listed {
+  color: #afbbb8;
+  font-size: 1rem;
+  text-align: center;
+  margin: .5rem;
 }
 /*# sourceMappingURL=main.css.map */
