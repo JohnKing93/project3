@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Status.associate = (models) => {
     // Project has one overall status
-    models.Status.hasOne(models.Project, {
+    Status.hasOne(models.Project, {
       foreignKey: {
         name: 'statusID',
         allowNull: false,
@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // Role Member has one overall status
-    models.Status.hasOne(models.RoleMember, {
+    Status.hasOne(models.RoleMember, {
       foreignKey: {
         name: 'statusID',
         allowNull: false,
@@ -44,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // Project role has one overall status
-    models.Status.hasOne(models.ProjectRole, {
+    Status.hasOne(models.ProjectRole, {
       foreignKey: {
         name: 'statusID',
         allowNull: false,
@@ -52,7 +52,15 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // Project Milestone has one overall status
-    models.Status.hasOne(models.ProjectMilestone, {
+    Status.hasOne(models.ProjectMilestone, {
+      foreignKey: {
+        name: 'statusID',
+        allowNull: false,
+      },
+    });
+
+    // Incentive has one overall status
+    Status.hasOne(models.Incentive, {
       foreignKey: {
         name: 'statusID',
         allowNull: false,

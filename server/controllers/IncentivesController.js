@@ -4,6 +4,12 @@ module.exports = {
   findAll: (req, res) => {
     db.Incentive
       .findAll({
+        attributes: { exclude: ['statusID', 'createdAt', 'updatedAt'] },
+        include: {
+          model: db.Status,
+          attributes: { exclude: ['id', 'type', 'createdAt', 'updatedAt'] },
+          where: { id: db.Sequelize.col('statusID') },
+        },
         order: ['id'],
       })
       .then(results => res.status(200).json(results))
@@ -12,6 +18,12 @@ module.exports = {
   findByID: (req, res) => {
     db.Incentive
       .findOne({
+        attributes: { exclude: ['statusID', 'createdAt', 'updatedAt'] },
+        include: {
+          model: db.Status,
+          attributes: { exclude: ['id', 'type', 'createdAt', 'updatedAt'] },
+          where: { id: db.Sequelize.col('statusID') },
+        },
         where: {
           id: Number(req.params.id),
         },
@@ -26,6 +38,7 @@ module.exports = {
       title,
       description,
       price,
+      statusID,
     } = req.body;
 
     db.Incentive
@@ -33,6 +46,7 @@ module.exports = {
         title,
         description,
         price: Number(price),
+        statusID: Number(statusID),
       })
       .then(results => res.status(201).json(results))
       .catch(err => res.status(500).send(err));
