@@ -44,25 +44,27 @@ class LiveProjects extends Component {
             <Col size="md-8">
               <div id="projects-div">
                 <Card >
-                <div className="top-right-drop">
-                  <DropDown>
-                    <DropDownBtn
-                      onClick={() => this.defineStatus('In Progress')}
-                    >
-                      <p>In Progress</p>
-                    </DropDownBtn>
-                    <DropDownBtn
-                      onClick={() => this.defineStatus('Completed')}
-                    >
-                      <p>Completed</p>
-                    </DropDownBtn>
-                    <DropDownBtn
-                      onClick={() => this.defineStatus('Archived')}
-                    >
-                      <p>Archived</p>
-                    </DropDownBtn>
-                  </DropDown>
-                </div>
+                  {this.state.user.permissionID == (2 || 3) &&
+                    <div className="top-right-drop">
+                      <DropDown>
+                        <DropDownBtn
+                          onClick={() => this.defineStatus('In Progress')}
+                        >
+                          <p>In Progress</p>
+                        </DropDownBtn>
+                        <DropDownBtn
+                          onClick={() => this.defineStatus('Completed')}
+                        >
+                          <p>Completed</p>
+                        </DropDownBtn>
+                        <DropDownBtn
+                          onClick={() => this.defineStatus('Archived')}
+                        >
+                          <p>Archived</p>
+                        </DropDownBtn>
+                      </DropDown>
+                    </div>
+                  }
                 <div id="live-project-box">
                   {this.state.projects.length ? (
                     <List >

@@ -16,7 +16,6 @@ class Ideas extends Component {
   state = {
     user: this.props.user,
     ideas: [],
-    ownerID: 1,
     title: '',
     description: '',
     votes: []
@@ -46,7 +45,6 @@ class Ideas extends Component {
 
         this.setState({
           ideas: res.data,
-          ownerID: 1,
           title: '',
           description: '',
           votes
@@ -63,15 +61,16 @@ class Ideas extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-        if (this.state.title && this.state.description) {
-          API.submitIdea({
-            title: this.state.title,
-            description: this.state.description,
-            ownerID: this.state.ownerID
-          })
-          .then(res => this.loadIdeas())
-          .catch(err => console.log(err));
-        }
+    console.log(this.state.user.id);
+    if (this.state.title && this.state.description) {
+      API.submitIdea({
+        title: this.state.title,
+        description: this.state.description,
+        ownerID: this.state.user.id
+      })
+      .then(res => this.loadIdeas())
+      .catch(err => console.log(err));
+    }
   };
 
   approveIdea = idea => {
@@ -210,24 +209,32 @@ class Ideas extends Component {
                         </div>
                         <h2> {idea.title}</h2>
                         <p> {idea.description} </p>
-                        <DropDown>
-                          <DropDownBtn
-                            onClick={() => this.approveIdea(idea)}
-                          >
-                          <p>Approve</p>
-                          </DropDownBtn>
-                          {/* <DropDownBtn
-                           data-toggle="modal"
-                           data-target="#editModal"
-                          >
-                          <p>Edit</p>
-                          </DropDownBtn> */}
-                          <DropDownBtn
-                            onClick={() => this.deleteIdea(idea)}
-                          >
-                          <p>Delete</p>
-                          </DropDownBtn>
-                        </DropDown>
+                        {((this.state.user.permissionID == (2 || 3)) || (this.state.user.id == idea.ownerID)) &&
+                          <DropDown>
+                            {this.state.user.permissionID == (2 || 3) &&
+                              <DropDownBtn
+                                onClick={() => this.approveIdea(idea)}
+                              >
+                              <p>Approve</p>
+                              </DropDownBtn>
+                            }
+                            {/*
+                            <DropDownBtn
+                              data-toggle="modal"
+                              data-target="#editModal"
+                            >
+                            <p>Edit</p>
+                            </DropDownBtn>
+                            */}
+                            {this.state.user.id == idea.ownerID &&
+                              <DropDownBtn
+                                onClick={() => this.deleteIdea(idea)}
+                              >
+                              <p>Delete</p>
+                              </DropDownBtn>
+                            }
+                          </DropDown>
+                        }
                       </ListItem>
                     ))}
                   </List>

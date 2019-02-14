@@ -13,15 +13,13 @@ class ProjectDetail extends Component {
   state = {
     user: this.props.user,
     project: {
-      id: 1,
-      ownerId: 1
+      id: '',
+      owner: '',
+      ownerID: '',
+      statusID: '',
+      title: '',
+      description: ''
     },
-    title: '',
-    description: '',
-    owner: '',
-    projectID: '',
-    statusID: '',
-    role: 3,
     newMilestone: '',
     projectMembers: [],
     milestones: [],
@@ -40,24 +38,24 @@ class ProjectDetail extends Component {
     API.getThisProject(this.props.match.params.id)
       .then(res => {
         this.setState({
-          title:res.data.title,
-          description: res.data.description,
-          owner: res.data.User.firstName + ' ' + res.data.User.lastName,
-          projectID: res.data.id,
           project: {
-            id: res.data.id
+            id: res.data.id,
+            owner: res.data.User.firstName + ' ' + res.data.User.lastName,
+            ownerID: res.data.ownerID,
+            statusID: res.data.statusID,
+            title: res.data.title,
+            description: res.data.description
           },
-          statusID: res.data.statusID,
           projectMembers: res.data.ProjectMembers || '',
           milestones: res.data.ProjectMilestones || ''
         })
-        this.loadRoles();
       })
+      .then(res => this.loadRoles())
       .catch(err => console.log(err));
   };
 
   loadMilestones = () => {
-    API.getProjectMilestones(this.props.match.params.id)
+    API.getProjectMilestones(this.state.project.id)
       .then(res =>
         this.setState({
           milestones: res.data,
@@ -68,33 +66,22 @@ class ProjectDetail extends Component {
   };
 
   loadRoles = () => {
-    // console.log(this.state.project.id)
     API.getRoles(this.state.project.id)
       .then(res => {
-        // console.log("loadRoles");
-        // console.log(res.data);
         this.setState({
           roles: res.data
         })
-        if (this.state.loading) {
-          this.loadRoleMembers();
-        }
       })
+      .then(res => this.state.loading && this.loadRoleMembers())
       .catch(err => console.log(err));
   };
 
   loadRoleMembers = () => {
-    //console.log("loadRoleMembers");
-    API.getRoleMembers(this.state.project.id)
+    API
+      .getRoleMembers(this.state.project.id)
       .then(res => {
-        // console.log("Role Members:")
-        // console.log(res.data);
         let roleMembers = res.data;
         const usersRoles = roleMembers.filter(role => role.userID === this.state.user.id);
-        // console.log("User's Roles:");
-        // console.log(usersRoles);
-        // console.log("Roles:");
-        // console.log(this.state.roles);
         const roles = this.state.roles.map(role => {
           if (usersRoles.length === 0 || null || typeof usersRole === undefined) {
             role.usersStatus = "Not Applied";
@@ -111,23 +98,20 @@ class ProjectDetail extends Component {
           }
           return null;
         })
-        // console.log("Altered Roles:");
-        // console.log(roles);
-        // console.log("Role Members:");
-        // console.log(usersRoles);
         roleMembers.sort((a, b) => (a.User.id > b.User.id) ? 1 : ((b.User.id > a.User.id) ? -1 : 0));
+        console.log("Roles:");
+        console.log(roles);
+        console.log("roleMemmber:")
+        console.log(roleMembers);
         this.setState({
           roles,
           roleMembers,
           loading: false
         })
-        // console.log("Roles");
-        // console.log(roles);
       })
       .catch(err => console.log(err));
   };
 
-  // Handler for input change that can be used for Role or Milestone
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({ [name]: value });
@@ -135,13 +119,10 @@ class ProjectDetail extends Component {
 
   submitMilestone = event => {
     event.preventDefault();
-    // console.log(this.state.newMilestone);
     if (this.state.newMilestone) {
       API.createMilestone({
         milestone: this.state.newMilestone,
-        projectID: this.state.projectID,
-        userID: this.state.owner,
-        role: this.state.role,
+        projectID: this.state.project.id,
         statusID: 9
       })
       .then(res => this.loadMilestones())
@@ -165,20 +146,17 @@ class ProjectDetail extends Component {
   };
 
   createRoleMember = (roleId) => {
-    // console.log("createRoleMember");
     const roleMember = {
       roleID: roleId,
       userID: this.state.user.id,
       statusID: 6,
       projectID: this.state.project.id
     }
-    // console.log(roleMember);
     API.postRoleMember(roleMember)
     .then(res => {
       this.loadRoleMembers();
     })
     .catch(err => {
-      // console.log("Error:");
       console.log(err);
     });
   };
@@ -206,16 +184,13 @@ class ProjectDetail extends Component {
   createRole = event => {
     event.preventDefault();
     if (this.state.roleName) {
-      let role = {
+      API.postRole({
         title: this.state.roleName,
         description: this.state.roleDescription,
         statusID: 4,
         projectID: this.state.project.id
-      }
-      API.postRole(role)
-      .then(res => {
-        this.loadRoles();
       })
+      .then(res => this.loadRoles())
       .catch(err => console.log(err));
     }
   };
@@ -226,17 +201,13 @@ class ProjectDetail extends Component {
       statusID: newStatus
     }
     API.updateRole(role)
-    .then(res => {
-      this.loadRoles();
-    })
+    .then(res => this.loadRoles())
     .catch(err => console.log(err));
   };
 
   deleteRole = (roleId) => {
     API.deleteRole(roleId)
-    .then(res => {
-      this.loadRoles();
-    })
+    .then(res => this.loadRoles())
     .catch(err => console.log(err));
   };
 
@@ -271,30 +242,32 @@ class ProjectDetail extends Component {
                 <Card >
                   <Row >
                     <Col size="md-6">
-                      <h3>Contributor: {this.state.owner}</h3>
+                      <h3>Contributor: {this.state.project.owner}</h3>
                     </Col>
                     <Col size="md-6">
+                    {this.state.user.id == this.state.project.ownerID &&
                       <DropDown>
                         <DropDownBtn
-                          onClick={() => this.makeCompleted(this.state.projectID)}
+                          onClick={() => this.makeCompleted(this.state.project.id)}
                         >
                           <p>Complete</p>
                         </DropDownBtn>
                         <DropDownBtn
-                          onClick={() => this.makeArchived(this.state.projectID)}
+                          onClick={() => this.makeArchived(this.state.project.id)}
                         >
                           <p>Archive</p>
                         </DropDownBtn>
                       </DropDown>
+                    }
                       <ProjectDetailMainModal />
                     </Col>
                   </Row>
                   <Row>
                     <Col size="md-12">
-                      <h1>{this.state.title}</h1>
+                      <h1>{this.state.project.title}</h1>
                     </Col>
                   </Row>
-                  <p className="text-center detail-text">{this.state.description}</p>
+                  <p className="text-center detail-text">{this.state.project.description}</p>
 
                       <h2>Members</h2>
                       <div className="member-list-group">
@@ -302,47 +275,45 @@ class ProjectDetail extends Component {
                         <Col size="lg-4 md-6">
                           {this.state.roleMembers.length ? (
                             this.state.roleMembers.map(roleMember => (
-                            // (roleMember.statusID !== 11 &&
-                              <MemberCard
-                                // Compound key to make it unique
-                                // Cannot use userID alone because they may be in more than one role.
-                                key={`${roleMember.User.id}${roleMember.ProjectRole.id}`}
-                                userID={roleMember.User.id}
-                                membersName={`${roleMember.User.firstName} ${roleMember.User.lastName}`}
-                                membersPosition={roleMember.User.position}
-                              >
-                                <MemberCardListGroup>
-                                  <MemberCardListItem roleName={roleMember.ProjectRole.title}>
-                                    <div className="btn-group btn-group-sm" role="group" aria-label="Role Member Options">
-                                      {(this.state.user.id === this.state.project.ownerId && roleMember.statusID === 6) &&
-                                        <>
+                              (roleMember.statusID == 7 || ((this.state.user.id == this.state.project.ownerID) && roleMember.statusID == 6)) && (
+                                <MemberCard
+                                  key={roleMember.id}
+                                  userID={roleMember.User.id}
+                                  membersName={`${roleMember.User.firstName} ${roleMember.User.lastName}`}
+                                  membersPosition={roleMember.User.position}
+                                >
+                                  <MemberCardListGroup>
+                                    <MemberCardListItem roleName={roleMember.ProjectRole.title}>
+                                      <div className="btn-group btn-group-sm" role="group" aria-label="Role Member Options">
+                                        {(this.state.user.id === this.state.project.ownerID && roleMember.statusID === 6) &&
+                                          <>
+                                            <Button
+                                              className="btn blue-btn"
+                                              onClick={() => this.updateRoleMember(roleMember.id, 7)}
+                                            >
+                                              Accept
+                                            </Button>
+                                            <Button
+                                              className="btn blue-btn"
+                                              onClick={() => this.updateRoleMember(roleMember.id, 8)}
+                                            >
+                                              Decline
+                                            </Button>
+                                          </>
+                                        }
+                                        {((this.state.user.id === this.state.project.ownerID || this.state.user.id === roleMember.User.id) && roleMember.statusID === 7) &&
                                           <Button
                                             className="btn blue-btn"
-                                            onClick={() => this.updateRoleMember(roleMember.id, 7)}
+                                            onClick={() => this.updateRoleMember(roleMember.id, 11)}
                                           >
-                                            Accept
+                                            Retire
                                           </Button>
-                                          <Button
-                                            className="btn blue-btn"
-                                            onClick={() => this.updateRoleMember(roleMember.id, 8)}
-                                          >
-                                            Decline
-                                          </Button>
-                                        </>
-                                      }
-                                      {((this.state.user.id === this.state.project.ownerId || this.state.user.id === roleMember.User.id) && roleMember.statusID === 7) &&
-                                        <Button
-                                          className="btn blue-btn"
-                                          onClick={() => this.updateRoleMember(roleMember.id, 11)}
-                                        >
-                                          Retire
-                                        </Button>
-                                      }
-                                    </div>
-                                  </MemberCardListItem>
-                                </MemberCardListGroup>
-                              </MemberCard>
-                            // )
+                                        }
+                                      </div>
+                                    </MemberCardListItem>
+                                  </MemberCardListGroup>
+                                </MemberCard>
+                              )
                             ))
                           ) : (
                             <h3 className="none-listed">No Current Members</h3>
@@ -354,40 +325,42 @@ class ProjectDetail extends Component {
                     <Col size="lg-6 md-12">
                       <div className="detail-list-section">
                         <h2>Roles</h2>
-                        <div className="add-project-card">
-                          <Form >
-                            <FormGroup >
-                              <div className="role-input">
-                              <Label htmlFor="Role Title" className="field-head">Create Role</Label>
-                              <Input
-                                type="text"
-                                id="role"
-                                name="roleName"
-                                value={this.state.roleName}
-                                placeholder="Title"
-                                onChange={this.handleInputChange}
-                              />
-                              </div>
-                              <div className="role-input">
-                              <Input
-                                type="text"
-                                id="role"
-                                name="roleDescription"
-                                value={this.state.roleDescription}
-                                placeholder="Description"
-                                onChange={this.handleInputChange}
-                              />
-                              </div>
-                            </FormGroup>
-                            <FormBtn
-                              className="btn blue-btn card-item-submit"
-                              type="submit"
-                              onClick={this.createRole}
-                            >
-                              Submit
-                            </FormBtn>
-                          </Form>
-                        </div>
+                        {this.state.user.id == this.state.project.ownerID &&
+                          <div className="add-project-card">
+                            <Form >
+                              <FormGroup >
+                                <div className="role-input">
+                                <Label htmlFor="Role Title" className="field-head">Create Role</Label>
+                                <Input
+                                  type="text"
+                                  id="role"
+                                  name="roleName"
+                                  value={this.state.roleName}
+                                  placeholder="Title"
+                                  onChange={this.handleInputChange}
+                                />
+                                </div>
+                                <div className="role-input">
+                                <Input
+                                  type="text"
+                                  id="role"
+                                  name="roleDescription"
+                                  value={this.state.roleDescription}
+                                  placeholder="Description"
+                                  onChange={this.handleInputChange}
+                                />
+                                </div>
+                              </FormGroup>
+                              <FormBtn
+                                className="btn blue-btn card-item-submit"
+                                type="submit"
+                                onClick={this.createRole}
+                              >
+                                Submit
+                              </FormBtn>
+                            </Form>
+                          </div>
+                        }
                         <div className="project-pg-list">
                         <div className="role-list-group">
                           {this.state.roles.length ? (
@@ -402,7 +375,7 @@ class ProjectDetail extends Component {
                                   {role.usersStatus === 7 && <span className="badge badge-success float-right">Approved</span>}
                                   {role.usersStatus === 8 && <span className="badge badge-danger float-right">Declined</span>}
                                   <div className="btn-group btn-group-sm" role="group" aria-label="Role Options">
-                                    {(this.state.user.id === this.state.project.ownerId && role.statusID === 4) &&
+                                    {(this.state.user.id === this.state.project.ownerID && role.statusID === 4) &&
                                       <>
                                         <Button
                                           className="btn blue-btn"
@@ -418,7 +391,7 @@ class ProjectDetail extends Component {
                                         </Button>
                                       </>
                                     }
-                                    {(this.state.user.id === this.state.project.ownerId && role.statusID === 5) &&
+                                    {(this.state.user.id === this.state.project.ownerID && role.statusID === 5) &&
                                       <Button
                                         className="btn blue-btn"
                                         onClick={() => this.updateRole(role.id, 4)}
@@ -426,7 +399,7 @@ class ProjectDetail extends Component {
                                         Open
                                       </Button>
                                     }
-                                    {(this.state.user.id !== this.state.project.ownerId && role.usersStatus === "Not Applied") &&
+                                    {(this.state.user.id !== this.state.project.ownerID && role.usersStatus === "Not Applied") &&
                                       <Button
                                         className="btn blue-btn"
                                         onClick={() => this.createRoleMember(role.id)}
@@ -434,7 +407,7 @@ class ProjectDetail extends Component {
                                         Apply
                                       </Button>
                                     }
-                                    {(this.state.user.id !== this.state.project.ownerId && role.usersStatus === 6) &&
+                                    {(this.state.user.id !== this.state.project.ownerID && role.usersStatus === 6) &&
                                       <Button
                                         className="btn blue-btn"
                                         onClick={() => this.deleteRoleMember(role.usersRoleMemberId)}
@@ -456,27 +429,29 @@ class ProjectDetail extends Component {
                     <Col size="lg-6 md-12">
                       <div className="detail-list-section">
                         <h2>Milestones</h2>
-                        <div className="add-project-card">
-                          <Form >
-                            <FormGroup >
-                              <Label htmlFor="Milestone Title" className="field-head">Create Milestone</Label>
-                              <Input
-                                type="text"
-                                id="milestone"
-                                name="newMilestone"
-                                value={this.state.newMilestone}
-                                onChange={this.handleInputChange}
-                              />
-                            </FormGroup>
-                            <FormBtn
-                              className="btn blue-btn card-item-submit"
-                              type="submit"
-                              onClick={this.submitMilestone}
-                            >
-                              Submit
-                            </FormBtn>
-                          </Form>
-                        </div>
+                        {this.state.user.id == this.state.project.ownerID &&
+                          <div className="add-project-card">
+                            <Form >
+                              <FormGroup >
+                                <Label htmlFor="Milestone Title" className="field-head">Create Milestone</Label>
+                                <Input
+                                  type="text"
+                                  id="milestone"
+                                  name="newMilestone"
+                                  value={this.state.newMilestone}
+                                  onChange={this.handleInputChange}
+                                />
+                              </FormGroup>
+                              <FormBtn
+                                className="btn blue-btn card-item-submit"
+                                type="submit"
+                                onClick={this.submitMilestone}
+                              >
+                                Submit
+                              </FormBtn>
+                            </Form>
+                          </div>
+                        }
                         <div className="project-pg-list">
                         {this.state.milestones.length ? (
                           <List >
