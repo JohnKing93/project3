@@ -17,7 +17,6 @@ class Ideas extends Component {
     pageTitle: 'ProGro Ideas',
     user: this.props.user,
     ideas: [],
-    ownerID: 1,
     title: '',
     description: '',
     editID:'',
@@ -51,7 +50,6 @@ class Ideas extends Component {
 
         this.setState({
           ideas: res.data,
-          ownerID: 1,
           title: '',
           description: '',
           votes
@@ -249,28 +247,35 @@ class Ideas extends Component {
                             >
                             </VoteDownBtn>
                           </div>
-                          <h2> {idea.title}</h2>
-                          <p> {idea.description} </p>
+                        </div>
+                        <h2> {idea.title}</h2>
+                        <p> {idea.description} </p>
+                        {((this.state.user.permissionID == (2 || 3)) || (this.state.user.id == idea.ownerID)) &&
                           <DropDown>
+                            {this.state.user.permissionID == (2 || 3) &&
+                              <DropDownBtn
+                                onClick={() => this.approveIdea(idea)}
+                              >
+                              <p>Approve</p>
+                              </DropDownBtn>
+                            }
+                            {/*
                             <DropDownBtn
-                              onClick={() => this.approveIdea(idea)}
-                            >
-                            <p>Approve</p>
-                            </DropDownBtn>
-                            {/* <DropDownBtn
-                            data-toggle="modal"
-                            data-target="#editIdea"
-                            onClick={() => this.setEditID(idea.id)}
+                              data-toggle="modal"
+                              data-target="#editModal"
                             >
                             <p>Edit</p>
-                            </DropDownBtn> */}
-                            <DropDownBtn
-                              onClick={() => this.deleteIdea(idea)}
-                            >
-                            <p>Delete</p>
                             </DropDownBtn>
+                            */}
+                            {this.state.user.id == idea.ownerID &&
+                              <DropDownBtn
+                                onClick={() => this.deleteIdea(idea)}
+                              >
+                              <p>Delete</p>
+                              </DropDownBtn>
+                            }
                           </DropDown>
-                        </div>
+                        }
                         <div className="modal fade" id="editIdea" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div className="modal-dialog" role="document">
                               <div className="modal-content">

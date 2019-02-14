@@ -32,7 +32,7 @@ app.get('*', (req, res) => {
 
 // Connect to DB
 db.sequelize
-  .sync()
+  .sync({ force: true })
   .then(() => {
     app.listen(PORT, () => {
       // eslint-disable-next-line no-console
