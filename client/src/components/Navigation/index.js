@@ -18,6 +18,9 @@ export function Navigation(props) {
       <li className="nav-item">
         <a className="nav-link" href="/projects">Projects</a>
       </li>
+      <li className="nav-item">
+        <a className="nav-link" href="/incentives">Incentives</a>
+      </li>
       </ul>
       </div>
 </nav>

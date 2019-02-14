@@ -13,17 +13,17 @@ module.exports = (sequelize, DataTypes) => {
 
   Project.associate = (models) => {
     // Associate project back to status
-    models.Project.belongsTo(models.Status, {
+    Project.belongsTo(models.Status, {
       foreignKey: 'statusID',
     });
 
     // Associate project back to user
-    models.Project.belongsTo(models.User, {
+    Project.belongsTo(models.User, {
       foreignKey: 'ownerID',
     });
 
     // Project can have many roles
-    models.Project.hasMany(models.ProjectRole, {
+    Project.hasMany(models.ProjectRole, {
       as: 'Roles',
       foreignKey: {
         name: 'projectID',
@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // Project can have many roles
-    models.Project.hasMany(models.RoleMember, {
+    Project.hasMany(models.RoleMember, {
       foreignKey: {
         name: 'projectID',
         allowNull: false,
@@ -42,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // Project can have many comments
-    models.Project.hasMany(models.ProjectComment, {
+    Project.hasMany(models.ProjectComment, {
       foreignKey: {
         name: 'projectID',
         allowNull: false,
@@ -51,7 +51,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // Project can have many milestones
-    models.Project.hasMany(models.ProjectMilestone, {
+    Project.hasMany(models.ProjectMilestone, {
       foreignKey: {
         name: 'projectID',
         allowNull: false,
@@ -60,7 +60,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // Project can have many timesheets
-    models.Project.hasMany(models.Timesheet, {
+    Project.hasMany(models.Timesheet, {
       foreignKey: {
         name: 'projectID',
         allowNull: false,

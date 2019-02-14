@@ -67,6 +67,18 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        type: 'incentive',
+        description: 'Available',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        type: 'incentive',
+        description: 'Unavailable',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ], {});
   },
 };

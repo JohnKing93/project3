@@ -25,7 +25,7 @@ export function MemberCard(props) {
         <div className="card-body">
           <h5 className="card-title">{props.membersName}</h5>
           <h6 className="card-subtitle mb-2">{props.membersPosition}</h6>
-          <a href="/profile" className="btn outline-blue-btn top-space"> View Profile</a>
+          <a href={`/profile/${props.userID}`} className="btn outline-blue-btn top-space"> View Profile</a>
         </div>
         {props.children}
       </div>

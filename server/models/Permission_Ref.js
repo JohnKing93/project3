@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Permission.associate = (models) => {
     // User has one overall permission level
-    models.Permission.hasOne(models.User, {
+    Permission.hasOne(models.User, {
       foreignKey: {
         name: 'permissionID',
         allowNull: false,

@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Timesheet.associate = (models) => {
     // Associate timesheet back to user
-    models.Timesheet.belongsTo(models.User, {
+    Timesheet.belongsTo(models.User, {
       foreignKey: 'ownerID',
     });
 
