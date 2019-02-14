@@ -177,6 +177,7 @@ module.exports = {
   },
   updateByID: (req, res) => {
     // Update record from fields passed in from req.body and id from req.params
+    console.log("updateByID");
     db.User
       .update(req.body, {
         where: {
