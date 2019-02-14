@@ -52,11 +52,6 @@ body .my-list-item {
   border-radius: .25rem !important;
 }
 
-body .edit-modal:hover {
-  position: relative;
-  z-index: auto;
-}
-
 body .bottom-art {
   width: 100%;
   position: fixed;
@@ -469,9 +464,5 @@ body #incentives-div .none-listed {
   font-size: 1rem;
   text-align: center;
   margin: .5rem;
-}
-
-body #incentives-div #incentive-instr {
-  text-align: center;
 }
 /*# sourceMappingURL=main.css.map */

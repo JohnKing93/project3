@@ -162,6 +162,7 @@ class Incentives extends Component {
                                 type="text"
                                 id="newIncentiveDescription"
                                 name="newDescription"
+                                rows="6"
                                 value={this.newDescription}
                                 onChange={this.handleInputChange}
                               ></TextArea>
@@ -186,7 +187,7 @@ class Incentives extends Component {
                     </div>
                   </div>
                   <h3>Hours: {this.credits} </h3>
-                  <p id="incentive-instr">Apply your credits by selecting an incentive and hitting submit.</p>
+                  <p >Apply your credits by selecting an incentive and hitting submit.</p>
                   <div id="available-incentives-box">
                     <Form>
                       <FormGroup>
