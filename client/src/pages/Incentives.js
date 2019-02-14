@@ -67,7 +67,8 @@ class Incentives extends Component {
       let newIncentive = {
         title: this.state.newTitle,
         description: this.state.newDescription,
-        price: parseFloat(this.state.newPrice)
+        price: parseFloat(this.state.newPrice),
+        statusID: 12
       }
       API.createIncentive(newIncentive)
         .then(res => this.loadIncentives())
