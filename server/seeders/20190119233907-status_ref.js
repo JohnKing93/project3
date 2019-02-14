@@ -79,6 +79,24 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        type: 'timesheet',
+        description: 'Accepted',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        type: 'timesheet',
+        description: 'Pending',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        type: 'timesheet',
+        description: 'Declined',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ], {});
   },
 };
