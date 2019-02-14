@@ -9,12 +9,14 @@ import API from "../utils/API";
 
 class LiveProjects extends Component {
   state = {
+    pageTitle: 'ProGro Projects',
     user: this.props.user,
     projects: [],
     projectStatus: 'In Progress'
   };
 
   componentDidMount() {
+    document.title=this.state.pageTitle;
     this.loadProjects();
   };
 

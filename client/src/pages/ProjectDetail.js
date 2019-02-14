@@ -11,6 +11,7 @@ import { ProjectDetailMainModal, MilestoneEditModal } from "../components/Modal"
 class ProjectDetail extends Component {
 
   state = {
+    pageTitle: 'ProGro Project',
     user: this.props.user,
     project: {
       id: 1,
@@ -33,6 +34,7 @@ class ProjectDetail extends Component {
   };
 
   componentDidMount() {
+    document.title=this.state.pageTitle;
     this.loadProject();
   };
 
@@ -299,8 +301,8 @@ class ProjectDetail extends Component {
                       <h2>Members</h2>
                       <div className="member-list-group">
                       <Row>
-                        {this.state.roleMembers.length ? (
-                          this.state.roleMembers.map(roleMember => (
+                          {this.state.roleMembers.length ? (
+                            this.state.roleMembers.map(roleMember => (
                             // (roleMember.statusID !== 11 &&
                             <Col size="lg-4 md-6">
                               <MemberCard
@@ -342,7 +344,7 @@ class ProjectDetail extends Component {
                                   </MemberCardListItem>
                                 </MemberCardListGroup>
                               </MemberCard>
-                            </Col>
+                              </Col>
                             // )
                             ))
                           ) : (

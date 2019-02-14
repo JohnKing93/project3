@@ -17,9 +17,16 @@ $colors: (
 };
 
 $mobile: 800px;
+$phone: 480px;
 
 @mixin mobile {
     @media (max-width: #{$mobile}) {
+        @content;
+    }
+}
+
+@mixin phone {
+    @media (max-width: #{$phone}) {
         @content;
     }
 }
@@ -151,7 +158,7 @@ body {
                 background-color: white;
                 width: 15rem;
                 position: absolute;
-                bottom: 6.75rem;
+                bottom: 6rem;
                 padding: .3rem 0;
             }
             h2 {
@@ -165,14 +172,14 @@ body {
                 color: color(secondary);
             }
 
-            .my-position {
-                font-weight: 450;
-                color: color(secondary);
-                width: 15rem;
-                position: absolute;
-                bottom: 5rem;
-                background-color: white;
-            }
+            // .my-position {
+            //     font-weight: 450;
+            //     color: color(secondary);
+            //     width: 15rem;
+            //     position: absolute;
+            //     bottom: 5rem;
+            //     background-color: white;
+            // }
             .user-name-box {
                 background-color: color(tertiary);
                 border-radius: 50%;
@@ -399,6 +406,77 @@ body {
                         background-color: color(neutral-lightest);
                     }
             }
+        }
+    }
+
+    #incentives-div {
+        margin: 3rem auto 4rem auto;
+        box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
+        border-radius: 15px;
+
+        h2 {
+            text-align: center;
+            margin-top: .5rem;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        h3 {
+            color: color(primary);
+            font-size: 1.5rem;
+        }
+
+        .incentive-title {
+            width: 45%;
+            margin: 0 auto;
+
+            @include phone {
+                width: 90%;
+            }
+        }
+
+        .select-area {
+            display: block;
+            position: absolute;
+            right: 1rem;
+            bottom: .5rem;
+        }
+
+        .check-label {
+            display: inline;
+            margin-right: 2rem;
+            color: color(accent);
+        }
+
+        .incentive-details {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        
+        .cost {
+            position: absolute;
+            left: 1rem;
+            top: .25rem;
+            color: color(secondary);
+            font-weight: bold;
+        }
+
+        .main-content {
+            position: relative;
+            top: -2rem;
+
+            @include phone {
+                position: relative;
+                top: 0;
+                padding-bottom: 1.25rem;
+            }
+        }
+
+        .none-listed {
+            color: color(neutral-dark);
+            font-size: 1rem;
+            text-align: center;
+            margin: .5rem;
         }
     }
 }
