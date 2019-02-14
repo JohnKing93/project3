@@ -1,0 +1,50 @@
+{
+  "name": "progro",
+  "version": "1.0.0",
+  "author": "Team Web Scale",
+  "license": "ISC",
+  "description": "",
+  "main": "server/server.js",
+  "scripts": {
+    "build": "cd client && npm run build",
+    "client": "cd client && npm run start",
+    "install": "cd client && npm install",
+    "heroku-postbuild": "npm run build",
+    "lint": "eslint ./",
+    "lint-fix": "eslint ./ --fix",
+    "seed": "sequelize db:seed:all",
+    "server": "nodemon server/server.js",
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
+    "start:prod": "node server/server.js"
+  },
+  "devDependencies": {
+    "babel-eslint": "9.0.0",
+    "concurrently": "^4.1.0",
+    "eslint": "5.6.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-react-app": "^3.0.6",
+    "eslint-plugin-flowtype": "^3.2.1",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.0",
+    "nodemon": "^1.18.7",
+    "sequelize-cli": "^5.4.0"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "bcrypt": "^3.0.3",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.3",
+    "if-env": "^1.0.4",
+    "jsonwebtoken": "^8.4.0",
+    "moment": "^2.24.0",
+    "mysql2": "^1.6.4",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "sequelize": "^4.42.0"
+  }
+}
