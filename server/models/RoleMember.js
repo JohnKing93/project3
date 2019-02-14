@@ -3,22 +3,22 @@ module.exports = (sequelize) => {
 
   RoleMember.associate = (models) => {
     // Associate role member back to status
-    models.RoleMember.belongsTo(models.Status, {
+    RoleMember.belongsTo(models.Status, {
       foreignKey: 'statusID',
     });
 
     // Associate role member back to user
-    models.RoleMember.belongsTo(models.User, {
+    RoleMember.belongsTo(models.User, {
       foreignKey: 'userID',
     });
 
     // Associate role member back to project roles
-    models.RoleMember.belongsTo(models.ProjectRole, {
+    RoleMember.belongsTo(models.ProjectRole, {
       foreignKey: 'roleID',
     });
 
     // Associate role member back to project
-    models.RoleMember.belongsTo(models.Project, {
+    RoleMember.belongsTo(models.Project, {
       foreignKey: 'projectID',
     });
   };
