@@ -250,9 +250,9 @@ class Ideas extends Component {
                         </div>
                         <h2> {idea.title}</h2>
                         <p> {idea.description} </p>
-                        {((this.state.user.permissionID == (2 || 3)) || (this.state.user.id == idea.ownerID)) &&
+                        {((this.state.user.permissionID === (2 || 3)) || (this.state.user.id === idea.ownerID)) &&
                           <DropDown>
-                            {this.state.user.permissionID == (2 || 3) &&
+                            {this.state.user.permissionID === (2 || 3) &&
                               <DropDownBtn
                                 onClick={() => this.approveIdea(idea)}
                               >
@@ -267,7 +267,7 @@ class Ideas extends Component {
                             <p>Edit</p>
                             </DropDownBtn>
                             */}
-                            {this.state.user.id == idea.ownerID &&
+                            {this.state.user.id === idea.ownerID &&
                               <DropDownBtn
                                 onClick={() => this.deleteIdea(idea)}
                               >
