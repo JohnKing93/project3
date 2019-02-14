@@ -32,7 +32,7 @@ class UserProfile extends Component {
   };
 
   componentDidMount() {
-    document.title=this.state.pageTitle;
+    document.title = this.state.pageTitle;
     this.getUserData();
   }
 
@@ -52,26 +52,26 @@ class UserProfile extends Component {
     }
     else {
       API
-      .submitTimesheet({
-        userID: this.state.user.id,
-        ownerID: this.state.user.id,
-        projectID: this.state.project,
-        start: this.state.date,
-        monday: this.state.monday,
-        tuesday: this.state.tuesday,
-        wednesday: this.state.wednesday,
-        thursday: this.state.thursday,
-        friday: this.state.friday,
-        saturday: this.state.saturday,
-        sunday: this.state.sunday
-      })
-      .then(res => {
-        console.log(res.data);
-        this.getTimesheets();
-      })
-      .catch(error => {
-        console.log(error);
-      });
+        .submitTimesheet({
+          userID: this.state.user.id,
+          ownerID: this.state.user.id,
+          projectID: this.state.project,
+          start: this.state.date,
+          monday: this.state.monday,
+          tuesday: this.state.tuesday,
+          wednesday: this.state.wednesday,
+          thursday: this.state.thursday,
+          friday: this.state.friday,
+          saturday: this.state.saturday,
+          sunday: this.state.sunday
+        })
+        .then(res => {
+          console.log(res.data);
+          this.getTimesheets();
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   };
 
@@ -122,15 +122,15 @@ class UserProfile extends Component {
     console.log("Projects:");
     console.log(this.state.projects);
     API
-    .getUsersTimesheets(this.state.user.id)
-    .then(res => {
-      console.log("Timesheets:")
-      console.log(res.data);
-      this.setState({ timesheets: res.data })
-    })
-    .catch(error => {
-      console.log(error);
-    });
+      .getUsersTimesheets(this.state.user.id)
+      .then(res => {
+        console.log("Timesheets:")
+        console.log(res.data);
+        this.setState({ timesheets: res.data })
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   getProjectTitle = (timesheet) => {
@@ -156,7 +156,7 @@ class UserProfile extends Component {
                     <Col size="lg-4 m-12">
                       <div id="profile-info-div">
                         <div className="user-name-box">
-                          <img className="profile-logo" src="/images/progrologo.png" alt="account user"/>
+                          <img className="profile-logo" src="/images/progrologo.png" alt="account user" />
                           <h1>{this.state.name}</h1>
                           {/* <p className="my-position">{this.state.position}</p> */}
                           {/* <h3>Skills</h3>
@@ -226,7 +226,7 @@ class UserProfile extends Component {
                       </table>
                     </Col>
                   </Row>
-                  <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                  <button type="button" className="btn blue-btn" data-toggle="modal" data-target="#exampleModalCenter">
                     Add Timesheet
                   </button>
                 </Card>
@@ -328,7 +328,7 @@ class UserProfile extends Component {
                       <div className="form-group col">
                         <label htmlFor="project">Select Project</label>
                         <select className="form-control" id="project" onClick={this.handleInputChange}>
-                            {this.state.projects.map(project => { return <option key={project.id} value={project.id}>{project.title}</option> })}
+                          {this.state.projects.map(project => { return <option key={project.id} value={project.id}>{project.title}</option> })}
                         </select>
                       </div>
                     </div>
@@ -336,7 +336,7 @@ class UserProfile extends Component {
                 </div>
                 <div className="modal-footer">
                   <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button onClick={this.handleSubmitTimesheet} type="submit" className="btn btn-primary" data-dismiss="modal">Save</button>
+                  <button onClick={this.handleSubmitTimesheet} type="submit" className="btn blue-btn" data-dismiss="modal">Save</button>
                 </div>
               </div>
             </div>
