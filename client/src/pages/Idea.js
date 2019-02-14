@@ -70,7 +70,7 @@ class Ideas extends Component {
           API.submitIdea({
             title: this.state.title,
             description: this.state.description,
-            ownerID: this.state.user
+            ownerID: this.state.user.id
           })
           .then(res => this.loadIdeas())
           .catch(err => console.log(err));

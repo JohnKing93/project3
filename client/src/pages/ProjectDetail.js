@@ -299,10 +299,10 @@ class ProjectDetail extends Component {
                       <h2>Members</h2>
                       <div className="member-list-group">
                       <Row>
-                        <Col size="lg-4 md-6">
-                          {this.state.roleMembers.length ? (
-                            this.state.roleMembers.map(roleMember => (
+                        {this.state.roleMembers.length ? (
+                          this.state.roleMembers.map(roleMember => (
                             // (roleMember.statusID !== 11 &&
+                            <Col size="lg-4 md-6">
                               <MemberCard
                                 // Compound key to make it unique
                                 // Cannot use userID alone because they may be in more than one role.
@@ -342,12 +342,12 @@ class ProjectDetail extends Component {
                                   </MemberCardListItem>
                                 </MemberCardListGroup>
                               </MemberCard>
+                            </Col>
                             // )
                             ))
                           ) : (
                             <h3 className="none-listed">No Current Members</h3>
                           )}
-                        </Col>
                       </Row>
                       </div>
                   <Row>
