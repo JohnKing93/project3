@@ -32,12 +32,12 @@ module.exports = (sequelize, DataTypes) => {
 
   User.associate = (models) => {
     // User has a permission level
-    models.User.belongsTo(models.Permission, {
+    User.belongsTo(models.Permission, {
       foreignKey: 'permissionID',
     });
 
     // User can have many ideas
-    models.User.hasMany(models.Idea, {
+    User.hasMany(models.Idea, {
       foreignKey: {
         name: 'ownerID',
         allowNull: false,
@@ -46,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // User can have many comments on an idea
-    models.User.hasMany(models.IdeaComment, {
+    User.hasMany(models.IdeaComment, {
       foreignKey: {
         name: 'userID',
         allowNull: false,
@@ -55,7 +55,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // User can vote on many ideas
-    models.User.hasMany(models.IdeaVote, {
+    User.hasMany(models.IdeaVote, {
       foreignKey: {
         name: 'userID',
         allowNull: false,
@@ -64,7 +64,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // User can have many projects
-    models.User.hasMany(models.Project, {
+    User.hasMany(models.Project, {
       foreignKey: {
         name: 'ownerID',
         allowNull: false,
@@ -73,7 +73,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // User can have many comments on an project
-    models.User.hasMany(models.ProjectComment, {
+    User.hasMany(models.ProjectComment, {
       foreignKey: {
         name: 'userID',
         allowNull: false,
@@ -82,7 +82,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // User can have a role on many projects
-    models.User.hasMany(models.RoleMember, {
+    User.hasMany(models.RoleMember, {
       as: 'Roles',
       foreignKey: {
         name: 'userID',
@@ -92,7 +92,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // User can redeem many incentives
-    models.User.hasMany(models.IncentiveRedeemed, {
+    User.hasMany(models.IncentiveRedeemed, {
       foreignKey: {
         name: 'userID',
         allowNull: false,
@@ -101,7 +101,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // User can have many timesheets
-    models.User.hasMany(models.Timesheet, {
+    User.hasMany(models.Timesheet, {
       foreignKey: {
         name: 'userID',
         allowNull: false,
@@ -110,7 +110,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // User can have many skills
-    models.User.hasMany(models.UserSkill, {
+    User.hasMany(models.UserSkill, {
       foreignKey: {
         name: 'userID',
         allowNull: false,

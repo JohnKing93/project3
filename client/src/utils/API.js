@@ -113,7 +113,14 @@ export default {
     return axios.get(`/api/projectmilestones/${id}`);
   },
 
-  //Incentives
+  submitTimesheet: function(data) {
+    return axios.post("/api/timesheets", data);
+  },
+
+  getUsersTimesheets: function(id) {
+    return axios.get(`/api/timesheets/user/${id}`);
+  },
+
   getIncentives: function() {
     return axios.get("/api/incentives");
   },
