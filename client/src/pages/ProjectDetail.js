@@ -304,7 +304,9 @@ class ProjectDetail extends Component {
                             this.state.roleMembers.map(roleMember => (
                             // (roleMember.statusID !== 11 &&
                               <MemberCard
-                                key={roleMember.User.id}
+                                // Compound key to make it unique
+                                // Cannot use userID alone because they may be in more than one role.
+                                key={`${roleMember.User.id}${roleMember.ProjectRole.id}`}
                                 userID={roleMember.User.id}
                                 membersName={`${roleMember.User.firstName} ${roleMember.User.lastName}`}
                                 membersPosition={roleMember.User.position}
