@@ -244,7 +244,7 @@ class Incentives extends Component {
                             ))}
                           </List>
                         ) : (
-                          <h3>There are no incentives currently available.</h3>
+                          <h3 className="none-listed">There are no incentives currently available.</h3>
                         )}
                       </FormGroup>
                       <FormBtn

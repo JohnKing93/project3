@@ -459,6 +459,13 @@ body #incentives-div .main-content {
   }
 }
 
+body #incentives-div .none-listed {
+  color: #afbbb8;
+  font-size: 1rem;
+  text-align: center;
+  margin: .5rem;
+}
+
 body #incentives-div #incentive-instr {
   text-align: center;
 }
