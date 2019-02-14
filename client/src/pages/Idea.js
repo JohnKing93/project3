@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Col, Row, Container } from "../components/Grid";
 import { Card } from "../components/Card";
-import { Input, TextArea, Button } from "../components/Form";
+import { Input, Button, FormGroup, Form, FormBtn, Label, TextArea } from "../components/Form";
 import { VoteUpBtn, DropDownBtn, DropDown, VoteDownBtn } from "../components/Buttons";
 // import { VoteUpBtn, ApproveBtn } from "../components/Buttons";
 import { List, ListItem } from "../components/List";
@@ -14,14 +14,19 @@ import { ProjectDetailMainModal } from "../components/Modal";
 
 class Ideas extends Component {
   state = {
+    pageTitle: 'ProGro Ideas',
     user: this.props.user,
     ideas: [],
     title: '',
     description: '',
+    editID:'',
+    editTitle:'',
+    editDescription:'',
     votes: []
   };
 
   componentDidMount() {
+    document.title = this.state.pageTitle;
     this.loadIdeas();
   };
 
@@ -89,15 +94,52 @@ class Ideas extends Component {
       description: idea.description,
       ownerID: idea.ownerID
     })
-    .catch(err=> console.log(err));
+      .catch(err => console.log(err));
   }
 
   deleteIdea = idea => {
     API.deleteIdea({
       id: idea.id
     })
-    .then(res => this.loadIdeas())
-    .catch(err => console.log(err));
+      .then(res => this.loadIdeas())
+      .catch(err => console.log(err));
+  }
+
+  setEditID = (editID) => {
+    this.setState({ editID });
+  }
+
+  editIdea = event => {
+    event.preventDefault();
+    if (this.state.editTitle && this.state.editDescription) {
+      let update = {
+        id: this.state.editID,
+        title: this.state.editTitle,
+        description: this.state.editDescription
+      }
+      API.updateIdea(update)
+      .then(res => this.loadIdeas())
+      .catch(err => console.log(err));
+    }
+    if (this.state.editTitle) {
+      let update = {
+        id: this.state.editID,
+        title: this.state.editTitle
+      }
+      API.updateIdea(update)
+      .then(res => this.loadIdeas())
+      .catch(err => console.log(err));
+    }
+    if (this.state.editDescription) {
+      let update = {
+        id: this.state.editID,
+        description: this.state.editDescription
+      }
+      API.updateIdea(update)
+      .then(res => this.loadIdeas())
+      .catch(err => console.log(err));
+    }
+
   }
 
   upvote = idea => {
@@ -106,14 +148,14 @@ class Ideas extends Component {
       id: idea.id,
       voteCount: idea.voteCount + 1
     })
-    .then(res => {
-      // Add userID and ideaID to IdeaVotes table
-      API
-        .castVote(res.data.id, this.state.user.id)
-        .then(() => this.loadIdeas())
-        .catch(err => console.log(err));
-    })
-    .catch(err => console.log(err));
+      .then(res => {
+        // Add userID and ideaID to IdeaVotes table
+        API
+          .castVote(res.data.id, this.state.user.id)
+          .then(() => this.loadIdeas())
+          .catch(err => console.log(err));
+      })
+      .catch(err => console.log(err));
   };
 
   downvote = idea => {
@@ -121,14 +163,14 @@ class Ideas extends Component {
       id: idea.id,
       voteCount: idea.voteCount - 1
     })
-    .then(res => {
-      // Add userID and ideaID to IdeaVotes table
-      API
-        .castVote(res.data.id, this.state.user.id)
-        .then(() => this.loadIdeas())
-        .catch(err => console.log(err));
-    })
-    .catch(err => console.log(err));
+      .then(res => {
+        // Add userID and ideaID to IdeaVotes table
+        API
+          .castVote(res.data.id, this.state.user.id)
+          .then(() => this.loadIdeas())
+          .catch(err => console.log(err));
+      })
+      .catch(err => console.log(err));
   };
 
   render() {
@@ -142,7 +184,7 @@ class Ideas extends Component {
             <Col size="md-8">
             <div id="new-idea-div">
               <Card >
-                <form>
+                <Form>
                   <p className="field-head">New Project Title</p>
                   <Input
                     id="newProjectTitle"
@@ -166,7 +208,7 @@ class Ideas extends Component {
                   Submit
                   </Button>
                   <p id="subtext-blue">Share a new idea!</p>
-                </form>
+                </Form>
               </Card>
               </div>
               <div id="ideas-div">
@@ -178,34 +220,55 @@ class Ideas extends Component {
                       <ListItem key={idea.id}>
                         <div>
                           <div className="vote-block">
-                          <VoteUpBtn
-                            onClick={() => {
-                              const {
-                                votes = []
-                              } = this.state;
+                            <VoteUpBtn
+                              onClick={() => {
+                                const {
+                                  votes = []
+                                } = this.state;
 
-                              if (votes.indexOf(idea.id) === -1) {
-                                this.upvote(idea);
-                              }
-                            }}
-                          >
-                          </VoteUpBtn>
-                          <div className="vote-count field-head">
-                            {idea.voteCount}
-                          </div>
-                          <VoteDownBtn
-                            onClick={() => {
-                              const {
-                                votes = []
-                              } = this.state;
+                                if (votes.indexOf(idea.id) === -1) {
+                                  this.upvote(idea);
+                                }
+                              }}
+                            >
+                            </VoteUpBtn>
+                            <div className="vote-count field-head">
+                              {idea.voteCount}
+                            </div>
+                            <VoteDownBtn
+                              onClick={() => {
+                                const {
+                                  votes = []
+                                } = this.state;
 
-                              if (votes.indexOf(idea.id) === -1) {
-                                this.downvote(idea);
-                              }
-                            }}
-                          >
-                          </VoteDownBtn>
+                                if (votes.indexOf(idea.id) === -1) {
+                                  this.downvote(idea);
+                                }
+                              }}
+                            >
+                            </VoteDownBtn>
                           </div>
+                          <h2> {idea.title}</h2>
+                          <p> {idea.description} </p>
+                          <DropDown>
+                            <DropDownBtn
+                              onClick={() => this.approveIdea(idea)}
+                            >
+                            <p>Approve</p>
+                            </DropDownBtn>
+                            {/* <DropDownBtn
+                            data-toggle="modal"
+                            data-target="#editIdea"
+                            onClick={() => this.setEditID(idea.id)}
+                            >
+                            <p>Edit</p>
+                            </DropDownBtn> */}
+                            <DropDownBtn
+                              onClick={() => this.deleteIdea(idea)}
+                            >
+                            <p>Delete</p>
+                            </DropDownBtn>
+                          </DropDown>
                         </div>
                         <h2> {idea.title}</h2>
                         <p> {idea.description} </p>
