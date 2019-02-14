@@ -4,6 +4,7 @@ module.exports = {
   findAll: (req, res) => {
     db.Timesheet
       .findAll({
+        attributes: { exclude: ['createdAt', 'updatedAt'] },
         order: ['id'],
       })
       .then(results => res.status(200).json(results))
@@ -12,9 +13,20 @@ module.exports = {
   findAllByUser: (req, res) => {
     db.Timesheet
       .findAll({
+        attributes: { exclude: ['statusID', 'createdAt', 'updatedAt'] },
         where: {
-          userID: Number(req.params.id),
+          ownerID: Number(req.params.id),
         },
+        include: [
+          {
+            model: db.Status,
+            attributes: { exclude: ['id', 'type', 'createdAt', 'updatedAt'] },
+          },
+          {
+            model: db.Project,
+            attributes: { exclude: ['createdAt', 'updatedAt'] },
+          },
+        ],
         order: ['id'],
       })
       .then(results => res.status(200).json(results))
@@ -43,9 +55,9 @@ module.exports = {
       friday,
       saturday,
       sunday,
-      userID,
       projectID,
       ownerID,
+      statusID,
     } = req.body;
 
     db.Timesheet
@@ -59,8 +71,8 @@ module.exports = {
         saturday,
         sunday,
         ownerID,
-        userID,
         projectID,
+        statusID,
       })
       .then(results => res.status(201).json(results))
       .catch(err => res.status(500).send(err));

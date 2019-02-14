@@ -84,6 +84,11 @@ body {
         border-radius: .25rem !important;
     }
 
+    // .edit-modal:hover {
+    //   position: relative;
+    //   z-index: auto;
+    // }
+
     .bottom-art {
         width: 100%;
         position: fixed;
@@ -189,7 +194,7 @@ body {
         #profile-project-div {
             padding: 1rem;
             padding-top: 0;
-            
+
             h1 {
                 color: color(darkest);
                 font-size: 2rem;
@@ -202,7 +207,7 @@ body {
             #project-box {
                 background-color: color(neutral);
                 border-radius: 5px;
-            
+
                     h2 {
                         font-weight: bold;
                         font-size: 2rem;
@@ -210,12 +215,12 @@ body {
                         margin-bottom: 1rem;
                         color: color(primary);
                     }
-            
+
                     a, a:visited {
                         text-decoration: none;
                         color: color(tertiary);
                     }
-            
+
                     a:hover {
                         color: color(primary);
                         transition: color .15s ease-in-out;
@@ -242,7 +247,7 @@ body {
 
         .vote-block {
             float: right;
-        
+
             .vote-btn {
                 color: color(secondary);
                 font-size: 2.5rem;
@@ -293,7 +298,7 @@ body {
         margin: 3rem auto 4rem auto;
         box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
         border-radius: .25rem;
-        
+
         h1 {
             color: color(primary);
             font-size: 2rem;
@@ -371,7 +376,7 @@ body {
                 border-radius: .25rem;
                 padding: 0 1rem;
                 margin: auto;
-                
+
                 .card-item-submit {
                     position: absolute;
                     right: 3.5rem;
@@ -384,7 +389,7 @@ body {
                     width: 60%;
                 }
                 }
-                
+
                 .project-pg-list {
                     margin: 1rem;
 

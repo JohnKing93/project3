@@ -52,6 +52,7 @@ class UserProfile extends Component {
     }
     else {
       API
+<<<<<<< HEAD
         .submitTimesheet({
           userID: this.state.user.id,
           ownerID: this.state.user.id,
@@ -72,6 +73,28 @@ class UserProfile extends Component {
         .catch(error => {
           console.log(error);
         });
+=======
+      .submitTimesheet({
+        ownerID: this.state.user.id,
+        projectID: this.state.project,
+        start: this.state.date,
+        monday: this.state.monday,
+        tuesday: this.state.tuesday,
+        wednesday: this.state.wednesday,
+        thursday: this.state.thursday,
+        friday: this.state.friday,
+        saturday: this.state.saturday,
+        sunday: this.state.sunday,
+        statusID: 15
+      })
+      .then(res => {
+        console.log(res.data);
+        this.getTimesheets();
+      })
+      .catch(error => {
+        console.log(error);
+      });
+>>>>>>> master
     }
   };
 
@@ -104,7 +127,7 @@ class UserProfile extends Component {
         let projectNames = [];
         let projects = [];
         this.state.roles.forEach(role => {
-          if (projects.indexOf(role.Project.title == -1)) {
+          if (projects.indexOf(role.Project.title === -1)) {
             let data = { id: role.Project.id, title: role.Project.title };
             projectNames.push(role.Project.title);
             projects.push(data);
@@ -135,7 +158,7 @@ class UserProfile extends Component {
 
   getProjectTitle = (timesheet) => {
     this.state.projects.map(project => {
-      if (project.id == timesheet.projectID) {
+      if (project.id === timesheet.projectID) {
         console.log(project.title);
         return project.title
       }
