@@ -23,12 +23,12 @@ module.exports = (sequelize, DataTypes) => {
 
   Idea.associate = (models) => {
     // Associate idea back to user
-    models.Idea.belongsTo(models.User, {
+    Idea.belongsTo(models.User, {
       foreignKey: 'ownerID',
     });
 
     // Idea can have many comments
-    models.Idea.hasMany(models.IdeaComment, {
+    Idea.hasMany(models.IdeaComment, {
       foreignKey: {
         name: 'ideaID',
         allowNull: false,
@@ -37,7 +37,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // Idea can have many votes
-    models.Idea.hasMany(models.IdeaVote, {
+    Idea.hasMany(models.IdeaVote, {
       foreignKey: {
         name: 'ideaID',
         allowNull: false,

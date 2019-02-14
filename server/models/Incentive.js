@@ -17,12 +17,17 @@ module.exports = (sequelize, DataTypes) => {
 
   Incentive.associate = (models) => {
     // Incentive can be redeemed multiple times by different users
-    models.Idea.hasMany(models.IncentiveRedeemed, {
+    Incentive.hasMany(models.IncentiveRedeemed, {
       foreignKey: {
         name: 'incentiveID',
         allowNull: false,
       },
       onDelete: 'cascade',
+    });
+
+    // Associate incentive back to status
+    Incentive.belongsTo(models.Status, {
+      foreignKey: 'statusID',
     });
   };
 
