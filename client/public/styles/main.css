@@ -52,6 +52,11 @@ body .my-list-item {
   border-radius: .25rem !important;
 }
 
+body .edit-modal:hover {
+  position: relative;
+  z-index: auto;
+}
+
 body .bottom-art {
   width: 100%;
   position: fixed;

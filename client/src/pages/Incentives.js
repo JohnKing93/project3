@@ -196,11 +196,11 @@ class Incentives extends Component {
                               <ListItem key={incentive.id}>
                                 <div>
                                   <DropDown>
-                                    <DropDownBtn
+                                    {/* <DropDownBtn
                                       // needs edit modal
                                     >
                                       <p>edit</p>
-                                    </DropDownBtn>
+                                    </DropDownBtn> */}
                                     <DropDownBtn
                                       onClick={() => this.removeIncentive(incentive.id)}
                                     >
