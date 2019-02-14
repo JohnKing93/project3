@@ -43,7 +43,7 @@ class ProjectDetail extends Component {
           project: {
             id: res.data.id,
             owner: res.data.User.firstName + ' ' + res.data.User.lastName,
-            ownerID: res.data.ownerID,
+            ownerID: res.data.User.id,
             statusID: res.data.statusID,
             title: res.data.title,
             description: res.data.description
@@ -249,7 +249,7 @@ class ProjectDetail extends Component {
                       <h3>Contributor: {this.state.project.owner}</h3>
                     </Col>
                     <Col size="md-6">
-                    {this.state.user.id == this.state.project.ownerID &&
+                    {this.state.user.id === this.state.project.ownerID &&
                       <DropDown>
                         <DropDownBtn
                           onClick={() => this.makeCompleted(this.state.project.id)}
@@ -278,7 +278,7 @@ class ProjectDetail extends Component {
                       <Row>
                           {this.state.roleMembers.length ? (
                             this.state.roleMembers.map(roleMember => (
-                              (roleMember.statusID == 7 || ((this.state.user.id == this.state.project.ownerID) && roleMember.statusID == 6)) && (
+                              (roleMember.statusID === 7 || ((this.state.user.id === this.state.project.ownerID) && roleMember.statusID === 6)) && (
                                 <MemberCard
                                   key={roleMember.id}
                                   userID={roleMember.User.id}
@@ -327,7 +327,7 @@ class ProjectDetail extends Component {
                     <Col size="lg-6 md-12">
                       <div className="detail-list-section">
                         <h2>Roles</h2>
-                        {this.state.user.id == this.state.project.ownerID &&
+                        {this.state.user.id === this.state.project.ownerID &&
                           <div className="add-project-card">
                             <Form >
                               <FormGroup >
@@ -431,7 +431,7 @@ class ProjectDetail extends Component {
                     <Col size="lg-6 md-12">
                       <div className="detail-list-section">
                         <h2>Milestones</h2>
-                        {this.state.user.id == this.state.project.ownerID &&
+                        {this.state.user.id === this.state.project.ownerID &&
                           <div className="add-project-card">
                             <Form >
                               <FormGroup >
@@ -460,7 +460,7 @@ class ProjectDetail extends Component {
                             <MilestoneEditModal />
                             {this.state.milestones.map(milestone => (
                               <ListItem key={milestone.id}>
-                                {this.state.user.id == this.state.project.ownerID &&
+                                {this.state.user.id === this.state.project.ownerID &&
                                   <DropDown>
                                     <DropDownBtn
                                       onClick={() => this.completeMilestone(milestone.id)}
