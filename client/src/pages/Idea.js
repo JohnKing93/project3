@@ -14,6 +14,7 @@ import { ProjectDetailMainModal } from "../components/Modal";
 
 class Ideas extends Component {
   state = {
+    pageTitle: 'ProGro Ideas',
     user: this.props.user,
     ideas: [],
     ownerID: 1,
@@ -26,6 +27,7 @@ class Ideas extends Component {
   };
 
   componentDidMount() {
+    document.title = this.state.pageTitle;
     this.loadIdeas();
   };
 
@@ -70,7 +72,7 @@ class Ideas extends Component {
           API.submitIdea({
             title: this.state.title,
             description: this.state.description,
-            ownerID: this.state.user
+            ownerID: this.state.user.id
           })
           .then(res => this.loadIdeas())
           .catch(err => console.log(err));
@@ -93,15 +95,15 @@ class Ideas extends Component {
       description: idea.description,
       ownerID: idea.ownerID
     })
-    .catch(err=> console.log(err));
+      .catch(err => console.log(err));
   }
 
   deleteIdea = idea => {
     API.deleteIdea({
       id: idea.id
     })
-    .then(res => this.loadIdeas())
-    .catch(err => console.log(err));
+      .then(res => this.loadIdeas())
+      .catch(err => console.log(err));
   }
 
   setEditID = (editID) => {
@@ -147,14 +149,14 @@ class Ideas extends Component {
       id: idea.id,
       voteCount: idea.voteCount + 1
     })
-    .then(res => {
-      // Add userID and ideaID to IdeaVotes table
-      API
-        .castVote(res.data.id, this.state.user.id)
-        .then(() => this.loadIdeas())
-        .catch(err => console.log(err));
-    })
-    .catch(err => console.log(err));
+      .then(res => {
+        // Add userID and ideaID to IdeaVotes table
+        API
+          .castVote(res.data.id, this.state.user.id)
+          .then(() => this.loadIdeas())
+          .catch(err => console.log(err));
+      })
+      .catch(err => console.log(err));
   };
 
   downvote = idea => {
@@ -162,14 +164,14 @@ class Ideas extends Component {
       id: idea.id,
       voteCount: idea.voteCount - 1
     })
-    .then(res => {
-      // Add userID and ideaID to IdeaVotes table
-      API
-        .castVote(res.data.id, this.state.user.id)
-        .then(() => this.loadIdeas())
-        .catch(err => console.log(err));
-    })
-    .catch(err => console.log(err));
+      .then(res => {
+        // Add userID and ideaID to IdeaVotes table
+        API
+          .castVote(res.data.id, this.state.user.id)
+          .then(() => this.loadIdeas())
+          .catch(err => console.log(err));
+      })
+      .catch(err => console.log(err));
   };
 
   render() {

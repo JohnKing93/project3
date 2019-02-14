@@ -30,7 +30,7 @@ class Incentives extends Component {
       .then(res => {
         // let activeIncentives = res.data.filter(incentive => incentive.Status.description === 'Active');
         let activeIncentives = res.data;
-        this.setState({ incentives: activeIncentives});
+        this.setState({ incentives: activeIncentives });
         this.loadCredits(this.state.user.id)
       })
       .catch(err => console.log(err));
@@ -38,7 +38,7 @@ class Incentives extends Component {
 
   loadCredits = (userId) => {
     API.getUser(userId)
-      .then(res=> {
+      .then(res => {
         let userCredits = res.data.hoursEarned - res.data.hoursRedeemed;
         this.setState({
           credits: userCredits,
@@ -53,7 +53,7 @@ class Incentives extends Component {
       id: incentiveId,
       statusID: 13
     })
-      .then(res=> {
+      .then(res => {
         this.loadIncentives();
       })
       .catch(err => console.log(err));
@@ -83,7 +83,7 @@ class Incentives extends Component {
     this.setState({
       selected: incentive.id,
       cost: incentive.price
-     });
+    });
   };
 
   handleSubmit = event => {
@@ -94,7 +94,7 @@ class Incentives extends Component {
         userID: this.state.user
       }
       API.redeemIncentive(record)
-        .then( res => {
+        .then(res => {
           let update = {
             id: this.state.user,
             hoursRedeemed: this.redeemedTotal + this.cost
@@ -133,10 +133,10 @@ class Incentives extends Component {
                     <div className="modal-dialog" role="document">
                       <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="addIncentiveTitle">Add an Incentive</h5>
-                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                          <h5 className="modal-title" id="addIncentiveTitle">Add an Incentive</h5>
+                          <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
                         </div>
                         <div className="modal-body">
                           <Form>
@@ -162,6 +162,7 @@ class Incentives extends Component {
                                 type="text"
                                 id="newIncentiveDescription"
                                 name="newDescription"
+                                rows="6"
                                 value={this.newDescription}
                                 onChange={this.handleInputChange}
                               ></TextArea>
@@ -186,7 +187,7 @@ class Incentives extends Component {
                     </div>
                   </div>
                   <h3>Hours: {this.credits} </h3>
-                  <p>Apply your credits by selecting an incentive and hitting submit.</p>
+                  <p >Apply your credits by selecting an incentive and hitting submit.</p>
                   <div id="available-incentives-box">
                     <Form>
                       <FormGroup>
@@ -194,45 +195,57 @@ class Incentives extends Component {
                           <List>
                             {this.state.incentives.map(incentive => (
                               <ListItem key={incentive.id}>
-                                <div>
-                                  <DropDown>
-                                    {/* <DropDownBtn
-                                      // needs edit modal
-                                    >
-                                      <p>edit</p>
-                                    </DropDownBtn> */}
-                                    <DropDownBtn
-                                      onClick={() => this.removeIncentive(incentive.id)}
-                                    >
-                                      <p>remove</p>
-                                    </DropDownBtn>
-                                    <DropDownBtn
-                                      // needs on click to render all redeemed
-                                    >
-                                      <p>see history</p>
-                                    </DropDownBtn>
-                                  </DropDown>
-                                  <h2> {incentive.title} </h2>
+                                <Row>
+                                  <Col size="md-6">
+                                    <p className="cost"> Cost: {incentive.price} </p>
+                                  </Col>
+                                  <Col size="md-6">
+                                    <div>
+                                      <DropDown>
+                                        {/* <DropDownBtn
+                                        // needs edit modal
+                                        >
+                                          <p>edit</p>
+                                        </DropDownBtn> */}
+                                        <DropDownBtn
+                                          onClick={() => this.removeIncentive(incentive.id)}
+                                        >
+                                          <p>remove</p>
+                                        </DropDownBtn>
+                                        <DropDownBtn
+                                        // needs on click to render all redeemed
+                                        >
+                                          <p>see history</p>
+                                        </DropDownBtn>
+                                      </DropDown>
+                                    </div>
+
+                                  </Col>
+                                </Row>
+                                <div className="main-content">
+                                  <div className="incentive-title">
+                                    <h2> {incentive.title} </h2>
+                                  </div>
+                                  <p className="incentive-details"> {incentive.description} </p>
                                 </div>
-                                <div className="form-check">
+                                <div className="form-check select-area">
+                                  <p className="check-label">select</p>
                                   <Input
-                                  className="form-check-input position-static"
-                                  type="radio"
-                                  name="selected"
-                                  id= {incentive.id}
-                                  value= {incentive.id}
-                                  aria-label="select this"
-                                  onClick={() => this.handleSelect(incentive)}
+                                    className="form-check-input position-static"
+                                    type="checkbox"
+                                    name="selected"
+                                    id={incentive.id}
+                                    value={incentive.id}
+                                    aria-label="select this"
+                                    onClick={() => this.handleSelect(incentive)}
                                   />
                                 </div>
-                                <p> {incentive.description} </p>
-                                <p> Cost: {incentive.price} </p>
                               </ListItem>
                             ))}
                           </List>
                         ) : (
-                          <h3>There are no incentives currently available.</h3>
-                        )}
+                            <h3 className="none-listed">There are no incentives currently available.</h3>
+                          )}
                       </FormGroup>
                       <FormBtn
                         className="btn blue-btn card-item-submit"
