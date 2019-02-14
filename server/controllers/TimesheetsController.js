@@ -33,19 +33,34 @@ module.exports = {
   },
   create: (req, res) => {
     // Destructure req.body
+    console.log(req.body);
     const {
       start,
-      end,
+      monday,
+      tuesday,
+      wednesday,
+      thursday,
+      friday,
+      saturday,
+      sunday,
       userID,
       projectID,
+      ownerID,
     } = req.body;
 
     db.Timesheet
       .create({
         start,
-        end,
-        userID: Number(userID),
-        projectID: Number(projectID),
+        monday,
+        tuesday,
+        wednesday,
+        thursday,
+        friday,
+        saturday,
+        sunday,
+        ownerID,
+        userID,
+        projectID,
       })
       .then(results => res.status(201).json(results))
       .catch(err => res.status(500).send(err));
