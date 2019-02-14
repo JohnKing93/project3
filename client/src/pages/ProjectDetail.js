@@ -76,7 +76,9 @@ class ProjectDetail extends Component {
         // console.log("loadRoles");
         // console.log(res.data);
         this.setState({
-          roles: res.data
+          roles: res.data,
+          roleName: '',
+          roleDescription: ''
         })
         if (this.state.loading) {
           this.loadRoleMembers();
