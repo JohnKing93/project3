@@ -17,9 +17,16 @@ $colors: (
 };
 
 $mobile: 800px;
+$phone: 480px;
 
 @mixin mobile {
     @media (max-width: #{$mobile}) {
+        @content;
+    }
+}
+
+@mixin phone {
+    @media (max-width: #{$phone}) {
         @content;
     }
 }
@@ -394,6 +401,74 @@ body {
                         background-color: color(neutral-lightest);
                     }
             }
+        }
+    }
+
+    #incentives-div {
+        margin: 3rem auto 4rem auto;
+        box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
+        border-radius: 15px;
+
+        h2 {
+            text-align: center;
+            margin-top: .5rem;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        h3 {
+            color: color(primary);
+            font-size: 1.5rem;
+        }
+
+        .incentive-title {
+            width: 45%;
+            margin: 0 auto;
+
+            @include phone {
+                width: 90%;
+            }
+        }
+
+        .select-area {
+            display: block;
+            position: absolute;
+            right: 1rem;
+            bottom: .5rem;
+        }
+
+        .check-label {
+            display: inline;
+            margin-right: 2rem;
+            color: color(accent);
+        }
+
+        .incentive-details {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        
+        .cost {
+            position: absolute;
+            left: 1rem;
+            top: .25rem;
+            color: color(secondary);
+            font-weight: bold;
+        }
+
+        .main-content {
+            position: relative;
+            top: -2rem;
+
+            @include phone {
+                position: relative;
+                top: 0;
+                padding-bottom: 1.25rem;
+            }
+        }
+
+        #incentive-instr {
+            text-align: center;
         }
     }
 }

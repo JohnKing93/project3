@@ -187,7 +187,7 @@ class Incentives extends Component {
                     </div>
                   </div>
                   <h3>Hours: {this.credits} </h3>
-                  <p>Apply your credits by selecting an incentive and hitting submit.</p>
+                  <p id="incentive-instr">Apply your credits by selecting an incentive and hitting submit.</p>
                   <div id="available-incentives-box">
                     <Form>
                       <FormGroup>
@@ -195,6 +195,11 @@ class Incentives extends Component {
                           <List>
                             {this.state.incentives.map(incentive => (
                               <ListItem key={incentive.id}>
+                              <Row>
+                                <Col size="md-6">
+                              <p className="cost"> Cost: {incentive.price} </p>
+                              </Col>
+                              <Col size="md-6">
                                 <div>
                                   <DropDown>
                                     <DropDownBtn
@@ -213,12 +218,21 @@ class Incentives extends Component {
                                       <p>see history</p>
                                     </DropDownBtn>
                                   </DropDown>
-                                  <h2> {incentive.title} </h2>
+                                  </div>
+                                
+                                </Col>
+                                </Row>
+                                <div className="main-content">
+                              <div className="incentive-title">
+                              <h2> {incentive.title} </h2>
+                              </div>
+                                <p className="incentive-details"> {incentive.description} </p>
                                 </div>
-                                <div className="form-check">
+                                <div className="form-check select-area">
+                                <p className="check-label">select</p>
                                   <Input
                                   className="form-check-input position-static"
-                                  type="radio"
+                                  type="checkbox"
                                   name="selected"
                                   id= {incentive.id}
                                   value= {incentive.id}
@@ -226,8 +240,6 @@ class Incentives extends Component {
                                   onClick={() => this.handleSelect(incentive)}
                                   />
                                 </div>
-                                <p> {incentive.description} </p>
-                                <p> Cost: {incentive.price} </p>
                               </ListItem>
                             ))}
                           </List>
