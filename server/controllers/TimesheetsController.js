@@ -45,6 +45,7 @@ module.exports = {
       sunday,
       userID,
       projectID,
+      ownerID,
     } = req.body;
 
     db.Timesheet
@@ -57,7 +58,7 @@ module.exports = {
         friday,
         saturday,
         sunday,
-        ownerID: userID,
+        ownerID,
         userID,
         projectID,
       })

@@ -109,5 +109,9 @@ export default {
 
   submitTimesheet: function(data) {
     return axios.post("/api/timesheets", data);
+  },
+
+  getUsersTimesheets: function(id) {
+    return axios.get(`/api/timesheets/user/${id}`);
   }
 };

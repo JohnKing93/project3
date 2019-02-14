@@ -17,6 +17,7 @@ class UserProfile extends Component {
     hoursRemaining: 0,
     roles: [],
     projects: [],
+    timesheets: [],
     date: '',
     project: 0,
     monday: 0,
@@ -40,8 +41,6 @@ class UserProfile extends Component {
 
   handleSubmitTimesheet = event => {
     event.preventDefault();
-    console.log(this.state.project);
-    console.log(this.state.date);
     if (
       this.state.date === ''
     ) {
@@ -50,26 +49,27 @@ class UserProfile extends Component {
       });
     }
     else {
-      API.submitTimesheet({
+      API
+      .submitTimesheet({
         userID: this.state.user.id,
+        ownerID: this.state.user.id,
         projectID: this.state.project,
         start: this.state.date,
         monday: this.state.monday,
         tuesday: this.state.tuesday,
-        wedensday: this.state.wednesday,
+        wednesday: this.state.wednesday,
         thursday: this.state.thursday,
         friday: this.state.friday,
         saturday: this.state.saturday,
         sunday: this.state.sunday
       })
-    .then(res => {
-      console.log(res.data);
-      // this.setState({ message: res.data.message });
-    })
-    .catch(error => {
-      console.log(error.response.data.message);
-      this.setState({ message: error.response.data.message });
-    });
+      .then(res => {
+        console.log(res.data);
+        this.getTimesheets();
+      })
+      .catch(error => {
+        console.log(error);
+      });
     }
   };
 
@@ -78,7 +78,6 @@ class UserProfile extends Component {
     API
       .getUser(this.state.user.id)
       .then(user => {
-        //Destructure user data
         console.log(user.data);
         const {
           firstName,
@@ -89,8 +88,6 @@ class UserProfile extends Component {
           hoursRedeemed,
           Roles
         } = user.data;
-        console.log(Roles);
-
         this.setState({
           name: `${firstName} ${lastName}`,
           email,
@@ -109,14 +106,37 @@ class UserProfile extends Component {
             projects.push(data);
           }
         })
-        console.log(`Projects:`);
-        console.log(projects);
         this.setState({ projects })
       })
+      .then(() => this.getTimesheets())
       .catch(err => {
-        console.error(`Error retreiving user: ${err}`);
+        console.log(err);
       });
   };
+
+  getTimesheets = () => {
+    console.log("Projects:");
+    console.log(this.state.projects);
+    API
+    .getUsersTimesheets(this.state.user.id)
+    .then(res => {
+      console.log("Timesheets:")
+      console.log(res.data);
+      this.setState({ timesheets: res.data })
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
+
+  getProjectTitle = (timesheet) => {
+    this.state.projects.map(project => {
+      if (project.id == timesheet.projectID) {
+        console.log(project.title);
+        return project.title
+      }
+    })
+  }
 
   render() {
     return (
@@ -164,12 +184,52 @@ class UserProfile extends Component {
                       </div>
                     </Col>
                   </Row>
+                  <Row>
+                    <Col size="lg-12 md-12">
+                      <table className="table table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Start Date</th>
+                            <th scope="col">M</th>
+                            <th scope="col">T</th>
+                            <th scope="col">W</th>
+                            <th scope="col">Th</th>
+                            <th scope="col">F</th>
+                            <th scope="col">S</th>
+                            <th scope="col">Sn</th>
+                            <th scope="col">Project</th>
+                            <th scope="col">Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {this.state.timesheets.map((timesheet, index) => (
+                            <tr key={timesheet.id}>
+                              <th scope="row">{index + 1}</th>
+                              <td>{timesheet.start}</td>
+                              <td>{timesheet.monday}</td>
+                              <td>{timesheet.tuesday}</td>
+                              <td>{timesheet.wednesday}</td>
+                              <td>{timesheet.thursday}</td>
+                              <td>{timesheet.friday}</td>
+                              <td>{timesheet.saturday}</td>
+                              <td>{timesheet.sunday}</td>
+                              <td>TBD</td>
+                              <td>Submitted</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </Col>
+                  </Row>
                   <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                    Launch demo modal
+                    Add Timesheet
                   </button>
                 </Card>
               </div>
             </Col>
+          </Row>
+          <Row>
           </Row>
           <div className="modal fade" id="exampleModalCenter" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div className="modal-dialog modal-dialog-centered" role="document">
@@ -272,7 +332,7 @@ class UserProfile extends Component {
                 </div>
                 <div className="modal-footer">
                   <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button onClick={this.handleSubmitTimesheet} type="submit" className="btn btn-primary">Save</button>
+                  <button onClick={this.handleSubmitTimesheet} type="submit" className="btn btn-primary" data-dismiss="modal">Save</button>
                 </div>
               </div>
             </div>
