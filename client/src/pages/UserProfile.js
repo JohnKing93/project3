@@ -70,7 +70,7 @@ class UserProfile extends Component {
                         <div className="user-name-box">
                           <img className="profile-logo" src="/images/progrologo.png" alt="account user"/>
                           <h1>{this.state.name}</h1>
-                          <p className="my-position">{this.state.position}</p>
+                          {/* <p className="my-position">{this.state.position}</p> */}
                           {/* <h3>Skills</h3>
                             <p>insert skills here</p> */}
                           {/* <h3>Total Hours: {this.state.hoursRemaining}</h3> */}
