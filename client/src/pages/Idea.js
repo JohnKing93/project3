@@ -68,17 +68,6 @@ class Ideas extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-<<<<<<< HEAD
-    if (this.state.title && this.state.description) {
-      API.submitIdea({
-        title: this.state.title,
-        description: this.state.description,
-        ownerID: this.state.ownerID
-      })
-        .then(res => this.loadIdeas())
-        .catch(err => console.log(err));
-    }
-=======
         if (this.state.title && this.state.description) {
           API.submitIdea({
             title: this.state.title,
@@ -88,7 +77,6 @@ class Ideas extends Component {
           .then(res => this.loadIdeas())
           .catch(err => console.log(err));
         }
->>>>>>> master
   };
 
   approveIdea = idea => {
@@ -195,74 +183,6 @@ class Ideas extends Component {
             <Col size="md-2">
             </Col>
             <Col size="md-8">
-<<<<<<< HEAD
-              <div id="new-idea-div">
-                <Card >
-                  <form>
-                    <p className="field-head">New Project Title</p>
-                    <Input
-                      id="newProjectTitle"
-                      value={this.state.title}
-                      onChange={this.handleInputChange}
-                      name="title">
-                    </Input>
-                    <p className="field-head">Project Description</p>
-                    <TextArea
-                      id="newProjectDescription"
-                      value={this.state.description}
-                      onChange={this.handleInputChange}
-                      rows="7"
-                      name="description">
-                    </TextArea>
-                    <Button
-                      type="submit"
-                      onClick={this.handleFormSubmit}
-                      className="btn blue-btn"
-                    >
-                      Submit
-                  </Button>
-                    <p id="subtext-blue">Share a new idea!</p>
-                  </form>
-                </Card>
-              </div>
-              <div id="ideas-div">
-                <Card className="shade-box">
-                  <ProjectDetailMainModal />
-                  {this.state.ideas.length ? (
-                    <List >
-                      {this.state.ideas.map(idea => (
-                        <ListItem key={idea.id}>
-                          <div>
-                            <div className="vote-block">
-                              <VoteUpBtn
-                                onClick={() => {
-                                  const {
-                                    votes = []
-                                  } = this.state;
-
-                                  if (votes.indexOf(idea.id) === -1) {
-                                    this.upvote(idea);
-                                  }
-                                }}
-                              >
-                              </VoteUpBtn>
-                              <div className="vote-count field-head">
-                                {idea.voteCount}
-                              </div>
-                              <VoteDownBtn
-                                onClick={() => {
-                                  const {
-                                    votes = []
-                                  } = this.state;
-
-                                  if (votes.indexOf(idea.id) === -1) {
-                                    this.downvote(idea);
-                                  }
-                                }}
-                              >
-                              </VoteDownBtn>
-                            </div>
-=======
             <div id="new-idea-div">
               <Card >
                 <Form>
@@ -328,7 +248,6 @@ class Ideas extends Component {
                               }}
                             >
                             </VoteDownBtn>
->>>>>>> master
                           </div>
                           <h2> {idea.title}</h2>
                           <p> {idea.description} </p>
@@ -336,29 +255,6 @@ class Ideas extends Component {
                             <DropDownBtn
                               onClick={() => this.approveIdea(idea)}
                             >
-<<<<<<< HEAD
-                              <p>Approve</p>
-                            </DropDownBtn>
-                            {/* <DropDownBtn
-                           data-toggle="modal"
-                           data-target="#editModal"
-                          >
-                          <p>Edit</p>
-                          </DropDownBtn> */}
-                            <DropDownBtn
-                              onClick={() => this.deleteIdea(idea)}
-                            >
-                              <p>Delete</p>
-                            </DropDownBtn>
-                          </DropDown>
-                        </ListItem>
-                      ))}
-                    </List>
-                  ) : (
-                      <h3>No Results to Display</h3>
-                    )}
-                </Card>
-=======
                             <p>Approve</p>
                             </DropDownBtn>
                             {/* <DropDownBtn
@@ -425,7 +321,6 @@ class Ideas extends Component {
                   <h3>No Results to Display</h3>
                 )}
               </Card>
->>>>>>> master
               </div>
             </Col>
           </Row>

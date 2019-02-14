@@ -52,28 +52,6 @@ class UserProfile extends Component {
     }
     else {
       API
-<<<<<<< HEAD
-        .submitTimesheet({
-          userID: this.state.user.id,
-          ownerID: this.state.user.id,
-          projectID: this.state.project,
-          start: this.state.date,
-          monday: this.state.monday,
-          tuesday: this.state.tuesday,
-          wednesday: this.state.wednesday,
-          thursday: this.state.thursday,
-          friday: this.state.friday,
-          saturday: this.state.saturday,
-          sunday: this.state.sunday
-        })
-        .then(res => {
-          console.log(res.data);
-          this.getTimesheets();
-        })
-        .catch(error => {
-          console.log(error);
-        });
-=======
       .submitTimesheet({
         ownerID: this.state.user.id,
         projectID: this.state.project,
@@ -94,7 +72,6 @@ class UserProfile extends Component {
       .catch(error => {
         console.log(error);
       });
->>>>>>> master
     }
   };
 

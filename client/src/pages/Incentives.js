@@ -194,7 +194,6 @@ class Incentives extends Component {
                           <List>
                             {this.state.incentives.map(incentive => (
                               <ListItem key={incentive.id}>
-<<<<<<< HEAD
                                 <Row>
                                   <Col size="md-6">
                                     <p className="cost"> Cost: {incentive.price} </p>
@@ -202,11 +201,11 @@ class Incentives extends Component {
                                   <Col size="md-6">
                                     <div>
                                       <DropDown>
-                                        <DropDownBtn
+                                        {/* <DropDownBtn
                                         // needs edit modal
                                         >
                                           <p>edit</p>
-                                        </DropDownBtn>
+                                        </DropDownBtn> */}
                                         <DropDownBtn
                                           onClick={() => this.removeIncentive(incentive.id)}
                                         >
@@ -227,27 +226,6 @@ class Incentives extends Component {
                                     <h2> {incentive.title} </h2>
                                   </div>
                                   <p className="incentive-details"> {incentive.description} </p>
-=======
-                                <div>
-                                  <DropDown>
-                                    {/* <DropDownBtn
-                                      // needs edit modal
-                                    >
-                                      <p>edit</p>
-                                    </DropDownBtn> */}
-                                    <DropDownBtn
-                                      onClick={() => this.removeIncentive(incentive.id)}
-                                    >
-                                      <p>remove</p>
-                                    </DropDownBtn>
-                                    <DropDownBtn
-                                      // needs on click to render all redeemed
-                                    >
-                                      <p>see history</p>
-                                    </DropDownBtn>
-                                  </DropDown>
-                                  <h2> {incentive.title} </h2>
->>>>>>> master
                                 </div>
                                 <div className="form-check select-area">
                                   <p className="check-label">select</p>
