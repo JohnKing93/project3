@@ -3,6 +3,10 @@ import axios from "axios";
 export default {
   getUser: (id) => axios.get(`/api/users/${id}`),
 
+  updateUser: function(update) {
+    return axios.put("/api/users/" + update.id, update);
+  },
+
   registerUser: function(user) {
     return axios.post("/api/users/register", user);
   },
@@ -15,7 +19,8 @@ export default {
     return axios.post("/api/users/authenticate", { withCredentials: true });
   },
 
-  // Get all Live Projects (approved, in progress)
+  //Projects
+  // Get all Projects
   getProjects: function() {
     return axios.get("/api/projects");
   },
@@ -25,16 +30,15 @@ export default {
     return axios.get(`/api/projects/${projectID}`);
   },
 
-  //Creates a new project
   createProject: function(approvedIdea) {
     return axios.post("/api/projects", approvedIdea);
   },
 
-  //Updates an existing project
   updateProject: function(project) {
     return axios.put(`/api/projects/${project.id}`, project);
   },
 
+  //Ideas
   //Get all Ideas (conditional to exclude approved ideas, see: api route and controller)
   getIdeas: function() {
     return axios.get("/api/ideas");
@@ -47,12 +51,10 @@ export default {
     return axios.get("/api/ideas/approved");
   },
 
-  //post submitted Idea to db
   submitIdea: function(newIdea) {
     return axios.post("/api/ideas", newIdea);
   },
 
-  //update part of an existing Idea
   updateIdea: function(idea) {
     return axios.put(`/api/ideas/${idea.id}`, idea);
   },
@@ -61,6 +63,7 @@ export default {
     return axios.delete(`/api/ideas/${idea.id}`);
   },
 
+  //Project Roles
   getRoles: function(projectId) {
     return axios.get(`/api/projectroles/projects/${projectId}`);
   },
@@ -93,6 +96,7 @@ export default {
     return axios.delete(`/api/rolemembers/${roleMemberId}`);
   },
 
+  //Milestones
   createMilestone: function(newMilestone) {
     return axios.post("/api/projectmilestones", newMilestone);
   },
@@ -107,5 +111,22 @@ export default {
 
   getProjectMilestones: function(id) {
     return axios.get(`/api/projectmilestones/${id}`);
+  },
+
+  //Incentives
+  getIncentives: function() {
+    return axios.get("/api/incentives");
+  },
+
+  createIncentive: function(newIncentive) {
+    return axios.post("/api/incentives", newIncentive);
+  },
+
+  updateIncentive: function(incentive) {
+    return axios.get("/api/incentives/" + incentive.id, incentive);
+  },
+
+  redeemIncentive: function(record) {
+    return axios.post("/api/incentivesredeemed", record);
   }
 };
