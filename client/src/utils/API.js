@@ -117,7 +117,7 @@ export default {
   },
 
   createIncentive: function(newIncentive) {
-    return axios.create("/api/incentives", newIncentive);
+    return axios.post("/api/incentives", newIncentive);
   },
 
   updateIncentive: function(incentive) {

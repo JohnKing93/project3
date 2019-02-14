@@ -135,3 +135,38 @@ export function MilestoneEditModal() {
         </div>
     );
 }
+
+export function NewIncentiveModal() {
+  return (
+      <div className="modal fade" id="newincentiveModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div className="modal-dialog" role="document">
+              <div className="modal-content">
+                  <div className="modal-header">
+                      <h5 className="modal-title" id="exampleModalLabel">Add an Incentive</h5>
+                      <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div className="modal-body">
+                      <Form>
+                          <FormGroup>
+                              <Label htmfor="newTitle">Incentive</Label>
+                              <Input
+                                  type="text"
+                                  id="newTitle"
+                              ></Input>
+                              <Label htmfor="newDescription">Description</Label>
+                              <TextArea
+                                  type="text"
+                                  id="newDescription"
+                              ></TextArea>
+                          </FormGroup>
+                          <FormBtn>Submit</FormBtn>
+                          <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </Form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  );
+}
