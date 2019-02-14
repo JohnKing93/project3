@@ -460,18 +460,20 @@ class ProjectDetail extends Component {
                             <MilestoneEditModal />
                             {this.state.milestones.map(milestone => (
                               <ListItem key={milestone.id}>
-                                <DropDown>
-                                  <DropDownBtn
-                                    onClick={() => this.completeMilestone(milestone.id)}
-                                  >
-                                    <p>Complete</p>
-                                  </DropDownBtn>
-                                  <DropDownBtn
-                                    onClick={() => this.deleteMilestone(milestone.id)}
-                                  >
-                                    <p>Delete</p>
-                                  </DropDownBtn>
-                                </DropDown>
+                                {this.state.user.id == this.state.project.ownerID &&
+                                  <DropDown>
+                                    <DropDownBtn
+                                      onClick={() => this.completeMilestone(milestone.id)}
+                                    >
+                                      <p>Complete</p>
+                                    </DropDownBtn>
+                                    <DropDownBtn
+                                      onClick={() => this.deleteMilestone(milestone.id)}
+                                    >
+                                      <p>Delete</p>
+                                    </DropDownBtn>
+                                  </DropDown>
+                                }
                                 <h2>
                                   {milestone.milestone}
                                 </h2>

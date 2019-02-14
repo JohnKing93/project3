@@ -12,6 +12,7 @@ class UserProfile extends Component {
   state = {
     pageTitle: 'ProGro Profile',
     user: this.props.user,
+    id: 0,
     name: '',
     email: '',
     position: '',
@@ -67,13 +68,56 @@ class UserProfile extends Component {
       })
       .then(res => {
         console.log(res.data);
-        this.getTimesheets();
+        this.totalHoursEarned();
       })
       .catch(error => {
         console.log(error);
       });
     }
   };
+
+  totalHoursEarned = () => {
+    console.log("totalHours");
+    let totalHours =
+      (
+        parseFloat(this.state.monday) +
+        parseFloat(this.state.tuesday) +
+        parseFloat(this.state.wednesday) +
+        parseFloat(this.state.thursday) +
+        parseFloat(this.state.friday) +
+        parseFloat(this.state.saturday) +
+        parseFloat(this.state.sunday)
+      );
+    console.log(totalHours);
+    API
+    .updateUser({
+      id: this.state.user.id,
+      hoursEarned: totalHours
+    })
+    .then(res => {
+      console.log("Total Hours:")
+      console.log(res.data);
+      this.getTimesheets();
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
+
+  getTimesheets = () => {
+    console.log("Projects:");
+    console.log(this.state.projects);
+    API
+      .getUsersTimesheets(this.state.user.id)
+      .then(res => {
+        console.log("Timesheets:")
+        console.log(res.data);
+        this.setState({ timesheets: res.data })
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
 
   getUserData = () => {
     //Determine which user profile to render
@@ -84,6 +128,7 @@ class UserProfile extends Component {
       .then(user => {
         console.log(user.data);
         const {
+          id,
           firstName,
           lastName,
           email,
@@ -93,6 +138,7 @@ class UserProfile extends Component {
           Roles
         } = user.data;
         this.setState({
+          id,
           name: `${firstName} ${lastName}`,
           email,
           position,
@@ -117,21 +163,6 @@ class UserProfile extends Component {
         console.log(err);
       });
   };
-
-  getTimesheets = () => {
-    console.log("Projects:");
-    console.log(this.state.projects);
-    API
-      .getUsersTimesheets(this.state.user.id)
-      .then(res => {
-        console.log("Timesheets:")
-        console.log(res.data);
-        this.setState({ timesheets: res.data })
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
 
   getProjectTitle = (timesheet) => {
     this.state.projects.map(project => {
@@ -167,68 +198,74 @@ class UserProfile extends Component {
                     </Col>
                     <Col size="lg-8 md-12">
                       <div id="profile-project-div">
-                        <h1>My Projects</h1>
+                        <h1>Projects</h1>
                         <div id="project-box">
                           <List>
                             {this.state.roles.map(role => (
-                              <ListItem key={role.Project.id}>
-                                <Link to={`/projects/${role.Project.id}`}>
-                                  <h2>
-                                    {role.Project.title} : {role.ProjectRole.title}
-                                  </h2>
-                                  <p>
-                                    {role.Project.Status.description}
-                                    {/* <EditBtn /> */}
-                                  </p>
-                                </Link>
-                              </ListItem>
+                              role.statusID == 7 && (
+                                <ListItem key={role.Project.id}>
+                                  <Link to={`/projects/${role.Project.id}`}>
+                                    <h2>
+                                      {role.Project.title} : {role.ProjectRole.title}
+                                    </h2>
+                                    <p>
+                                      {role.Project.Status.description}
+                                      {/* <EditBtn /> */}
+                                    </p>
+                                  </Link>
+                                </ListItem>
+                              )
                             ))}
                           </List>
                         </div>
                       </div>
                     </Col>
                   </Row>
-                  <Row>
-                    <Col size="lg-12 md-12">
-                      <table className="table table-hover">
-                        <thead>
-                          <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Start Date</th>
-                            <th scope="col">M</th>
-                            <th scope="col">T</th>
-                            <th scope="col">W</th>
-                            <th scope="col">Th</th>
-                            <th scope="col">F</th>
-                            <th scope="col">S</th>
-                            <th scope="col">Sn</th>
-                            <th scope="col">Project</th>
-                            <th scope="col">Status</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {this.state.timesheets.map((timesheet, index) => (
-                            <tr key={timesheet.id}>
-                              <th scope="row">{index + 1}</th>
-                              <td>{timesheet.start}</td>
-                              <td>{timesheet.monday}</td>
-                              <td>{timesheet.tuesday}</td>
-                              <td>{timesheet.wednesday}</td>
-                              <td>{timesheet.thursday}</td>
-                              <td>{timesheet.friday}</td>
-                              <td>{timesheet.saturday}</td>
-                              <td>{timesheet.sunday}</td>
-                              <td>TBD</td>
-                              <td>Submitted</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </Col>
-                  </Row>
-                  <button type="button" className="btn blue-btn" data-toggle="modal" data-target="#exampleModalCenter">
-                    Add Timesheet
-                  </button>
+                  {this.state.user.id == this.state.id &&
+                    <>
+                      <Row>
+                        <Col size="lg-12 md-12">
+                          <table className="table table-hover">
+                            <thead>
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Start Date</th>
+                                <th scope="col">M</th>
+                                <th scope="col">T</th>
+                                <th scope="col">W</th>
+                                <th scope="col">Th</th>
+                                <th scope="col">F</th>
+                                <th scope="col">S</th>
+                                <th scope="col">Sn</th>
+                                <th scope="col">Project</th>
+                                <th scope="col">Status</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {this.state.timesheets.map((timesheet, index) => (
+                                <tr key={timesheet.id}>
+                                  <th scope="row">{index + 1}</th>
+                                  <td>{timesheet.start}</td>
+                                  <td>{timesheet.monday}</td>
+                                  <td>{timesheet.tuesday}</td>
+                                  <td>{timesheet.wednesday}</td>
+                                  <td>{timesheet.thursday}</td>
+                                  <td>{timesheet.friday}</td>
+                                  <td>{timesheet.saturday}</td>
+                                  <td>{timesheet.sunday}</td>
+                                  <td>{timesheet.Project.title}</td>
+                                  <td>Approved</td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </Col>
+                      </Row>
+                      <button type="button" className="btn blue-btn" data-toggle="modal" data-target="#exampleModalCenter">
+                        Add Timesheet
+                      </button>
+                    </>
+                  }
                 </Card>
               </div>
             </Col>
