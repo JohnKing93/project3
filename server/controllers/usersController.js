@@ -33,17 +33,14 @@ module.exports = {
             model: db.RoleMember,
             as: 'Roles',
             attributes: { exclude: ['projectID', 'userID', 'createdAt', 'updatedAt'] },
-            where: { id: db.Sequelize.col('User.id') },
             include: [
               {
                 model: db.ProjectRole,
                 attributes: { exclude: ['roleID', 'projectID', 'statusID', 'createdAt', 'updatedAt'] },
-                where: { id: db.Sequelize.col('Roles.roleID') },
               },
               {
                 model: db.Project,
                 attributes: { exclude: ['createdAt', 'updatedAt'] },
-                where: { id: db.Sequelize.col('Roles.projectID') },
                 include: [
                   {
                     model: db.Status,
