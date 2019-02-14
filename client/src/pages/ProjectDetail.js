@@ -141,7 +141,7 @@ class ProjectDetail extends Component {
         milestone: this.state.newMilestone,
         projectID: this.state.projectID,
         userID: this.state.owner,
-        role: this.state.role,
+        // role: this.state.role,
         statusID: 9
       })
       .then(res => this.loadMilestones())

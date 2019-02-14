@@ -219,99 +219,99 @@ class Ideas extends Component {
                       <ListItem key={idea.id}>
                         <div>
                           <div className="vote-block">
-                          <VoteUpBtn
-                            onClick={() => {
-                              const {
-                                votes = []
-                              } = this.state;
+                            <VoteUpBtn
+                              onClick={() => {
+                                const {
+                                  votes = []
+                                } = this.state;
 
-                              if (votes.indexOf(idea.id) === -1) {
-                                this.upvote(idea);
-                              }
-                            }}
-                          >
-                          </VoteUpBtn>
-                          <div className="vote-count field-head">
-                            {idea.voteCount}
-                          </div>
-                          <VoteDownBtn
-                            onClick={() => {
-                              const {
-                                votes = []
-                              } = this.state;
+                                if (votes.indexOf(idea.id) === -1) {
+                                  this.upvote(idea);
+                                }
+                              }}
+                            >
+                            </VoteUpBtn>
+                            <div className="vote-count field-head">
+                              {idea.voteCount}
+                            </div>
+                            <VoteDownBtn
+                              onClick={() => {
+                                const {
+                                  votes = []
+                                } = this.state;
 
-                              if (votes.indexOf(idea.id) === -1) {
-                                this.downvote(idea);
-                              }
-                            }}
-                          >
-                          </VoteDownBtn>
+                                if (votes.indexOf(idea.id) === -1) {
+                                  this.downvote(idea);
+                                }
+                              }}
+                            >
+                            </VoteDownBtn>
                           </div>
+                          <h2> {idea.title}</h2>
+                          <p> {idea.description} </p>
+                          <DropDown>
+                            <DropDownBtn
+                              onClick={() => this.approveIdea(idea)}
+                            >
+                            <p>Approve</p>
+                            </DropDownBtn>
+                            {/* <DropDownBtn
+                            data-toggle="modal"
+                            data-target="#editIdea"
+                            onClick={() => this.setEditID(idea.id)}
+                            >
+                            <p>Edit</p>
+                            </DropDownBtn> */}
+                            <DropDownBtn
+                              onClick={() => this.deleteIdea(idea)}
+                            >
+                            <p>Delete</p>
+                            </DropDownBtn>
+                          </DropDown>
                         </div>
-                        <h2> {idea.title}</h2>
-                        <p> {idea.description} </p>
-                        <DropDown>
-                          <DropDownBtn
-                            onClick={() => this.approveIdea(idea)}
-                          >
-                          <p>Approve</p>
-                          </DropDownBtn>
-                          <DropDownBtn
-                           data-toggle="modal"
-                           data-target="#editIdea"
-                           onClick={() => this.setEditID(idea.id)}
-                          >
-                          <p>Edit</p>
-                          </DropDownBtn>
-                          <DropDownBtn
-                            onClick={() => this.deleteIdea(idea)}
-                          >
-                          <p>Delete</p>
-                          </DropDownBtn>
-                        </DropDown>
                         <div className="modal fade" id="editIdea" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                          <div className="modal-dialog" role="document">
-                            <div className="modal-content">
-                              <div className="modal-header">
-                                  <h5 className="modal-title" id="editIdeaTitle">Edit</h5>
-                                  <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                  </button>
-                              </div>
-                              <div className="modal-body">
-                                <Form>
-                                  <FormGroup>
-                                    <Label htmfor="editedTitle">Title</Label>
-                                    <Input
-                                      type="text"
-                                      id="editedTitle"
-                                      name="editTitle"
-                                      value={this.state.editTitle}
-                                      placeholder={idea.title}
-                                      onChange={this.handleInputChange}
-                                    ></Input>
-                                    <Label htmfor="editedDescription">Description</Label>
-                                    <TextArea
-                                      type="text"
-                                      id="editedDescription"
-                                      name="editDescription"
-                                      value={this.editDescription}
-                                      placeholder={idea.description}
-                                      onChange={this.handleInputChange}
-                                    ></TextArea>
-                                  </FormGroup>
-                                  <FormBtn
-                                    className="btn blue-btn"
-                                    type="submit"
-                                    onClick={this.editIdea}
-                                  >
-                                    Submit
-                                  </FormBtn>
-                                </Form>
+                            <div className="modal-dialog" role="document">
+                              <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title" id="editIdeaTitle">Edit</h5>
+                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div className="modal-body">
+                                  <Form>
+                                    <FormGroup>
+                                      <Label htmfor="editedTitle">Title</Label>
+                                      <Input
+                                        type="text"
+                                        id="editedTitle"
+                                        name="editTitle"
+                                        value={this.state.editTitle}
+                                        placeholder={idea.title}
+                                        onChange={this.handleInputChange}
+                                      ></Input>
+                                      <Label htmfor="editedDescription">Description</Label>
+                                      <TextArea
+                                        type="text"
+                                        id="editedDescription"
+                                        name="editDescription"
+                                        value={this.editDescription}
+                                        placeholder={idea.description}
+                                        onChange={this.handleInputChange}
+                                      ></TextArea>
+                                    </FormGroup>
+                                    <FormBtn
+                                      className="btn blue-btn"
+                                      type="submit"
+                                      onClick={this.editIdea}
+                                    >
+                                      Submit
+                                    </FormBtn>
+                                  </Form>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
                       </ListItem>
                     ))}
                   </List>
