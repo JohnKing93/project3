@@ -448,7 +448,6 @@ body #incentives-div .cost {
 
 body #incentives-div .main-content {
   position: relative;
-  top: -2rem;
 }
 
 @media (max-width: 480px) {

@@ -134,6 +134,6 @@ export default {
   },
 
   redeemIncentive: function(record) {
-    return axios.post("/api/incentivesredeemed", record);
+    return axios.post("/api/incentiveredeemed", record);
   }
 };
